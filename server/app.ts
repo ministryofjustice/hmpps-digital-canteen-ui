@@ -9,6 +9,8 @@ import authorisationMiddleware from './middleware/authorisationMiddleware'
 
 import setUpAuthentication from './middleware/setUpAuthentication'
 import setUpCsrf from './middleware/setUpCsrf'
+import { setUpLaunchpadFooter } from './middleware/setUpLaunchpadFooter'
+import { setUpLaunchpadHeader } from './middleware/setUpLaunchpadHeader'
 import setUpCurrentUser from './middleware/setUpCurrentUser'
 import setUpHealthChecks from './middleware/setUpHealthChecks'
 import setUpStaticResources from './middleware/setUpStaticResources'
@@ -34,6 +36,8 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpStaticResources())
   nunjucksSetup(app)
   app.use(setUpAuthentication())
+  app.use(setUpLaunchpadHeader)
+  app.use(setUpLaunchpadFooter)
   app.use(authorisationMiddleware())
   app.use(setUpCsrf())
   app.use(setUpCurrentUser())
