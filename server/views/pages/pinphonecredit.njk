@@ -1,0 +1,18 @@
+{% extends "../partials/layout.njk" %}
+{% from "components/pinphonecreditproduct.njk" import pinphonecreditproduct %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    {{ pinphonecreditproduct({
+        id: product.id,
+        title: "PIN phone credit",
+        description: "Add credit to your prison PIN phone account",
+        defaultAmount: 5
+      }) }}
+  </div>
+</div>
+{% endblock %}

@@ -18,7 +18,9 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 
-import routes from './routes'
+import pinphonecredit from './routes/pinphonecredit'
+import cart from './routes/cart'
+import completecart from './routes/completecart'
 import type { Services } from './services'
 
 export default function createApp(services: Services): express.Application {
@@ -42,7 +44,9 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpCsrf())
   app.use(setUpCurrentUser())
 
-  app.use(routes(services))
+  app.use(pinphonecredit(services))
+  app.use(cart(services))
+  app.use(completecart(services))
 
   app.use((_req, _res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))

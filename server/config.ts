@@ -81,6 +81,15 @@ export default {
       },
       agent: new AgentConfig(Number(get('EXAMPLE_API_TIMEOUT_RESPONSE', 5000))),
     },
+    medusaApi: {
+      url: get('MEDUSA_API_URL', 'http://localhost:9000', requiredInProduction),
+      timeout: {
+        response: 10000,
+        deadline: 10000,
+      },
+      agent: new AgentConfig(10000),
+      apiKey: get('MEDUSA_API_KEY', '', requiredInProduction),
+    },
   },
   sqs: {
     audit: auditConfig(),
