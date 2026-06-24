@@ -6,6 +6,13 @@ export declare module 'express-session' {
   interface SessionData {
     returnTo: string
     cartId: string
+    amount: number
+    newCredit: number
+    newSpend: number
+    currentBalance: number
+    spendBalance: number
+    successMessage: string
+
   }
 }
 

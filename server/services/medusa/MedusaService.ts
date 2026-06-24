@@ -4,7 +4,7 @@ export default class MedusaService {
   constructor(private readonly medusaApiClient: MedusaApiClient) {}
 
   createCart() {
-    return this.medusaApiClient.createCart('ASI', 'G9167UL', 'John', 'Doe')
+    return this.medusaApiClient.createCart('ASI', 'G8167UL', 'Auth', 'User')
   }
 
   addPinPhoneCreditToCart(cartId: string, amount: number) {

@@ -1,0 +1,67 @@
+{% extends "../partials/layout.njk" %}
+{% from "../macros/service-navigation.njk" import serviceNav %}
+{% from "../macros/balance_details.njk" import balanceDetails %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+
+{% set pageTitle = applicationName + " - Error" %}
+{% set mainClasses = "govuk-body" %}
+  {% set priceInput %}
+    {{ govukInput({
+      id: "pin_amount",
+      name: "amount",
+      classes: "govuk-input--width-5",
+      prefix: { text: "£" },
+      spellcheck: false
+    }) }}
+  {% endset %}
+{% block content %}
+<form method="post" novalidate>
+  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+  <h1 class="govuk-heading-l">{{ user.username }}'s PIN Phone credit</h1>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-6">
+   {{ serviceNav("buy") }}
+  </div>
+  {% if errors and errors.length %}
+    {{ govukErrorSummary({ errorList: errors }) }}
+  {% endif %}
+  {{ balanceDetails(currentBalance, newSpends, newCredit) }}
+  <h3 class="govuk-heading-m govuk-!-color-blue govuk-!-margin-top-4">
+    Buy PIN Phone credit
+  </h3>
+  <h4 class="govuk-heading-s govuk-!-color-blue govuk-!-margin-top-4">
+      Review your order details
+    </h4>
+  {{ govukSummaryList(yourMoneySummary) }}
+  {{ govukCheckboxes({
+    name: "agree",
+    errorMessage: (errors | selectattr("href", "equalto", "#agree") | first) if errors else undefined,
+    items: [
+      {
+        value: "yes",
+        text: "Check to confirm you have checked the credit you are buying",
+        checked: agree == "yes"
+      }
+    ]
+  }) }}
+  <div class="govuk-button-group">
+    {{ govukButton({
+      text: "Confirm purchase",
+      type: "submit"
+    }) }}
+
+    {{ govukButton({
+      text: "cancel",
+      href: "/",
+      classes: "govuk-button--secondary"
+    }) }}
+    </div>
+  </form>
+{% endblock %}

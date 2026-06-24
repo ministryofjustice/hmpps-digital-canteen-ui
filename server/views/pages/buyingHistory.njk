@@ -1,0 +1,13 @@
+{% extends "../partials/layout.njk" %}
+{% from "../macros/service-navigation.njk" import serviceNav %}
+
+{% set pageTitle = applicationName + " - Error" %}
+{% set mainClasses = "govuk-body" %}
+
+{% block content %}
+<h1 class="govuk-heading-l">{{ user.username }}'s Buying History</h1>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-6">
+ {{ serviceNav("history") }}
+</div>
+{% endblock %}

@@ -52,7 +52,7 @@ export default class MedusaApiClient extends RestClient {
   }
 
   /**
-   * create a cart within medusa
+   * Add an item to a cart within medusa
    * Endpoint: POST /store/carts
    * @param cartId
    * @param amount
