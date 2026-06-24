@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import exampleApi from '../mockApis/exampleApi'
 
-import { login, resetStubs } from '../testUtils'
+import { loginWithPrisonerAuth, resetStubs } from '../testUtils'
 import ExamplePage from '../pages/examplePage'
 
 test.describe('Example', () => {
@@ -11,7 +11,7 @@ test.describe('Example', () => {
 
   test('Time from exampleApi is visible on page', async ({ page }) => {
     await exampleApi.stubExampleTime()
-    await login(page)
+    await loginWithPrisonerAuth(page)
 
     const examplePage = await ExamplePage.verifyOnPage(page)
 
@@ -21,7 +21,7 @@ test.describe('Example', () => {
   test('ExampleApi failure shows error page', async ({ page }) => {
     await exampleApi.stubExampleTime(500)
 
-    await login(page)
+    await loginWithPrisonerAuth(page)
 
     await expect(page.locator('h1', { hasText: 'Internal Server Error' })).toBeVisible()
   })
