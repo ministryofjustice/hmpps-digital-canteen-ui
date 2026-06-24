@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import hmppsAuth from '../mockApis/hmppsAuth'
 import exampleApi from '../mockApis/exampleApi'
 
 import { loginWithPrisonerAuth, resetStubs } from '../testUtils'
@@ -42,8 +41,6 @@ test.describe('SignIn', () => {
 
   test('Phase banner visible in header', async ({ page }) => {
     await loginWithPrisonerAuth(page)
-
-    const homePage = await HomePage.verifyOnPage(page)
 
     await expect(page.getByText('dev')).toBeVisible()
   })
