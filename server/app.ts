@@ -8,6 +8,8 @@ import { appInsightsMiddleware } from './utils/azureAppInsights'
 
 import setUpPrisonerAuth from './middleware/setUpPrisonerAuth'
 import setUpCsrf from './middleware/setUpCsrf'
+import { setUpLaunchpadFooter } from './middleware/setUpLaunchpadFooter'
+import { setUpLaunchpadHeader } from './middleware/setUpLaunchpadHeader'
 import setUpHealthChecks from './middleware/setUpHealthChecks'
 import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
@@ -16,6 +18,7 @@ import setUpWebSession from './middleware/setUpWebSession'
 
 import routes from './routes'
 import type { Services } from './services'
+import config from './config'
 
 export default function createApp(services: Services): express.Application {
   const app = express()
@@ -23,6 +26,8 @@ export default function createApp(services: Services): express.Application {
   app.set('json spaces', 2)
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
+
+  app.locals.launchpadHome = config.launchpadHome
 
   app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
@@ -32,6 +37,8 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpStaticResources())
   nunjucksSetup(app)
   app.use(setUpPrisonerAuth())
+  app.use(setUpLaunchpadHeader)
+  app.use(setUpLaunchpadFooter)
   app.use(setUpCsrf())
 
   app.use(routes(services))

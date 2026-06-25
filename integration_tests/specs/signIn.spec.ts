@@ -21,28 +21,21 @@ test.describe('SignIn', () => {
     await prisonerAuth.stubSignInPage()
     await page.goto('/')
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('Unauthenticated user navigating to sign in page directed to auth', async ({ page }) => {
     await prisonerAuth.stubSignInPage()
     await page.goto('/sign-in')
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('User name visible in header', async ({ page }) => {
     await loginWithPrisonerAuth(page, { name: 'A TestUser' })
 
     const homePage = await HomePage.verifyOnPage(page)
-
-    await expect(homePage.usersName).toHaveText('A. Testuser')
-  })
-
-  test('Phase banner visible in header', async ({ page }) => {
-    await loginWithPrisonerAuth(page)
-
-    await expect(page.getByText('dev')).toBeVisible()
+    await expect(homePage.usersName).toHaveText('A TestUser')
   })
 
   test('User can sign out', async ({ page }) => {
@@ -50,29 +43,23 @@ test.describe('SignIn', () => {
 
     const homePage = await HomePage.verifyOnPage(page)
     await homePage.signOut()
-
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
-  })
-
-  test('User can manage their details', async ({ page }) => {
-    await loginWithPrisonerAuth(page, { name: 'A TestUser' })
-    await expect(page.getByTestId('manageDetails')).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('Token verification failure takes user to sign in page', async ({ page }) => {
     await loginWithPrisonerAuth(page, { tokenExpiresInSeconds: -1 })
 
-    await expect(page.getByRole('heading')).toHaveText('Authorisation Error')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
   })
 
   test('Token verification failure clears user session', async ({ page }) => {
     await loginWithPrisonerAuth(page, { name: 'A TestUser', tokenExpiresInSeconds: -1 })
 
-    await expect(page.getByRole('heading')).toHaveText('Authorisation Error')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
 
     await loginWithPrisonerAuth(page, { name: 'Some OtherTestUser', active: true })
 
     const homePage = await HomePage.verifyOnPage(page)
-    await expect(homePage.usersName).toHaveText('S. OtherTestUser')
+    await expect(homePage.usersName).toHaveText('Some OtherTestUser')
   })
 })
