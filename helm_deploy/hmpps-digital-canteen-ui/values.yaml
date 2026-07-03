@@ -44,14 +44,14 @@ generic-service:
     hmpps-digital-canteen-api-client-creds:
       SYSTEM_CLIENT_ID: 'API_CLIENT_ID'
       SYSTEM_CLIENT_SECRET: 'API_CLIENT_SECRET'
-#    hmpps-digital-canteen-ui-auth-code:
-#      AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
-#      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
-#    hmpps-digital-canteen-ui-session-secret:
-#      SESSION_SECRET: 'SESSION_SECRET'
-#    hmpps-digital-canteen-ui-elasticache-redis:
-#      REDIS_HOST: 'primary_endpoint_address'
-#      REDIS_AUTH_TOKEN: 'auth_token'
+    hmpps-digital-canteen-ui-auth-code:
+      AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
+      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
+    hmpps-digital-canteen-ui-session-secret:
+      SESSION_SECRET: 'SESSION_SECRET'
+    hmpps-digital-canteen-ui-elasticache-redis:
+      REDIS_HOST: 'primary_endpoint_address'
+      REDIS_AUTH_TOKEN: 'auth_token'
 #    hmpps-digital-canteen-ui-application-insights:
 #      APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
     # This secret will need to be created in your namespace (note it isn't in hmpps-templates-dev)
