@@ -5,7 +5,7 @@ generic-service:
   # the IRSA service account name for accessing AWS resources
   # serviceAccountName: "hmpps-digital-canteen-ui"
 
-  replicaCount: 4
+  replicaCount: 1
 
   image:
     repository: ghcr.io/ministryofjustice/hmpps-digital-canteen-ui
@@ -41,19 +41,19 @@ generic-service:
 
   namespace_secrets:
     # These secrets are created by terraform.
-    hmpps-digital-canteen-ui-client-creds:
-      CLIENT_CREDS_CLIENT_ID: 'CLIENT_CREDS_CLIENT_ID'
-      CLIENT_CREDS_CLIENT_SECRET: 'CLIENT_CREDS_CLIENT_SECRET'
-    hmpps-digital-canteen-ui-auth-code:
-      AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
-      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'    
-    hmpps-digital-canteen-ui-session-secret:
-      SESSION_SECRET: 'SESSION_SECRET'
-    hmpps-digital-canteen-ui-elasticache-redis:
-      REDIS_HOST: 'primary_endpoint_address'
-      REDIS_AUTH_TOKEN: 'auth_token'
-    hmpps-digital-canteen-ui-application-insights:
-      APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    hmpps-digital-canteen-api-client-creds:
+      SYSTEM_CLIENT_ID: 'API_CLIENT_ID'
+      SYSTEM_CLIENT_SECRET: 'API_CLIENT_SECRET'
+#    hmpps-digital-canteen-ui-auth-code:
+#      AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
+#      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
+#    hmpps-digital-canteen-ui-session-secret:
+#      SESSION_SECRET: 'SESSION_SECRET'
+#    hmpps-digital-canteen-ui-elasticache-redis:
+#      REDIS_HOST: 'primary_endpoint_address'
+#      REDIS_AUTH_TOKEN: 'auth_token'
+#    hmpps-digital-canteen-ui-application-insights:
+#      APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
     # This secret will need to be created in your namespace (note it isn't in hmpps-templates-dev)
     # IRSA configuration in your namespace will also be required, and then uncomment serviceAccountName above.
     # sqs-hmpps-audit-secret:
