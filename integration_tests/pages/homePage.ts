@@ -4,9 +4,12 @@ import AbstractPage from './abstractPage'
 export default class HomePage extends AbstractPage {
   readonly header: Locator
 
+  readonly usersName: Locator
+
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1', { hasText: 'This site is under construction...' })
+    this.usersName = page.getByTestId('launchpad-home-header-user-name')
   }
 
   static async verifyOnPage(page: Page): Promise<HomePage> {

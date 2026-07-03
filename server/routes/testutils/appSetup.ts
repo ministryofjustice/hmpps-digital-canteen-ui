@@ -2,7 +2,7 @@ import express, { Express } from 'express'
 import { NotFound } from 'http-errors'
 
 import { randomUUID } from 'crypto'
-import routes from '../index'
+import pinphonecredit from '../pinphonecredit'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
@@ -53,7 +53,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
   })
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use(routes(services))
+  app.use(pinphonecredit(services))
   app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 

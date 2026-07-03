@@ -30,6 +30,7 @@ export default function nunjucksSetup(app: express.Express): void {
       path.join(__dirname, '../../server/views'),
       'node_modules/govuk-frontend/dist/',
       'node_modules/@ministryofjustice/frontend/',
+      'node_modules/@ministryofjustice/hmpps-prisoner-facing-components/dist/assets/',
     ],
     {
       autoescape: true,
@@ -40,4 +41,5 @@ export default function nunjucksSetup(app: express.Express): void {
 
   njkEnv.addFilter('initialiseName', initialiseName)
   njkEnv.addFilter('assetMap', (url: string) => assetManifest[url] || url)
+  njkEnv.addFilter('fixed', (num: number, decimalPlaces = 2) => Number(num).toFixed(decimalPlaces))
 }

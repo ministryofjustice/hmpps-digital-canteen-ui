@@ -1,0 +1,100 @@
+{% extends "../partials/layout.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../macros/service-navigation.njk" import serviceNav %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "../macros/balance_details.njk" import balanceDetails %}
+
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "govuk-body" %}
+
+
+{% block content %}
+<form method="post" novalidate>
+  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+<h1 class="govuk-heading-l">{{ user.username }}'s PIN Phone credit</h1>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-6">
+ {{ serviceNav("buy") }}
+</div>
+ {% if successMessage %}
+     {% set html %}
+       <p class="govuk-notification-banner__heading">
+         {{ successMessage | safe }}
+       </p>
+     {% endset %}
+     {{ govukNotificationBanner({
+       html: html,
+       type: 'success'
+     }) }}
+ {% endif %}
+
+  {# --- Error summary (safe) --- #}
+  {% if errors and errors.length %}
+    {{ govukErrorSummary({ errorList: errors }) }}
+  {% endif %}
+<h1 class="govuk-heading-m govuk-!-margin-bottom-6">Your money</h1>
+
+{{ balanceDetails(currentBalance, spendBalance, currentBalance) }}
+<input type="hidden" id="newCredit" name="newCredit" value="{{ currentBalance | fixed }}">
+<input type="hidden" id="newSpend" name="newSpend" value="{{ spendBalance | fixed }}">
+
+<h1 class="govuk-heading-m govuk-!-margin-bottom-6">Buy PIN phone credit</h1>
+{% set finalAmount = "" if successMessage else amount %}
+
+{{ govukRadios({
+  idPrefix: "pin_amount",
+  name: "amount",
+  fieldset: {
+    legend: {
+      text: "How much credit would you like to buy?",
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  errorMessage: (errors | selectattr("href", "equalto", "#pin_amount") | first) if errors else undefined,
+  items: [
+    { value: "5", text: "£5", checked: finalAmount == "5" },
+    { value: "10", text: "£10", checked: finalAmount == "10" },
+    { value: "15", text: "£15", checked: finalAmount == "15" },
+    { value: "20", text: "£20", checked: finalAmount == "20" },
+    { value: "25", text: "£25", checked: finalAmount == "25" },
+    { value: "30", text: "£30", checked: finalAmount == "30" },
+    {
+          value: "custom",
+          checked: finalAmount and (finalAmount != "5" and finalAmount != "10" and finalAmount != "15" and finalAmount != "20" and finalAmount != "25" and finalAmount != "30"),
+          html: '
+            <span>£</span>
+            <input
+              class="govuk-input govuk-input--width-5"
+              id="pin_amount_custom"
+              name="amount_custom"
+              type="text"
+              value="' + (finalAmount if (finalAmount and finalAmount != "5" and finalAmount != "10" and finalAmount != "15" and finalAmount != "20" and finalAmount != "25" and finalAmount != "30") else "") + '"
+            >
+          '
+        }
+  ]
+}) }}
+
+<div class="govuk-button-group">
+  {{ govukButton({
+    text: "Continue",
+    type: "submit"
+  }) }}
+
+  {{ govukButton({
+    text: "Cancel",
+    classes: "govuk-button--secondary",
+    href: "/"
+  }) }}
+</div>
+{% raw %}
+<script src="/assets/js/update-balance.js"></script>
+{% endraw %}
+</form>
+{% endblock %}

@@ -1,0 +1,72 @@
+.pin-phone-card {
+  border: 5px solid #62809e;
+  text-align: center;
+}
+
+// Your custom card styles
+.credit-card {
+  background: #f3f2f1;
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #ffffff;
+
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 20px !important;
+
+  width: 280px !important;
+  height: 80px !important;
+  box-sizing: border-box !important;
+}
+
+.credit-card--highlight {
+  background: #1d70b8;
+  color: #ffffff;
+  border-color: #1d70b8;
+}
+
+.credit-card__content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+.credit-card__label {
+  font-size: 16px;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  font-weight: 500;
+  display: block !important;
+}
+
+.credit-card__value {
+  font-size: 38px;
+  line-height: 1.1;
+  font-weight: 700;
+  display: block !important;
+}
+
+.credit-card__icon-wrapper {
+  flex-shrink: 0 !important;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.credit-card__icon-wrapper svg {
+  width: 36px !important;
+  height: 36px !important;
+  display: block !important;
+}
+
+.credit-card--highlight .credit-card__icon-wrapper svg {
+  stroke: #ffffff !important;
+}
+
+.govuk-table__header.app-table__header--blue {
+  color: #1d70b8 !important;
+}
+
+

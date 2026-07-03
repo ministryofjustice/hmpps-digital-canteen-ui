@@ -18,14 +18,14 @@ test.describe('SignIn', () => {
     await hmppsAuth.stubSignInPage()
     await page.goto('/')
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('Unauthenticated user navigating to sign in page directed to auth', async ({ page }) => {
     await hmppsAuth.stubSignInPage()
     await page.goto('/sign-in')
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('User name visible in header', async ({ page }) => {

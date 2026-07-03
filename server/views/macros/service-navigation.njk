@@ -1,0 +1,13 @@
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% macro serviceNav(active) %}
+<div class="govuk-grid-column-full">
+  {{ govukServiceNavigation({
+    navigation: [
+      { href: "/", text: "Buy credit", active: active == "buy" },
+      { href: "/buyingHistory", text: "Buying history", active: active == "history" },
+      { href: "/contacts", text: "Contacts", active: active == "contacts" }
+    ]
+  }) }}
+</div>
+{% endmacro %}

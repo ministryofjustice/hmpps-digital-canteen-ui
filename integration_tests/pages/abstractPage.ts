@@ -17,14 +17,14 @@ export default class AbstractPage {
 
   protected constructor(page: Page) {
     this.page = page
-    this.phaseBanner = page.getByTestId('header-phase-banner')
-    this.usersName = page.getByTestId('header-user-name')
+    this.phaseBanner = page.getByTestId('launchpad-home-header-user-name')
+    this.usersName = page.getByTestId('launchpad-home-header-user-name')
     this.signoutLink = page.getByText('Sign out')
     this.manageUserDetails = page.getByTestId('manageDetails')
   }
 
   async signOut() {
-    await this.signoutLink.first().click()
+    await this.page.goto('/sign-out')
   }
 
   async clickManageUserDetails() {
