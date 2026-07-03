@@ -7,7 +7,7 @@ services:
       - "8080:8080"
     network_mode: "bridge"
     healthcheck:
-      test: [ "CMD", "bash", "-c", "echo > /dev/tcp/localhost/8080" ]
+      test: [ "CMD", "bash", "-f", "http://localhost:8080/health/ping" ]
     env_file: docker-compose.launchpad-auth.env
     environment:
       - azure.launchpad-redirectUri=http://localhost:8080/v1/oauth2/callback
