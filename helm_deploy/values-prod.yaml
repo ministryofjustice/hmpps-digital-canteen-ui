@@ -2,6 +2,8 @@
 # Per environment values which override defaults in hmpps-digital-canteen-ui/values.yaml
 
 generic-service:
+  replicaCount: 1
+
   ingress:
     host: digital-canteen-ui.hmpps.service.justice.gov.uk
 
