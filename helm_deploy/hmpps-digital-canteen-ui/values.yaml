@@ -49,7 +49,7 @@ generic-service:
       AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
     hmpps-digital-canteen-ui-session-secret:
       SESSION_SECRET: 'SESSION_SECRET'
-    hmpps-digital-canteen-ui-elasticache-redis:
+    digital-canteen-redis-secrets:
       REDIS_HOST: 'primary_endpoint_address'
       REDIS_AUTH_TOKEN: 'auth_token'
 #    hmpps-digital-canteen-ui-application-insights:
