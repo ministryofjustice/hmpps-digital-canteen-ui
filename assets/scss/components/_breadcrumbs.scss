@@ -1,0 +1,12 @@
+.app-breadcrumbs--blue .govuk-breadcrumbs__link {
+  @include govuk-font($size: 19);
+  color: $govuk-link-colour;
+
+  &:visited {
+    color: $govuk-link-colour;
+  }
+
+  &:hover {
+    color: $govuk-link-hover-colour;
+  }
+}

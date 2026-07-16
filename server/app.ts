@@ -16,7 +16,8 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 
-import routes from './routes'
+import fakeLaunchpad from './routes/fake-launchpad'
+import pinPhone from './routes/pin-phone'
 import type { Services } from './services'
 
 export default function createApp(services: Services): express.Application {
@@ -38,7 +39,8 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpCsrf())
   app.use(setUpCurrentUser())
 
-  app.use(routes(services))
+  app.use(fakeLaunchpad(services))
+  app.use(pinPhone(services))
 
   app.use((_req, _res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))

@@ -9,3 +9,6 @@ $govuk-page-width: $moj-page-width;
 
 @import './components/header-bar';
 @import './overrides/local';
+
+@import './components/breadcrumbs';
+@import './components/pin-phone-card';

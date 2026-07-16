@@ -1,0 +1,29 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{% set pageTitle = "Pretend this is launchpad" %}
+
+{% block pageTitle %}
+  {{ pageTitle }} - GOV.UK
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+
+  <div class="app-card-group">
+    <div class="app-card app-card--green">
+      <div class="app-card__header">
+        <svg class="app-card__icon" viewBox="144 144 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="m338.99 354.32 106.7 106.7.48438-.73438c8.9961-13.562 27.402-17.301 40.965-8.3047l100.48 66.652c13.562 8.9922 17.297 27.402 8.2969 40.961-9.125 13.754-21.125 24.742-36.059 31.887-80.258 38.359-194.72-50.402-247.82-103.51-53.113-53.102-141.87-167.56-103.51-247.82 7.1445-14.934 18.133-26.934 31.883-36.059 13.559-8.9961 31.973-5.2656 40.969 8.2969l66.645 100.48c8.9961 13.566 5.2695 31.973-8.293 40.969l-.74219.48828zm-32.543-3.2695 142.5 142.51 14.484-21.84c2.6914-4.0625 8.2031-5.1797 12.258-2.4883l100.48 66.652c4.0664 2.6914 5.1875 8.2109 2.4883 12.262-94.199 142.02-468.82-232.61-326.8-326.8 4.0508-2.6953 9.5664-1.5781 12.262 2.4883l66.648 100.48c2.6914 4.0625 1.5781 9.5664-2.4844 12.27z" fill="white" fill-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="app-card__body">
+        <h2 class="app-card__title">
+          <a href="{{ pinPhoneUrl }}" class="govuk-link govuk-link--no-visited-state app-card__link">Pin Phone</a>
+        </h2>
+        <p class="govuk-body app-card__description">Pin Phone stuff.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
