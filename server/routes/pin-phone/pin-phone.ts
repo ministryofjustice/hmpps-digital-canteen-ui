@@ -7,7 +7,7 @@ export default function pinPhoneRoutes(router: Router, auditService: AuditServic
 
     // todo: hard coded username, will come from launchpad session later
     const userName = 'John'
-    return res.render('pages/pin-phone', {
+    return res.render('pages/pin-phone/pin-phone', {
       userName,
       buyCreditsUrl: '/pin-phone/buy-credit',
       viewContactsUrl: '/pin-phone/contacts',
