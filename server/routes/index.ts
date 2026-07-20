@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 import type { Services } from '../services'
 import launchpadRoutes from './pin-phone/fake-launchpad'
-import pinPhoneRoutes from './pin-phone/pin-phone'
+import pinPhoneRoutes from './pin-phone/pin-phone-landing'
 
 export default function routes({ auditService }: Services): Router {
   const router = Router()

@@ -41,7 +41,7 @@ describe('Audit service', () => {
 
   describe('logPageView', () => {
     it('sends page view event audit message using audit client', async () => {
-      await auditService.logPageView(Page.PIN_PHONE_HOME, {
+      await auditService.logPageView(Page.PIN_PHONE_LANDING, {
         who: 'user1',
         subjectId: 'subject123',
         subjectType: 'exampleType',
@@ -50,7 +50,7 @@ describe('Audit service', () => {
       })
 
       expect(hmppsAuditClient.sendMessage).toHaveBeenCalledWith({
-        what: 'PAGE_VIEW_PIN_PHONE_HOME',
+        what: 'PAGE_VIEW_PIN_PHONE_LANDING',
         who: 'user1',
         subjectId: 'subject123',
         subjectType: 'exampleType',
