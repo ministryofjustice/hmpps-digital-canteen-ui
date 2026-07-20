@@ -3,7 +3,7 @@ import hmppsAuth from '../mockApis/hmppsAuth'
 import exampleApi from '../mockApis/exampleApi'
 
 import { login, resetStubs } from '../testUtils'
-import HomePage from '../pages/homePage'
+import HomePage from '../pages/pin-phone/homePage'
 
 test.describe('SignIn', () => {
   test.beforeEach(async () => {
