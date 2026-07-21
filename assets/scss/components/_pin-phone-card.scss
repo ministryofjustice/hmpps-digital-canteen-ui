@@ -1,0 +1,75 @@
+// Pin phone Card component
+$app-card-green: #00703c;
+$app-card-blue: #1d70b8;
+
+$app-card-width: 210px;
+
+.app-card-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: govuk-spacing(4);
+}
+
+.app-card {
+  position: relative;
+  width: $app-card-width;
+  border: 1px solid govuk-colour("mid-grey");
+  background: govuk-colour("white");
+
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.app-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: govuk-spacing(4);
+  min-height: 100px;
+
+  .app-card--green & {
+    background-color: $app-card-green;
+    color: govuk-colour("white");
+  }
+
+  .app-card--blue & {
+    background-color: $app-card-blue;
+    color: govuk-colour("white");
+  }
+}
+
+.app-card__icon {
+  width: 56px;
+  height: 56px;
+}
+
+.app-card__body {
+  padding: govuk-spacing(3) govuk-spacing(3) govuk-spacing(4);
+}
+
+.app-card__title {
+  @include govuk-font($size: 24, $weight: bold);
+  margin-top: 0;
+  margin-bottom: govuk-spacing(1);
+  a {
+    text-decoration: none;
+  }
+}
+
+.app-card__link {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.app-card__description {
+  @include govuk-font($size: 16);
+  color: $govuk-secondary-text-colour;
+  margin-bottom: 0;
+}
