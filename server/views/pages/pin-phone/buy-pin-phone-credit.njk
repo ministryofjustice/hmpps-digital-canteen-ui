@@ -11,7 +11,7 @@
 
 {% set otherAmount %}
   {{ govukInput({
-    id: "custom-amount",
+    id: "customAmount",
     name: "customAmount",
     classes: "govuk-input--width-5",
     prefix: {
@@ -103,7 +103,7 @@
      text: "Max (£" +  creditBuyCapacity  +")"
     },
     {
-      divider: "or add your own amount"
+      divider: "Or add your own amount"
     },
     {
       value: "other",
@@ -111,10 +111,10 @@
     }
   ]
 }) }}
-`
 {{ govukButton({
     text: "Continue",
     type: "submit"
   }) }}
 </form>
+
 {% endblock %}
