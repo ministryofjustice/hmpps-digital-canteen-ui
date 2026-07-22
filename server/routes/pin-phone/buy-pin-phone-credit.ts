@@ -20,6 +20,15 @@ export default function buyPinPhoneCreditRoutes(router: Router, auditService: Au
       creditBuyCapacity,
     })
   })
+  router.post('/pin-phone/buy-credit', async (req, res) => {
+    let { amount } = req.body
+    if (amount === 'other') {
+      amount = req.body.customAmount
+    }
+    console.log(amount)
+    req.session.amount = amount
+    // return res.redirect('/pin-phone/check-order-details')
+  })
 
   return router
 }
