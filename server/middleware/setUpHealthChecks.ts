@@ -4,6 +4,7 @@ import { monitoringMiddleware, endpointHealthComponent } from '@ministryofjustic
 import type { ApplicationInfo } from '../applicationInfo'
 import logger from '../../logger'
 import config from '../config'
+import { ACTIVE_AGENCIES } from '../constants/activeAgencies'
 
 export default function setUpHealthChecks(applicationInfo: ApplicationInfo): Router {
   const router = express.Router()
@@ -16,7 +17,15 @@ export default function setUpHealthChecks(applicationInfo: ApplicationInfo): Rou
   })
 
   router.get('/health', middleware.health)
-  router.get('/info', middleware.info)
+  router.get(
+    '/info',
+    (_req, _res, next) => {
+      // eslint-disable-next-line no-param-reassign
+      applicationInfo.additionalFields = { activeAgencies: [...ACTIVE_AGENCIES] }
+      next()
+    },
+    middleware.info,
+  )
   router.get('/ping', middleware.ping)
 
   return router
