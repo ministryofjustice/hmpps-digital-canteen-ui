@@ -23,7 +23,6 @@ export default function buyPinPhoneCreditRoutes(router: Router, auditService: Au
     if (amount === 'other') {
       amount = req.body.customAmount
     }
-    console.log(amount)
     req.session.amount = amount
     // return res.redirect('/pin-phone/check-order-details')
   })
