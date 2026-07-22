@@ -25,10 +25,10 @@
 {% endblock %}
 
 {% block content %}
-{{ govukBackLink({
-          text: "Back",
-          href: "/pin-phone"
-        }) }}
+ {{ govukBackLink({
+    text: "Back",
+    href: "/pin-phone"})
+ }}
 
 <form method="post" novalidate>
   <input type="hidden" name="_csrf" value="{{ csrfToken }}">
