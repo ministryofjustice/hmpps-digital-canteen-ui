@@ -3,6 +3,9 @@ import { Router } from 'express'
 import type { Services } from '../services'
 import launchpadRoutes from './pin-phone/fake-launchpad'
 import pinPhoneRoutes from './pin-phone/pin-phone-landing'
+import viewContacts from './pin-phone/view-contacts'
+import socialContact from './pin-phone/social-contact'
+import officialContact from './pin-phone/official-contact'
 
 export default function routes({ auditService }: Services): Router {
   const router = Router()
@@ -13,5 +16,8 @@ export default function routes({ auditService }: Services): Router {
 
   launchpadRoutes(router)
   pinPhoneRoutes(router, auditService)
+  viewContacts(router, auditService)
+  socialContact(router, auditService)
+  officialContact(router, auditService)
   return router
 }
