@@ -87,5 +87,9 @@ export default {
   },
   ingressUrl: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   environmentName: get('ENVIRONMENT_NAME', ''),
-  prisonerAppsUrl: get('PRISONER_APPS_URL', 'https://prisoner-apps-dev.hmpps.service.justice.gov.uk/'),
+  prisonerAppsUrl: get(
+    'PRISONER_APPS_URL',
+    'https://prisoner-apps-dev.hmpps.service.justice.gov.uk/',
+    requiredInProduction,
+  ),
 }
