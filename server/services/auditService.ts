@@ -2,6 +2,7 @@ import HmppsAuditClient, { AuditEvent } from '../data/hmppsAuditClient'
 
 export enum Page {
   PIN_PHONE_LANDING = 'PIN_PHONE_LANDING',
+  PIN_PHONE_BUY_CREDITS = 'PIN_PHONE_BUY_CREDITS',
   VIEW_CONTACTS = 'VIEW_CONTACTS',
   SOCIAL_CONTACT = 'SOCIAL_CONTACT',
   OFFICIAL_CONTACT = 'OFFICIAL_CONTACT',
