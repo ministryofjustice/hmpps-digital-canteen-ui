@@ -1,25 +1,163 @@
 {% extends "../../partials/layout.njk" %}
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-{% set pageTitle = "To be social contact screen" %}
+
+{% set pageTitle = contact.name %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBreadcrumbs({
-    classes: "app-breadcrumbs--black",
-    items: [
-      {
-        text: "Back",
-        href: "/pin-phone/contacts"
-      }
-    ]
+  {{ govukBackLink({
+    text: "Back",
+    href: "/pin-phone/contacts"
   }) }}
 {% endblock %}
 
 {% block content %}
   <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+
+  {{ govukInsetText({
+      html: 'To change this contact go to Apps and choose <a class="govuk-link" href="' + pinPhoneApps + '">PIN phones apps</a>'
+  }) }}
+
+  {% if contact.status === 'Approved' %}
+    {% set statusTag = govukTag({ text: "Approved", classes: "govuk-tag--green" }) %}
+  {% else %}
+    {% set statusTag = govukTag({ text: "In progress", classes: "govuk-tag--yellow" }) %}
+  {% endif %}
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: "Date added"
+        },
+        value: {
+          text: contact.dateAdded
+        }
+      },
+      {
+        key: {
+          text: "Contact type"
+        },
+        value: {
+          text: contact.type
+        }
+      },
+      {
+        key: {
+          text: "Status"
+        },
+        value: {
+          html: statusTag
+        }
+      }
+    ]
+  }) }}
+
+  {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "First name"
+          },
+          value: {
+            text: contact.firstName
+          }
+        },
+        {
+          key: {
+            text: "Last name"
+          },
+          value: {
+            text: contact.lastName
+          }
+        },
+        {
+          key: {
+            text: "Date of birth or age"
+          },
+          value: {
+            html: contact.dateOfBirth
+          }
+        },
+        {
+          key: {
+            text: "Relationship"
+          },
+          value: {
+            html: contact.relationship
+          }
+        },
+        {
+          key: {
+            text: "Address line 1"
+          },
+          value: {
+            text: contact.addressLine1
+          }
+        },
+        {
+          key: {
+            text: "Address line 2"
+          },
+          value: {
+            text: contact.addressLine2
+          }
+        },
+        {
+          key: {
+            text: "Town or city"
+          },
+          value: {
+            html: contact.townOrCity
+          }
+        },
+        {
+          key: {
+            text: "Postcode"
+          },
+          value: {
+            html: contact.postcode
+          }
+        },
+        {
+          key: {
+            text: "Country"
+          },
+          value: {
+            text: contact.country
+          }
+        },
+        {
+          key: {
+            text: "Telephone number 1"
+          },
+          value: {
+            text: contact.telephoneNumber1
+          }
+        },
+        {
+          key: {
+            text: "Telephone number 2"
+          },
+          value: {
+            html: contact.telephoneNumber2
+          }
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Back to view contacts",
+      classes: "govuk-button--secondary",
+      href: "/pin-phone/contacts"
+    }) }}
 
 {% endblock %}
