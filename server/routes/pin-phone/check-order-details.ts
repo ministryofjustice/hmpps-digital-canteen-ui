@@ -8,11 +8,9 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
       correlationId: req.id,
     })
 
-    req.session.amountOfCredits = 10
-    // to do: get these values from the backend
     const currentCreditBalance = 35.13
-    const newCreditBalance = req.session.amountOfCredits
-    const totalCreditBalance = currentCreditBalance + newCreditBalance
+    const newCreditBalance = Number(req.session.creditAmount || 0).toFixed(2)
+    const totalCreditBalance = (currentCreditBalance + Number(req.session.creditAmount || 0)).toFixed(2)
     return res.render('pages/pin-phone/check-order-details', {
       currentCreditBalance,
       newCreditBalance,
