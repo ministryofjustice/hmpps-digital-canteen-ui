@@ -47,6 +47,7 @@ export default {
     secret: get('SESSION_SECRET', 'app-insecure-default-session', requiredInProduction),
     expiryMinutes: Number(get('WEB_SESSION_TIMEOUT_IN_MINUTES', 120)),
   },
+  launchpadHome: get('LAUNCHPAD_URL', 'https://launchpad-home-dev.hmpps.service.justice.gov.uk/', requiredInProduction),
   apis: {
     hmppsAuth: {
       url: get('HMPPS_AUTH_URL', 'http://localhost:9090/auth', requiredInProduction),
@@ -61,6 +62,40 @@ export default {
       authClientSecret: get('AUTH_CODE_CLIENT_SECRET', 'clientsecret', requiredInProduction),
       systemClientId: get('CLIENT_CREDS_CLIENT_ID', 'clientid', requiredInProduction),
       systemClientSecret: get('CLIENT_CREDS_CLIENT_SECRET', 'clientsecret', requiredInProduction),
+    },
+    prisonerAuth: {
+      url: get('LAUNCHPAD_AUTH_URL', 'http://localhost:8080', requiredInProduction),
+      healthPath: '/health/ping',
+      externalUrl: get('LAUNCHPAD_AUTH_EXTERNAL_URL', get('LAUNCHPAD_AUTH_URL', 'http://localhost:8080')),
+      timeout: {
+        response: Number(get('LAUNCHPAD_AUTH_TIMEOUT_RESPONSE', 10000)),
+        deadline: Number(get('LAUNCHPAD_AUTH_TIMEOUT_DEADLINE', 10000)),
+      },
+      refreshCheckTimeInMinutes: Number(get('REFRESH_CHECK_TIMEOUT_IN_MINUTES', 5)),
+      agent: new AgentConfig(Number(get('LAUNCHPAD_AUTH_TIMEOUT_RESPONSE', 10000))),
+      apiClientId: get('LAUNCHPAD_API_CLIENT_ID', 'clientid', requiredInProduction),
+      apiClientSecret: get('LAUNCHPAD_API_CLIENT_SECRET', 'clientsecret', requiredInProduction),
+      nonce: get('LAUNCHPAD_AUTH_NONCE', 'true') !== 'false',
+      scopes: [
+        {
+          type: 'user.basic.read',
+          accessGranted: 'Grants permission to read basic user information like firstName and lastName.',
+          permittedImplicitly: true,
+          humanReadableDescription: 'Your name',
+        },
+        {
+          type: 'user.establishment.read',
+          accessGranted: 'Grants permission to read details about the establishment or prison the user is located.',
+          permittedImplicitly: false,
+          humanReadableDescription: 'Details of your prison',
+        },
+        {
+          type: 'user.booking.read',
+          accessGranted: 'Grants permission to read the booking details of the user.',
+          permittedImplicitly: false,
+          humanReadableDescription: 'Prison booking details',
+        },
+      ],
     },
     tokenVerification: {
       url: get('TOKEN_VERIFICATION_API_URL', 'http://localhost:8100', requiredInProduction),

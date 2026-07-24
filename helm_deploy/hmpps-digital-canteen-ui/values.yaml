@@ -41,12 +41,11 @@ generic-service:
 
   namespace_secrets:
     # These secrets are created by terraform.
-    hmpps-digital-canteen-api-client-creds:
-      CLIENT_CREDS_CLIENT_ID: 'API_CLIENT_ID'
-      CLIENT_CREDS_CLIENT_SECRET: 'API_CLIENT_SECRET'
-    hmpps-digital-canteen-ui-auth-code:
-      AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
-      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
+    hmpps-digital-canteen-ui-client-creds:
+      CLIENT_CREDS_CLIENT_ID: 'CLIENT_CREDS_CLIENT_ID'
+      CLIENT_CREDS_CLIENT_SECRET: 'CLIENT_CREDS_CLIENT_SECRET'
+      LAUNCHPAD_API_CLIENT_ID: "LAUNCHPAD_API_CLIENT_ID"
+      LAUNCHPAD_API_CLIENT_SECRET: "LAUNCHPAD_API_CLIENT_SECRET"
     hmpps-digital-canteen-ui-session-secret:
       SESSION_SECRET: 'SESSION_SECRET'
     digital-canteen-redis-secrets:

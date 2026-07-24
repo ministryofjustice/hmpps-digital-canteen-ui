@@ -1,11 +1,14 @@
 import { expect, test } from '@playwright/test'
-import hmppsAuth from '../mockApis/hmppsAuth'
 import exampleApi from '../mockApis/exampleApi'
 
-import { login, resetStubs } from '../testUtils'
+import { loginWithPrisonerAuth, resetStubs } from '../testUtils'
 import HomePage from '../pages/pin-phone/homePage'
+import prisonerAuth from '../mockApis/PrisonerAuth'
 
 test.describe('SignIn', () => {
+  test.use({
+    baseURL: 'http://localhost:3007',
+  })
   test.beforeEach(async () => {
     await exampleApi.stubExampleTime()
   })
@@ -15,69 +18,48 @@ test.describe('SignIn', () => {
   })
 
   test('Unauthenticated user directed to auth', async ({ page }) => {
-    await hmppsAuth.stubSignInPage()
+    await prisonerAuth.stubSignInPage()
     await page.goto('/')
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('Unauthenticated user navigating to sign in page directed to auth', async ({ page }) => {
-    await hmppsAuth.stubSignInPage()
+    await prisonerAuth.stubSignInPage()
     await page.goto('/sign-in')
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('User name visible in header', async ({ page }) => {
-    await login(page, { name: 'A TestUser' })
+    await loginWithPrisonerAuth(page, { name: 'A TestUser' })
 
     const homePage = await HomePage.verifyOnPage(page)
-
-    await expect(homePage.usersName).toHaveText('A. Testuser')
-  })
-
-  test('Phase banner visible in header', async ({ page }) => {
-    await login(page)
-
-    const homePage = await HomePage.verifyOnPage(page)
-
-    await expect(homePage.phaseBanner).toHaveText('dev')
+    await expect(homePage.usersName).toHaveText('A TestUser')
   })
 
   test('User can sign out', async ({ page }) => {
-    await login(page)
+    await loginWithPrisonerAuth(page)
 
     const homePage = await HomePage.verifyOnPage(page)
     await homePage.signOut()
-
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
-  })
-
-  test('User can manage their details', async ({ page }) => {
-    await login(page, { name: 'A TestUser' })
-
-    await hmppsAuth.stubManageDetailsPage()
-
-    const homePage = await HomePage.verifyOnPage(page)
-    await homePage.clickManageUserDetails()
-
-    await expect(page.getByRole('heading')).toHaveText('Your account details')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
   test('Token verification failure takes user to sign in page', async ({ page }) => {
-    await login(page, { active: false })
+    await loginWithPrisonerAuth(page, { tokenExpiresInSeconds: -1 })
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
   })
 
   test('Token verification failure clears user session', async ({ page }) => {
-    await login(page, { name: 'A TestUser', active: false })
+    await loginWithPrisonerAuth(page, { name: 'A TestUser', tokenExpiresInSeconds: -1 })
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
 
-    await login(page, { name: 'Some OtherTestUser', active: true })
+    await loginWithPrisonerAuth(page, { name: 'Some OtherTestUser', active: true })
 
     const homePage = await HomePage.verifyOnPage(page)
-    await expect(homePage.usersName).toHaveText('S. Othertestuser')
+    await expect(homePage.usersName).toHaveText('Some OtherTestUser')
   })
 })

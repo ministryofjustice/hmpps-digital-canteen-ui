@@ -5,11 +5,11 @@ import createError from 'http-errors'
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
 import { appInsightsMiddleware } from './utils/azureAppInsights'
-import authorisationMiddleware from './middleware/authorisationMiddleware'
 
-import setUpAuthentication from './middleware/setUpAuthentication'
+import setUpPrisonerAuth from './middleware/setUpPrisonerAuth'
 import setUpCsrf from './middleware/setUpCsrf'
-import setUpCurrentUser from './middleware/setUpCurrentUser'
+import { setUpLaunchpadFooter } from './middleware/setUpLaunchpadFooter'
+import { setUpLaunchpadHeader } from './middleware/setUpLaunchpadHeader'
 import setUpHealthChecks from './middleware/setUpHealthChecks'
 import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
@@ -18,6 +18,7 @@ import setUpWebSession from './middleware/setUpWebSession'
 
 import routes from './routes'
 import type { Services } from './services'
+import config from './config'
 
 export default function createApp(services: Services): express.Application {
   const app = express()
@@ -26,6 +27,8 @@ export default function createApp(services: Services): express.Application {
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
 
+  app.locals.launchpadHome = config.launchpadHome
+
   app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
   app.use(setUpWebSecurity())
@@ -33,10 +36,10 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpWebRequestParsing())
   app.use(setUpStaticResources())
   nunjucksSetup(app)
-  app.use(setUpAuthentication())
-  app.use(authorisationMiddleware())
+  app.use(setUpPrisonerAuth())
+  app.use(setUpLaunchpadHeader)
+  app.use(setUpLaunchpadFooter)
   app.use(setUpCsrf())
-  app.use(setUpCurrentUser())
 
   app.use(routes(services))
 
