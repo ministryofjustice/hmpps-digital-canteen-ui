@@ -2,6 +2,7 @@ import HmppsAuditClient, { AuditEvent } from '../data/hmppsAuditClient'
 
 export enum Page {
   PIN_PHONE_LANDING = 'PIN_PHONE_LANDING',
+  PIN_PHONE_BUY_CREDITS = 'PIN_PHONE_BUY_CREDITS',
 }
 
 export interface PageViewEventDetails {
