@@ -6,7 +6,7 @@ export default class ContactsPage extends AbstractPage {
 
   readonly insetText: Locator
 
-  readonly breadcrumbHome: Locator
+  readonly backLink: Locator
 
   readonly table: Locator
 
@@ -22,7 +22,7 @@ export default class ContactsPage extends AbstractPage {
     super(page)
     this.header = page.locator('h1')
     this.insetText = page.locator('.govuk-inset-text')
-    this.breadcrumbHome = page.locator('.govuk-breadcrumbs__link', { hasText: 'Back' })
+    this.backLink = page.locator('.govuk-back-link', { hasText: 'Back' })
     this.table = page.locator('.govuk-table')
     this.tableRows = page.locator('.govuk-table__body .govuk-table__row')
     this.pagination = page.locator('.moj-pagination')

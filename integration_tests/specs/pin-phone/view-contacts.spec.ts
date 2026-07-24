@@ -19,7 +19,7 @@ test.describe('Pin Phone view contacts page', () => {
 
     test('link to pin phone landing', async ({ page }) => {
       const contactsPage = await ContactsPage.verifyOnPage(page)
-      await expect(contactsPage.breadcrumbHome).toHaveAttribute('href', '/pin-phone')
+      await expect(contactsPage.backLink).toHaveAttribute('href', '/pin-phone')
     })
 
     test('inset text with link', async ({ page }) => {
