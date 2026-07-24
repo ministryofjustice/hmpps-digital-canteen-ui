@@ -1,0 +1,78 @@
+{% extends "../../partials/layout.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+ {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set pageTitle = "Check order details" %}
+
+{% block pageTitle %}
+  {{ pageTitle }} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container govuk-!-margin-top-6">
+   {{ govukBackLink({
+       text: "Back",
+       href: "/pin-phone/buy-phone-credit"})
+   }}
+  </div>
+{% endblock %}
+
+{% block content %}
+ <div class="govuk-body govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+       <span class="govuk-caption-l">Buy PIN phone credit</span>
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ pageTitle }}</h1>
+        <form method="POST" id="check-order-details">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+           {{ govukSummaryList({
+             rows: [
+               {
+                 key: {
+                   text: "Current PIN phone credit"
+                 },
+                 value: {
+                 text: "£" + currentCreditBalance
+                 }
+               },
+               {
+                 key: {
+                   text: "How much you want to buy"
+                 },
+                 value: {
+                   text: "£" + newCreditBalance
+                 },
+                 actions: {
+                   items: [
+                     {
+                       href: "/pin-phone/buy-phone-credit",
+                       text: "Change",
+                       visuallyHiddenText: "credit amount"
+                     }
+                   ]
+                 }
+               },
+               {
+                 key: {
+                   text: "Credit after buying"
+                 },
+                 value: {
+                   text: "£" + totalCreditBalance
+                 }
+               }
+             ]
+           }) }}
+         <div class="govuk-button-group">
+             {{ govukButton({
+               text: "Buy credit",
+               type: "submit"
+             }) }}
+             <a class="govuk-link" href="/pin-phone">Cancel</a>
+         </div>
+        </form>
+      </div>
+    </div>
+ <div>
+{% endblock %}
