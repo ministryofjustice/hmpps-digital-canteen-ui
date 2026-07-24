@@ -21,6 +21,7 @@ const prisonerAuth = new PrisonerAuth({
   clientSecret: config.apis.prisonerAuth.apiClientSecret,
   tokenMinimumLifespan: minutes(5),
   nonce: config.apis.prisonerAuth.nonce,
+  scope: ['user.basic.read', 'user.eastablishment.read'],
 })
 
 passport.use('prisoner-auth', prisonerAuth.passportStrategy())
