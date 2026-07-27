@@ -6,10 +6,10 @@ export default function buyPinPhoneCreditRoutes(router: Router, auditService: Au
     await auditService.logPageView(Page.PIN_PHONE_BUY_CREDITS, { who: res.locals.user.username, correlationId: req.id })
 
     // todo: hard coded values, will come from service later
-    const pinPhoneCredit = 35.13
-    const spendsBalance = 47.0
-    const pinPhoneCreditLimit = 50.0
-    const creditBuyCapacity = Number(pinPhoneCreditLimit - pinPhoneCredit).toFixed(2)
+    const pinPhoneCredit = '35.13'
+    const spendsBalance = '47.00'
+    const pinPhoneCreditLimit = '50.00'
+    const creditBuyCapacity = '14.87'
 
     return res.render('pages/pin-phone/buy-pin-phone-credit', {
       pinPhoneCredit,
