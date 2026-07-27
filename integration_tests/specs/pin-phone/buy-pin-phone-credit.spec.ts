@@ -28,7 +28,7 @@ test.describe('Buy PIN phone credit page', () => {
 
   test('can see the buy credit limit', async ({ page }) => {
     const buyPage = await BuyPinPhoneCreditPage.verifyOnPage(page)
-    await expect(buyPage.insetText).toContainText('You can buy upto £10.00')
+    await expect(buyPage.insetText).toContainText('You can buy upto £14.87')
   })
 
   test('can see amount radio buttons', async ({ page }) => {
@@ -40,7 +40,7 @@ test.describe('Buy PIN phone credit page', () => {
     await expect(radios.nth(1)).toContainText('£1.00')
     await expect(radios.nth(2)).toContainText('£3.00')
     await expect(radios.nth(3)).toContainText('£5.00')
-    await expect(radios.nth(4)).toContainText('Max (£10.00)')
+    await expect(radios.nth(4)).toContainText('Max (£14.87)')
     await expect(radios.nth(5)).toContainText('£ ')
   })
 
