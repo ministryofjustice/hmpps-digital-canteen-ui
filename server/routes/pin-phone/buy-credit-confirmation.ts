@@ -13,7 +13,6 @@ export default function buyCreditConfirmation(router: Router, auditService: Audi
       month: 'long',
       year: 'numeric',
     })
-    console.log(dateBought)
     return res.render('pages/pin-phone/buy-credit-confirmation', { dateBought })
   })
 
