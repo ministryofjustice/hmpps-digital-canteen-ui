@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import { login } from '../../testUtils'
 import OfficialContactsPage from '../../pages/pin-phone/OfficialContactsPage'
 
-const expectedFirstSummaryKeys = ['Date added', 'Contact type', 'Status']
+const expectedFirstSummaryKeys = ['Date added', 'Contact type']
 
 const expectedKeys = [
   'First name',

@@ -26,12 +26,6 @@
       html: 'To change this contact go to Apps and choose <a class="govuk-link" href="' + pinPhoneApps + '">PIN phones apps</a>'
   }) }}
 
-  {% if contact.status === 'Approved' %}
-    {% set statusTag = govukTag({ text: "Approved", classes: "govuk-tag--green" }) %}
-  {% else %}
-    {% set statusTag = govukTag({ text: "In progress", classes: "govuk-tag--yellow" }) %}
-  {% endif %}
-
   {{ govukSummaryList({
     rows: [
       {
@@ -48,14 +42,6 @@
         },
         value: {
           text: contact.type
-        }
-      },
-      {
-        key: {
-          text: "Status"
-        },
-        value: {
-          html: statusTag
         }
       }
     ]

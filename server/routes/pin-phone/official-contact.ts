@@ -19,7 +19,6 @@ export default function viewOfficialContactsRoutes(router: Router, auditService:
       relationship: 'Solicitor',
       telephoneNumber1: '0123456789',
       telephoneNumber2: '0987654321',
-      status: 'Approved',
     }
 
     return res.render('pages/pin-phone/official-contact', {

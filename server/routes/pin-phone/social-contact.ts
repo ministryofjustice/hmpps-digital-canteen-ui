@@ -24,7 +24,6 @@ export default function viewSocialContactsRoutes(router: Router, auditService: A
       country: 'United Kingdom',
       telephoneNumber1: '0123456789',
       telephoneNumber2: '0987654321',
-      status: 'In progress',
     }
 
     return res.render('pages/pin-phone/social-contact', {
