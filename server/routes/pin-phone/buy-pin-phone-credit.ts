@@ -9,7 +9,7 @@ export default function buyPinPhoneCreditRoutes(router: Router, auditService: Au
     const pinPhoneCredit = '35.13'
     const spendsBalance = '47.00'
     const pinPhoneCreditLimit = '50.00'
-    const creditBuyCapacity = '10.00'
+    const creditBuyCapacity = '14.87'
 
     const { creditAmount, amountType } = req.session
     return res.render('pages/pin-phone/buy-pin-phone-credit', {

@@ -5,6 +5,7 @@ import launchpadRoutes from './pin-phone/fake-launchpad'
 import pinPhoneRoutes from './pin-phone/pin-phone-landing'
 import buyPinPhoneCreditRoutes from './pin-phone/buy-pin-phone-credit'
 import checkOrderDetailsRoutes from './pin-phone/check-order-details'
+import buyCreditConfirmation from './pin-phone/buy-credit-confirmation'
 
 export default function routes({ auditService }: Services): Router {
   const router = Router()
@@ -17,5 +18,6 @@ export default function routes({ auditService }: Services): Router {
   pinPhoneRoutes(router, auditService)
   buyPinPhoneCreditRoutes(router, auditService)
   checkOrderDetailsRoutes(router, auditService)
+  buyCreditConfirmation(router, auditService)
   return router
 }

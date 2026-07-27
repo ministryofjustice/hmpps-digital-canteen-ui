@@ -22,7 +22,7 @@ test.describe('Buy PIN phone credit page', () => {
     await expect(rows.nth(2)).toContainText('£50.00')
 
     // Inset text
-    await expect(buyPage.insetText).toContainText('You can buy up to £10.00')
+    await expect(buyPage.insetText).toContainText('You can buy up to £14.87')
 
     // Radio buttons
     const radios = buyPage.amountRadios
@@ -31,7 +31,7 @@ test.describe('Buy PIN phone credit page', () => {
     await expect(radios.nth(1)).toContainText('£1.00')
     await expect(radios.nth(2)).toContainText('£3.00')
     await expect(radios.nth(3)).toContainText('£5.00')
-    await expect(radios.nth(4)).toContainText('Max (£10.00)')
+    await expect(radios.nth(4)).toContainText('Max (£14.87)')
     await expect(radios.nth(5)).toContainText('£')
 
     // Other elements
