@@ -17,5 +17,9 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
       totalCreditBalance,
     })
   })
+
+  router.post('/pin-phone/check-order-details', async (req, res) => {
+    return res.redirect('/pin-phone/buy-credit-confirmation')
+  })
   return router
 }
