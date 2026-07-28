@@ -27,7 +27,7 @@ test.describe('Buy credit confirmation page', () => {
     await expect(confirmationPage.buyMoreCreditLink).toHaveAttribute('href', '/pin-phone/buy-credit')
 
     await expect(confirmationPage.viewContactsLink).toBeVisible()
-    await expect(confirmationPage.viewContactsLink).toHaveAttribute('href', '/pin-phone/view-contacts')
+    await expect(confirmationPage.viewContactsLink).toHaveAttribute('href', '/pin-phone/contacts')
 
     await expect(confirmationPage.launchpadHomeLink).toBeVisible()
     await expect(confirmationPage.launchpadHomeLink).toHaveAttribute('href', '/launchpad')
