@@ -19,7 +19,6 @@ describe('Pagination service 2', () => {
         { text: 10, href: 'http://localhost/?page=9', selected: false },
       ],
       next: { text: 'Next', href: 'http://localhost/?page=1' },
-      previous: { text: 'Previous', href: 'http://localhost/?page=0' },
       results: { count: 110, from: 1, to: 10 },
     })
   })
@@ -97,10 +96,6 @@ describe('Pagination service 2', () => {
         { href: 'http://localhost/?page=18', selected: false, text: 19 },
         { href: 'http://localhost/?page=19', selected: true, text: 20 },
       ],
-      next: {
-        href: 'http://localhost/?page=19',
-        text: 'Next',
-      },
       previous: {
         href: 'http://localhost/?page=18',
         text: 'Previous',
@@ -130,10 +125,6 @@ describe('Pagination service 2', () => {
         { href: 'http://localhost/?page=18', selected: false, text: 19 },
         { href: 'http://localhost/?page=19', selected: true, text: 20 },
       ],
-      next: {
-        href: 'http://localhost/?page=19',
-        text: 'Next',
-      },
       previous: {
         href: 'http://localhost/?page=18',
         text: 'Previous',
@@ -196,10 +187,6 @@ describe('Pagination service 2', () => {
       next: {
         href: 'http://localhost/?page=1',
         text: 'Next',
-      },
-      previous: {
-        href: 'http://localhost/?page=0',
-        text: 'Previous',
       },
       results: {
         count: 70,

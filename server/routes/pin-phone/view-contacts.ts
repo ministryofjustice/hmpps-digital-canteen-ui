@@ -85,7 +85,7 @@ export default function viewContactsRoutes(router: Router, auditService: AuditSe
         const contactType = contact.type.toLowerCase()
         return [
           {
-            html: `<a class="govuk-link" href="/pin-phone/contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
+            html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
           },
           { text: contact.dateAdded },
           { text: contact.type },

@@ -89,14 +89,14 @@ const getPagination = (pagination: PaginationRequest, url: URL): PaginationResul
   const pageList = (numberOfPages > 1 && allPages.slice(from, to)) || []
 
   const previousPage =
-    numberOfPages > 1
+    numberOfPages > 1 && currentPage > 0
       ? {
           text: 'Previous',
           href: calculatePreviousUrl(currentPage, url),
         }
       : undefined
   const nextPage =
-    numberOfPages > 1
+    numberOfPages > 1 && currentPage < numberOfPages - 1
       ? {
           text: 'Next',
           href: calculateNextUrl(currentPage, numberOfPages, url),
