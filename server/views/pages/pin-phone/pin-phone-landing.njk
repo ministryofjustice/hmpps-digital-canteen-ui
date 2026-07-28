@@ -8,15 +8,17 @@
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBreadcrumbs({
-    classes: "app-breadcrumbs--blue",
-    items: [
-      {
-        text: "Home",
-        href: "/"
-      }
-    ]
-  }) }}
+  <div class="govuk-width-container govuk-!-margin-top-6">
+    {{ govukBreadcrumbs({
+      classes: "app-breadcrumbs--blue",
+      items: [
+        {
+          text: "Home",
+          href: "/"
+        }
+      ]
+    }) }}
+  </div>
 {% endblock %}
 
 {% block content %}

@@ -5,6 +5,10 @@ export default function pinPhoneRoutes(router: Router, auditService: AuditServic
   router.get('/pin-phone', async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_LANDING, { who: res.locals.user.username, correlationId: req.id })
 
+    // reset buy credit session data
+    delete req.session.creditAmount
+    delete req.session.amountType
+
     // todo: hard coded username, will come from launchpad session later
     const userName = 'John'
     return res.render('pages/pin-phone/pin-phone-landing', {

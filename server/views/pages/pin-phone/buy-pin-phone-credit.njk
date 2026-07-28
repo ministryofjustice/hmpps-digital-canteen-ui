@@ -13,6 +13,7 @@
   {{ govukInput({
     id: "customAmount",
     name: "customAmount",
+    value: creditAmount if amountType == 'other',
     classes: "govuk-input--width-4",
     prefix: {
       text: "£"
@@ -24,97 +25,112 @@
   {{ pageTitle }} - GOV.UK
 {% endblock %}
 
+{% block beforeContent %}
+  <div class="govuk-width-container govuk-!-margin-top-6">
+   {{ govukBackLink({
+       text: "Back",
+       href: "/pin-phone"})
+   }}
+  </div>
+{% endblock %}
+
 {% block content %}
- {{ govukBackLink({
-    text: "Back",
-    href: "/pin-phone"})
- }}
+ <div class="govuk-body govuk-width-container">
+     <div class="govuk-grid-row">
+       <div class="govuk-grid-column-two-thirds">
+         <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ pageTitle }}</h1>
 
-<form method="post" novalidate>
-  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+          <form method="post" novalidate>
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            {{ govukTable({
+              classes: "govuk-!-width-two-thirds",
+              firstCellIsHeader: false,
+              rows: [
+                [
+                  {
+                    text: "Current PIN phone credit",
+                    classes: "govuk-!-width-one-half govuk-!-font-weight-bold"
+                  },
+                  {
+                    text: "£" + pinPhoneCredit
+                  }
+                ],
+                [
+                  {
+                    text: "Spends balance",
+                    classes: "govuk-!-font-weight-bold"
+                  },
+                  {
+                    text: "£" + spendsBalance
+                  }
+                ],
+                [
+                  {
+                    text: "PIN phone credit limit",
+                    classes: "govuk-!-font-weight-bold"
+                  },
+                  {
+                    text: "£" + pinPhoneCreditLimit
+                  }
+                ]
+              ]
+            }) }}
 
-  {{ govukTable({
-    classes: "govuk-!-width-two-thirds",
-    firstCellIsHeader: false,
-    rows: [
-      [
-        {
-          text: "Current PIN phone credit",
-          classes: "govuk-!-width-one-half govuk-!-font-weight-bold"
-        },
-        {
-          text: "£" + pinPhoneCredit
-        }
-      ],
-      [
-        {
-          text: "Spends balance",
-          classes: "govuk-!-font-weight-bold"
-        },
-        {
-          text: "£" + spendsBalance
-        }
-      ],
-      [
-        {
-          text: "PIN phone credit limit",
-          classes: "govuk-!-font-weight-bold"
-        },
-        {
-          text: "£" + pinPhoneCreditLimit
-        }
-      ]
-    ]
-  }) }}
+            {% call govukInsetText() %}
+               You can buy up to £{{ creditBuyCapacity }}
+            {% endcall %}
 
-  {% call govukInsetText() %}
-     You can buy upto £{{ creditBuyCapacity }}
-  {% endcall %}
-
-{{ govukRadios({
-  classes: "pin-credit-radios",
-  name: "amount",
-  fieldset: {
-    legend: {
-      text: "How much PIN phone credit would you like to buy?",
-      classes: "govuk-fieldset__legend--m"
-    }
-  },
-  items: [
-    {
-      value: "0.50",
-      text: "£0.50"
-    },
-    {
-      value: "1",
-      text: "£1.00"
-    },
-    {
-      value: "3",
-      text: "£3.00"
-    },
-    {
-      value: "5",
-      text: "£5.00"
-    },
-    {
-     value: creditBuyCapacity,
-     text: "Max (£" +  creditBuyCapacity  +")"
-    },
-    {
-      divider: "Or add your own amount"
-    },
-    {
-      value: "other",
-      html: otherAmount
-    }
-  ]
-}) }}
-{{ govukButton({
-    text: "Continue",
-    type: "submit"
-  }) }}
-</form>
-
+          {{ govukRadios({
+            classes: "pin-credit-radios",
+            name: "amount",
+            fieldset: {
+              legend: {
+                text: "How much PIN phone credit would you like to buy?",
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: [
+              {
+                value: "0.50",
+                text: "£0.50",
+                checked: amountType == '0.50'
+              },
+              {
+                value: "1",
+                text: "£1.00",
+                checked: amountType == '1'
+              },
+              {
+                value: "3",
+                text: "£3.00",
+                checked: amountType == '3'
+              },
+              {
+                value: "5",
+                text: "£5.00",
+                checked: amountType == '5'
+              },
+              {
+               value: creditBuyCapacity,
+               text: "Max (£" +  creditBuyCapacity  +")",
+               checked: amountType == creditBuyCapacity
+              },
+              {
+                divider: "Or add your own amount"
+              },
+              {
+                value: "other",
+                html: otherAmount,
+                checked: amountType == 'other'
+              }
+            ]
+          }) }}
+          {{ govukButton({
+              text: "Continue",
+              type: "submit"
+            }) }}
+          </form>
+         </div>
+       </div>
+     </div>
 {% endblock %}

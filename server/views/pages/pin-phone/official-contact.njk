@@ -1,0 +1,112 @@
+{% extends "../../partials/layout.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = contact.name %}
+
+{% block pageTitle %}
+  {{ pageTitle }} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container govuk-!-margin-top-6">
+    {{ govukBackLink({
+      text: "Back",
+      href: "/pin-phone/contacts"
+    }) }}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+
+  {{ govukInsetText({
+      classes: "app-inset-text--blue",
+      html: 'To change this contact go to Apps and choose <a class="govuk-link" href="' + pinPhoneApps + '">PIN phones apps</a>'
+  }) }}
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: "Date added"
+        },
+        value: {
+          text: contact.dateAdded
+        }
+      },
+      {
+        key: {
+          text: "Contact type"
+        },
+        value: {
+          text: contact.type
+        }
+      }
+    ]
+  }) }}
+
+  {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "First name"
+          },
+          value: {
+            text: contact.firstName
+          }
+        },
+        {
+          key: {
+            text: "Last name"
+          },
+          value: {
+            text: contact.lastName
+          }
+        },
+        {
+          key: {
+            text: "Organisation"
+          },
+          value: {
+            html: contact.organisation
+          }
+        },
+        {
+          key: {
+            text: "Relationship"
+          },
+          value: {
+            html: contact.relationship
+          }
+        },
+        {
+          key: {
+            text: "Telephone number 1"
+          },
+          value: {
+            text: contact.telephoneNumber1
+          }
+        },
+        {
+          key: {
+            text: "Telephone number 2"
+          },
+          value: {
+            text: contact.telephoneNumber2
+          }
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Back to view contacts",
+      classes: "govuk-button--secondary",
+      href: "/pin-phone/contacts"
+    }) }}
+
+{% endblock %}
