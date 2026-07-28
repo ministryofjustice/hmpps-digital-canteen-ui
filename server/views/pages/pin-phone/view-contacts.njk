@@ -12,10 +12,12 @@
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/pin-phone"
-  }) }}
+  <div class="govuk-width-container govuk-!-margin-top-6">
+    {{ govukBackLink({
+      text: "Back",
+      href: "/pin-phone"
+    }) }}
+  </div>
 {% endblock %}
 
 {% block content %}
