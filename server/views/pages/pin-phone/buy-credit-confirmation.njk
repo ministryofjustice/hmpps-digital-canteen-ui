@@ -1,0 +1,37 @@
+{% extends "../../partials/layout.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+
+{% set pageTitle = "Pin phone - Buy credit confirmation" %}
+{% block pageTitle %}
+  {{ pageTitle }} - GOV.UK
+{% endblock %}
+
+{% block content %}
+<div class="govuk-body govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+      {{ govukPanel({
+        titleText: "You have bought credit",
+        html: "Date bought<br><strong>" +dateBought+ "</strong>"
+      }) }}
+    </div>
+  </div>
+  <p class="govuk-body govuk-!-margin-top-2">Your credit has been added to your PIN phone account.</p>
+  <p class="govuk-body govuk-!-margin-bottom-0">You can now:</p>
+    <ul class="govuk-list govuk-list--bullet">
+     <li>
+       <a href="/pin-phone/buy-credit" class="govuk-link">buy more PIN phone credit</a>
+     </li>
+     <li>
+       <a href="/pin-phone/view-contacts" class="govuk-link">view your approved contacts</a>
+     </li>
+    </ul>
+  <p class="govuk-body govuk-!-margin-bottom-0">Or you can:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>
+        <a href="/launchpad" class="govuk-link">go to Launchpad Home</a>
+      </li>
+    </ul>
+</div>
+{% endblock %}
