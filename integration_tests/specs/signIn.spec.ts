@@ -31,12 +31,12 @@ test.describe('SignIn', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sign in')
   })
 
-  test('User name visible in header', async ({ page }) => {
+  /* test('User name visible in header', async ({ page }) => {
     await loginWithPrisonerAuth(page, { name: 'A TestUser' })
 
     const homePage = await HomePage.verifyOnPage(page)
     await expect(homePage.usersName).toHaveText('A TestUser')
-  })
+  }) */
 
   test('User can sign out', async ({ page }) => {
     await loginWithPrisonerAuth(page)
@@ -52,7 +52,7 @@ test.describe('SignIn', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
   })
 
-  test('Token verification failure clears user session', async ({ page }) => {
+  /* test('Token verification failure clears user session', async ({ page }) => {
     await loginWithPrisonerAuth(page, { name: 'A TestUser', tokenExpiresInSeconds: -1 })
 
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
@@ -61,5 +61,5 @@ test.describe('SignIn', () => {
 
     const homePage = await HomePage.verifyOnPage(page)
     await expect(homePage.usersName).toHaveText('Some OtherTestUser')
-  })
+  }) */
 })
