@@ -44,6 +44,7 @@ generic-service:
     hmpps-digital-canteen-api-client-creds:
       CLIENT_CREDS_CLIENT_ID: 'API_CLIENT_ID'
       CLIENT_CREDS_CLIENT_SECRET: 'API_CLIENT_SECRET'
+    launchpad-secrets:
       LAUNCHPAD_API_CLIENT_ID: 'LAUNCHPAD_API_CLIENT_ID'
       LAUNCHPAD_API_CLIENT_SECRET: 'LAUNCHPAD_API_CLIENT_SECRET'
     hmpps-digital-canteen-ui-auth-code:
