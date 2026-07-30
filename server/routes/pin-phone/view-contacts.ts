@@ -65,7 +65,7 @@ function getContacts(page: number, size: number): PaginatedResponse {
 }
 
 export default function viewContactsRoutes(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/contacts', async (req, res, _next) => {
+  router.get('/pin-phone/view-contacts', async (req, res, _next) => {
     await auditService.logPageView(Page.VIEW_CONTACTS, { who: res.locals.user.username, correlationId: req.id })
 
     const currentPage = Number.parseInt(req.query.page as string, 10) || 0
@@ -85,7 +85,7 @@ export default function viewContactsRoutes(router: Router, auditService: AuditSe
         const contactType = contact.type.toLowerCase()
         return [
           {
-            html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
+            html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/view-contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
           },
           { text: contact.dateAdded },
           { text: contact.type },

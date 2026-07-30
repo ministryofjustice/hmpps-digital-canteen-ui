@@ -3,7 +3,7 @@ import AuditService, { Page } from '../../services/auditService'
 import config from '../../config'
 
 export default function viewOfficialContactsRoutes(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/contacts/official-contact/:contactId', async (req, res, _next) => {
+  router.get('/pin-phone/view-contacts/official-contact/:contactId', async (req, res, _next) => {
     await auditService.logPageView(Page.OFFICIAL_CONTACT, { who: res.locals.user.username, correlationId: req.id })
 
     const { contactId } = req.params

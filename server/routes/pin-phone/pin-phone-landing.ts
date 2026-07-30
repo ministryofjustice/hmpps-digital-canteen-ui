@@ -14,7 +14,7 @@ export default function pinPhoneRoutes(router: Router, auditService: AuditServic
     return res.render('pages/pin-phone/pin-phone-landing', {
       userName,
       buyCreditsUrl: '/pin-phone/buy-credit',
-      viewContactsUrl: '/pin-phone/contacts',
+      viewContactsUrl: '/pin-phone/view-contacts',
     })
   })
 

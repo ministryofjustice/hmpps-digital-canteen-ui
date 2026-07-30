@@ -9,7 +9,7 @@ test.describe('Pin Phone view contacts page', () => {
 
   test.describe('with multiple pages of contacts', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/pin-phone/contacts')
+      await page.goto('/pin-phone/view-contacts')
     })
 
     test('can see page heading', async ({ page }) => {

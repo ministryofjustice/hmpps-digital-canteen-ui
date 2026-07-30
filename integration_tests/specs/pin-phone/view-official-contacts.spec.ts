@@ -20,7 +20,7 @@ test.describe('Pin Phone view official contacts page', () => {
 
   test.describe('View official contacts', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/pin-phone/contacts/official-contact/:contactId')
+      await page.goto('/pin-phone/view-contacts/official-contact/:contactId')
     })
     // todo update once API implemented
     test.skip('can see contacts full name', async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe('Pin Phone view official contacts page', () => {
 
     test('link to pin phone landing', async ({ page }) => {
       const officialContactsPage = await OfficialContactsPage.verifyOnPage(page)
-      await expect(officialContactsPage.backLink).toHaveAttribute('href', '/pin-phone/contacts')
+      await expect(officialContactsPage.backLink).toHaveAttribute('href', '/pin-phone/view-contacts')
     })
 
     test('inset text with link', async ({ page }) => {
@@ -52,7 +52,7 @@ test.describe('Pin Phone view official contacts page', () => {
 
     test('Back button should display', async ({ page }) => {
       const officialContactsPage = await OfficialContactsPage.verifyOnPage(page)
-      await expect(officialContactsPage.backButton).toHaveAttribute('href', '/pin-phone/contacts')
+      await expect(officialContactsPage.backButton).toHaveAttribute('href', '/pin-phone/view-contacts')
     })
   })
 })
