@@ -1,3 +1,4 @@
+import { LaunchpadHeaderLocals, LaunchpadFooterLocals } from '@ministryofjustice/hmpps-prisoner-facing-components'
 import { HmppsUser } from '../../interfaces/hmppsUser'
 
 export declare module 'express-session' {
@@ -23,7 +24,7 @@ export declare global {
       logout(done: (err: unknown) => void): void
     }
 
-    interface Locals {
+    interface Locals extends LaunchpadHeaderLocals, LaunchpadFooterLocals {
       user: HmppsUser
       cspNonce: string
       csrfToken: string
