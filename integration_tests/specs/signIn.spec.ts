@@ -35,7 +35,7 @@ test.describe('SignIn', () => {
     await loginWithPrisonerAuth(page, { name: 'A TestUser' })
 
     const homePage = await HomePage.verifyOnPage(page)
-    await expect(homePage.usersName).toHaveText('A TestUser')
+    await expect(homePage.usersName).toHaveText('A. TestUser')
   })
 
   test('User can sign out', async ({ page }) => {
@@ -60,6 +60,6 @@ test.describe('SignIn', () => {
     await loginWithPrisonerAuth(page, { name: 'Some OtherTestUser', active: true })
 
     const homePage = await HomePage.verifyOnPage(page)
-    await expect(homePage.usersName).toHaveText('Some OtherTestUser')
+    await expect(homePage.usersName).toHaveText('S. OtherTestUser')
   })
 })
