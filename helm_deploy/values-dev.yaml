@@ -14,6 +14,7 @@ generic-service:
     LAUNCHPAD_AUTH_URL: "https://launchpad-auth-dev.hmpps.service.justice.gov.uk"
     LAUNCHPAD_URL: 'https://launchpad-home-dev.hmpps.service.justice.gov.uk/'
     EXAMPLE_API_URL: 'https://template-kotlin-dev.hmpps.service.justice.gov.uk'
+    PRISONER_APPS_URL: 'https://prisoner-apps-dev.hmpps.service.justice.gov.uk/'
     ENVIRONMENT_NAME: DEV
     AUDIT_ENABLED: "false"
 

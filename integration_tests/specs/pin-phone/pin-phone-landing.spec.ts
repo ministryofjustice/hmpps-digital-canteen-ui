@@ -21,7 +21,7 @@ test.describe('Pin Phone home page', () => {
 
   test('can see view contacts card', async ({ page }) => {
     const pinPhonePage = await PinPhoneLandingPage.verifyOnPage(page)
-    await expect(pinPhonePage.viewContactsLink()).toHaveAttribute('href', '/pin-phone/contacts')
+    await expect(pinPhonePage.viewContactsLink()).toHaveAttribute('href', '/pin-phone/view-contacts')
     await expect(pinPhonePage.viewContactsCard).toContainText('View your approved and pending contacts')
   })
 
