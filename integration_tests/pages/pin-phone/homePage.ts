@@ -8,8 +8,8 @@ export default class HomePage extends AbstractPage {
 
   private constructor(page: Page) {
     super(page)
-    this.header = page.locator('h1')
-    this.usersName = page.getByTestId('header-user-name')
+    this.header = page.locator('h1', { hasText: 'This site is under construction...' })
+    this.usersName = page.getByTestId('launchpad-home-header-user-name')
   }
 
   static async verifyOnPage(page: Page): Promise<HomePage> {
