@@ -9,12 +9,13 @@
 
 {% block beforeContent %}
   <div class="govuk-width-container govuk-!-margin-top-6">
+
     {{ govukBreadcrumbs({
-      classes: "app-breadcrumbs--blue",
+      classes: "govuk-!-margin-bottom-2",
       items: [
         {
           text: "Home",
-          href: "/"
+          href: launchpadHome
         }
       ]
     }) }}
@@ -22,9 +23,9 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+  <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
 
-  <div class="app-card-group">
+  <div class="app-card-group" govuk-!-margin-bottom-6 govuk-!-margin-top-0 govuk-!-padding-top-0">
     <div class="app-card app-card--green">
       <div class="app-card__header">
         <svg class="app-card__icon" viewBox="0 0 93 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
