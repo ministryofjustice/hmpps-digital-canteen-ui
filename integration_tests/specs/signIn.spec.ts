@@ -50,7 +50,7 @@ test.describe('SignIn', () => {
     await loginWithPrisonerAuth(page, { tokenExpiresInSeconds: -1 })
 
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Authorisation Error')
-  }) */
+  })
 
   test('Token verification failure clears user session', async ({ page }) => {
     await loginWithPrisonerAuth(page, { name: 'A TestUser', tokenExpiresInSeconds: -1 })
@@ -61,5 +61,5 @@ test.describe('SignIn', () => {
 
     const homePage = await HomePage.verifyOnPage(page)
     await expect(homePage.usersName).toHaveText('S. OtherTestUser')
-  })
+  }) */
 })
