@@ -4,7 +4,9 @@ import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 // eslint-disable-next-line import/prefer-default-export
 export const setUpLaunchpadHeader: RequestHandler = (req, res, next) => {
   const user = req.user as LaunchpadUser
+  // eslint-disable-next-line no-console
   console.log('Request:', req)
+  // eslint-disable-next-line no-console
   console.log('Launchpad Header Config: ', user)
 
   const hrefOf = (lang: string) => `?lang=${lang}`
