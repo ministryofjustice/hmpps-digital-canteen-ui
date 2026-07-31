@@ -1,8 +1,9 @@
 import { Router } from 'express'
 import AuditService, { Page } from '../../services/auditService'
+import { ROUTE_PATHS } from '../../constants/ROUTE_PATHS'
 
 export default function buyPinPhoneCreditRoutes(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/buy-credit', async (req, res, _next) => {
+  router.get(ROUTE_PATHS.BUY_CREDIT, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_BUY_CREDITS, { who: res.locals.user.username, correlationId: req.id })
 
     // todo: hard coded values, will come from service later
@@ -21,7 +22,7 @@ export default function buyPinPhoneCreditRoutes(router: Router, auditService: Au
       amountType: amountType || '',
     })
   })
-  router.post('/pin-phone/buy-credit', async (req, res) => {
+  router.post(ROUTE_PATHS.BUY_CREDIT, async (req, res) => {
     const { amount, customAmount } = req.body
     if (amount === 'other') {
       req.session.creditAmount = customAmount

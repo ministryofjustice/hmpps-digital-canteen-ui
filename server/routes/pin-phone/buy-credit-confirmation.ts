@@ -1,8 +1,9 @@
 import { Router } from 'express'
 import AuditService, { Page } from '../../services/auditService'
+import { ROUTE_PATHS } from '../../constants/ROUTE_PATHS'
 
 export default function buyCreditConfirmation(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/buy-credit-confirmation', async (req, res, _next) => {
+  router.get(ROUTE_PATHS.BUY_CREDIT_CONFIRMATION, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_BUY_CONFIRMATION, {
       who: res.locals.user.username,
       correlationId: req.id,

@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import AuditService, { Page } from '../../services/auditService'
 import config from '../../config'
+import { ROUTE_PATHS } from '../../constants/ROUTE_PATHS'
 
 export default function viewSocialContactsRoutes(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/view-contacts/social-contact/:contactId', async (req, res, _next) => {
+  router.get(ROUTE_PATHS.VIEW_SOCIAL_CONTACTS, async (req, res, _next) => {
     await auditService.logPageView(Page.SOCIAL_CONTACT, { who: res.locals.user.username, correlationId: req.id })
 
     const { contactId } = req.params
