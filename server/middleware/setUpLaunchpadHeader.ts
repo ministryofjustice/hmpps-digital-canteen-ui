@@ -8,6 +8,7 @@ export const setUpLaunchpadHeader: RequestHandler = (req, res, next) => {
   const hrefOf = (lang: string) => `?lang=${lang}`
 
   res.locals.launchpadHeaderConfig = {
+    url: process.env.LAUNCHPAD_URL,
     user: { name: user?.name },
     translations: {
       enabled: false,

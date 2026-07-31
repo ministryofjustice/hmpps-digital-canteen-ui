@@ -35,7 +35,7 @@
     "@ministryofjustice/hmpps-auth-clients": "^1.0.2",
     "@ministryofjustice/hmpps-monitoring": "^1.0.2",
     "@ministryofjustice/hmpps-prisoner-auth": "0.0.3",
-    "@ministryofjustice/hmpps-prisoner-facing-components": "0.0.8",
+    "@ministryofjustice/hmpps-prisoner-facing-components": "0.0.12",
     "@ministryofjustice/hmpps-rest-client": "^1.2.0",
     "applicationinsights": "^2.9.8",
     "bunyan": "^1.8.15",
@@ -101,5 +101,4 @@
     "@opentelemetry/core": "2.9.0",
     "brace-expansion": ">=5.0.7"
   }
-
-  }
+}
