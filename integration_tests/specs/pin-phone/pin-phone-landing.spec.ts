@@ -27,6 +27,9 @@ test.describe('Pin Phone home page', () => {
 
   test('link to home', async ({ page }) => {
     const pinPhonePage = await PinPhoneLandingPage.verifyOnPage(page)
-    await expect(pinPhonePage.breadcrumbHome).toHaveAttribute('href', '/')
+    await expect(pinPhonePage.breadcrumbHome).toHaveAttribute(
+      'href',
+      'https://launchpad-home-dev.hmpps.service.justice.gov.uk/',
+    )
   })
 })
