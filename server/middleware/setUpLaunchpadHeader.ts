@@ -2,7 +2,7 @@ import { RequestHandler } from 'express'
 import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 
 // eslint-disable-next-line import/prefer-default-export
-export const setUpLaunchPadHeader: RequestHandler = (req, res, next) => {
+export const setUpLaunchpadHeader: RequestHandler = (req, res, next) => {
   const user = req.user as LaunchpadUser
   const hrefOf = (lang: string) => `?lang=${lang}`
 

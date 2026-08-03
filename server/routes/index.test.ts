@@ -23,7 +23,7 @@ afterEach(() => {
 })
 
 describe('GET /', () => {
-  it('should redirect to launchpad', () => {
-    return request(app).get('/').expect(302).expect('Location', '/launchpad')
+  it('should redirect to pin-phone', () => {
+    return request(app).get('/').expect(302).expect('Location', '/pin-phone')
   })
 })

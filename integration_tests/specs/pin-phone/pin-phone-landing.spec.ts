@@ -10,7 +10,7 @@ test.describe('Pin Phone home page', () => {
 
   test('can see page heading with username', async ({ page }) => {
     await PinPhoneLandingPage.verifyOnPage(page)
-    await expect(page.locator('h1')).toContainText("John's PIN phone")
+    await expect(page.locator('h1')).toContainText("A TestUser's PIN phone")
   })
 
   test('can see buy credit card', async ({ page }) => {
@@ -27,6 +27,9 @@ test.describe('Pin Phone home page', () => {
 
   test('link to home', async ({ page }) => {
     const pinPhonePage = await PinPhoneLandingPage.verifyOnPage(page)
-    await expect(pinPhonePage.breadcrumbHome).toHaveAttribute('href', '/')
+    await expect(pinPhonePage.breadcrumbHome).toHaveAttribute(
+      'href',
+      'https://launchpad-home-dev.hmpps.service.justice.gov.uk/',
+    )
   })
 })

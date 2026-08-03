@@ -9,10 +9,14 @@
 {% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
 
 {% block header %}
-{{ launchpadHeader(launchpadHeaderConfig) }}
+  {{ launchpadHeader(launchpadHeaderConfig) }}
 {% endblock %}
 
 {% block bodyStart %}
+{% endblock %}
+
+{% block footer %}
+  {{ launchpadFooter(launchpadFooterConfig) }}
 {% endblock %}
 
 {% block bodyEnd %}

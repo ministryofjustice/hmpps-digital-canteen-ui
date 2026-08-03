@@ -44,6 +44,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
       applicationName: '',
       environmentName: '',
       environmentNameColour: '',
+      launchpadHome: 'https://launchpad-home-dev.hmpps.service.justice.gov.uk/',
     }
     next()
   })

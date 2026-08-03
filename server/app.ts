@@ -8,7 +8,7 @@ import { appInsightsMiddleware } from './utils/azureAppInsights'
 
 import setUpAuthentication from './middleware/setUpAuthentication'
 import setUpCsrf from './middleware/setUpCsrf'
-import { setUpLaunchPadHeader } from './middleware/setUpLaunchPadHeader'
+import { setUpLaunchpadHeader } from './middleware/setUpLaunchpadHeader'
 import { setUpLaunchpadFooter } from './middleware/setUpLaunchpadFooter'
 import setUpHealthChecks from './middleware/setUpHealthChecks'
 import setUpStaticResources from './middleware/setUpStaticResources'
@@ -37,7 +37,7 @@ export default function createApp(services: Services): express.Application {
   nunjucksSetup(app)
   app.use(setUpAuthentication())
   app.use(setUpCsrf())
-  app.use(setUpLaunchPadHeader)
+  app.use(setUpLaunchpadHeader)
   app.use(setUpLaunchpadFooter)
   app.use(routes(services))
 
