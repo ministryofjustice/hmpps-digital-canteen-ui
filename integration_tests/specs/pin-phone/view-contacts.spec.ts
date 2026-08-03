@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test'
-import { login } from '../../testUtils'
+import { loginWithPrisonerAuth } from '../../testUtils'
 import ContactsPage from '../../pages/pin-phone/ContactsPage'
 
 test.describe('Pin Phone view contacts page', () => {
   test.beforeEach(async ({ page }) => {
-    await login(page)
+    await loginWithPrisonerAuth(page)
   })
 
   test.describe('with multiple pages of contacts', () => {

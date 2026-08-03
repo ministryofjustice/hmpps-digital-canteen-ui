@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test'
-import { login } from '../../testUtils'
+import { loginWithPrisonerAuth } from '../../testUtils'
 import PinPhoneLandingPage from '../../pages/pin-phone/pinPhoneLandingPage'
 
 test.describe('Pin Phone home page', () => {
   test.beforeEach(async ({ page }) => {
-    await login(page)
+    await loginWithPrisonerAuth(page)
     await page.goto('/pin-phone')
   })
 
