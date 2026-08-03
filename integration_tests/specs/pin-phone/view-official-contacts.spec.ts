@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { login } from '../../testUtils'
+import { loginWithPrisonerAuth } from '../../testUtils'
 import OfficialContactsPage from '../../pages/pin-phone/OfficialContactsPage'
 
 const expectedFirstSummaryKeys = ['Date added', 'Contact type']
@@ -15,7 +15,7 @@ const expectedKeys = [
 
 test.describe('Pin Phone view official contacts page', () => {
   test.beforeEach(async ({ page }) => {
-    await login(page)
+    await loginWithPrisonerAuth(page)
   })
 
   test.describe('View official contacts', () => {
