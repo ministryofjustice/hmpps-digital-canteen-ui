@@ -4,19 +4,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
  {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
+{% set backLinkHref = "/pin-phone/buy-credit" %}
 {% set pageTitle = "Check order details" %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
-{% endblock %}
-
-{% block beforeContent %}
-  <div class="govuk-width-container govuk-!-margin-top-6">
-   {{ govukBackLink({
-       text: "Back",
-       href: "/pin-phone/buy-credit"})
-   }}
-  </div>
 {% endblock %}
 
 {% block content %}
