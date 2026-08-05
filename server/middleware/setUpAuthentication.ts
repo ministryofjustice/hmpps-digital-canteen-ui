@@ -35,8 +35,36 @@ passport.use(
   ),
 )
 
+function createFakeToken(): string {
+  const payload = Buffer.from(
+    JSON.stringify({
+      user_name: 'DEV_USER',
+      auth_source: 'nomis',
+      authorities: ['ROLE_PRISON'],
+      exp: Math.floor(Date.now() / 1000) + 3600,
+    }),
+  ).toString('base64url')
+
+  return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${payload}.fake-signature`
+}
+
 export default function setupAuthentication() {
   const router = Router()
+
+  if (process.env.BYPASS_AUTH === 'true') {
+    router.use((req, _res, next) => {
+      req.user = {
+        token: createFakeToken(),
+      } as HmppsUser
+      next()
+    })
+    router.use((req, res, next) => {
+      res.locals.user = req.user as HmppsUser
+      next()
+    })
+    return router
+  }
+
   const tokenVerificationClient = new VerificationClient(config.apis.tokenVerification, logger)
 
   router.use(passport.initialize())
