@@ -1,4 +1,6 @@
 {% extends "govuk/template.njk" %}
+{% from "pfs/components/launchpad-header/macro.njk" import launchpadHeader %}
+{% from "pfs/components/launchpad-footer/macro.njk" import launchpadFooter %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
@@ -9,7 +11,7 @@
 {% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
 
 {% block header %}
-  {% include "./header.njk" %}
+  {{ launchpadHeader(launchpadHeaderConfig) }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -37,6 +39,10 @@
 {% endblock %}
 
 {% block bodyStart %}
+{% endblock %}
+
+{% block footer %}
+  {{ launchpadFooter(launchpadFooterConfig) }}
 {% endblock %}
 
 {% block bodyEnd %}
