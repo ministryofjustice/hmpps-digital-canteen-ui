@@ -10,7 +10,7 @@ import viewContacts from './pin-phone/view-contacts'
 import socialContact from './pin-phone/social-contact'
 import officialContact from './pin-phone/official-contact'
 
-export default function routes({ auditService }: Services): Router {
+export default function routes({ auditService, pinPhoneService }: Services): Router {
   const router = Router()
 
   router.get('/', async (req, res, _next) => {
@@ -19,7 +19,7 @@ export default function routes({ auditService }: Services): Router {
 
   launchpadRoutes(router)
   pinPhoneRoutes(router, auditService)
-  buyPinPhoneCreditRoutes(router, auditService)
+  buyPinPhoneCreditRoutes(router, auditService, pinPhoneService)
   checkOrderDetailsRoutes(router, auditService)
   buyCreditConfirmation(router, auditService)
   viewContacts(router, auditService)

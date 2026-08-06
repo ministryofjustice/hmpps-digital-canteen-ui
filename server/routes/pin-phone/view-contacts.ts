@@ -2,6 +2,7 @@ import { Router } from 'express'
 import AuditService, { Page } from '../../services/auditService'
 import paginationService from '../../services/paginationService'
 import config from '../../config'
+import { PATHS } from '../../constants/paths'
 
 // todo: remove once API is implemented
 interface Contact {
@@ -65,7 +66,7 @@ function getContacts(page: number, size: number): PaginatedResponse {
 }
 
 export default function viewContactsRoutes(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/view-contacts', async (req, res, _next) => {
+  router.get(PATHS.VIEW_CONTACTS, async (req, res, _next) => {
     await auditService.logPageView(Page.VIEW_CONTACTS, { who: res.locals.user.username, correlationId: req.id })
 
     const currentPage = Number.parseInt(req.query.page as string, 10) || 0
