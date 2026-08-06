@@ -30,12 +30,8 @@ export default function buyPinPhoneCreditRoutes(
         firstName: user.givenName,
         lastName: user.familyName,
       }
-      try {
-        const result = await pinPhoneService.createCart(createCartRequest)
-        req.session.cartId = result.cartId
-      } catch (error) {
-        // TBD: handle error
-      }
+      const result = await pinPhoneService.createCart(createCartRequest)
+      req.session.cartId = result.cartId
 
       return res.render('pages/pin-phone/buy-pin-phone-credit', {
         pinPhoneCredit,
