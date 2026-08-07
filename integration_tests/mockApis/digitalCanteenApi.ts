@@ -5,8 +5,8 @@ export default {
   stubPing: (httpStatus = 200): SuperAgentRequest =>
     stubFor({
       request: {
-        method: 'Get',
-        urlPattern: '/health/ping',
+        method: 'GET',
+        urlPattern: '/digitalCanteenApi/health/ping',
       },
       response: {
         status: httpStatus,
@@ -19,7 +19,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        urlPattern: '/api/carts',
+        urlPattern: '/digitalCanteenApi/api/carts',
       },
       response: {
         status: httpStatus,
