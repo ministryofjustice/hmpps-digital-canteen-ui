@@ -14,4 +14,19 @@ export default {
         jsonBody: { status: httpStatus === 200 ? 'UP' : 'DOWN' },
       },
     }),
+
+  stubCreateCart: (cartId = 'TEST_CART_ID', httpStatus = 200): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: '/api/carts',
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          cartId,
+        },
+      },
+    }),
 }
