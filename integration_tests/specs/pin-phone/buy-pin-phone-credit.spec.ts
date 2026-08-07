@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test'
 import { loginWithPrisonerAuth } from '../../testUtils'
 import BuyPinPhoneCreditPage from '../../pages/pin-phone/buyPinPhoneCreditPage'
 import CheckOrderDetailsPage from '../../pages/pin-phone/checkOrderDetailsPage'
-import { PATHS } from '../../../server/constants/paths'
 import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 
 test.describe('Buy PIN phone credit page', () => {
