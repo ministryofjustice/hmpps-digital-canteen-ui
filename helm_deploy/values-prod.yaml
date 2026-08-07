@@ -15,6 +15,7 @@ generic-service:
     LAUNCHPAD_URL: "https://launchpad-home.hmpps.service.justice.gov.uk"
     EXAMPLE_API_URL: "https://template-kotlin.hmpps.service.justice.gov.uk"
     PRISONER_APPS_URL: "https://prisoner-apps.hmpps.service.justice.gov.uk/"
+    DIGITAL_CANTEEN_API_URL: "https://digital-canteen-api.hmpps.service.justice.gov.uk"
     AUDIT_ENABLED: "false"
 
 generic-prometheus-alerts:

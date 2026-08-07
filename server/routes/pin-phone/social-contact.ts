@@ -8,6 +8,10 @@ export default function viewSocialContactsRoutes(router: Router, auditService: A
 
     const { contactId } = req.params
     // todo update when API is implemented
+    const selectedContact = req.session.allContacts?.find(c => c.id === Number(req.params.contactId))
+
+    console.log(selectedContact)
+
     const contact = {
       id: contactId,
       name: 'John Doe',
@@ -28,7 +32,7 @@ export default function viewSocialContactsRoutes(router: Router, auditService: A
 
     return res.render('pages/pin-phone/social-contact', {
       pinPhoneApps: config.prisonerAppsUrl,
-      contact,
+      selectedContact,
     })
   })
 
