@@ -20,7 +20,7 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
   })
 
   router.post(PATHS.CHECK_ORDER_DETAILS, async (req, res) => {
-    return res.redirect('/pin-phone/buy-credit-confirmation')
+    return res.redirect(PATHS.PIN_PHONE_CONFIRMATION)
   })
   return router
 }

@@ -54,8 +54,7 @@ export default function buyPinPhoneCreditRoutes(
       req.session.creditAmount = amount
       req.session.amountType = amount
     }
-    return res.redirect('/pin-phone/check-order-details')
+    return res.redirect(PATHS.CHECK_ORDER_DETAILS)
   })
-
   return router
 }
