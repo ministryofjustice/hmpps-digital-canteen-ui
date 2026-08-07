@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 import AuditService, { Page } from '../../services/auditService'
 import { PATHS } from '../../constants/paths'
 
@@ -10,8 +11,8 @@ export default function pinPhoneRoutes(router: Router, auditService: AuditServic
     delete req.session.creditAmount
     delete req.session.amountType
 
-    // todo: hard coded username, will come from launchpad session later
-    const userName = 'John'
+    const user = req.user as LaunchpadUser
+    const userName = user.username
     return res.render('pages/pin-phone/pin-phone-landing', {
       userName,
       buyCreditsUrl: PATHS.BUY_CREDIT,
