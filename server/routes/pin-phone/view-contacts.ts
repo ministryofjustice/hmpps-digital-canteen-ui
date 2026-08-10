@@ -44,7 +44,7 @@ export default function viewContactsRoutes(
           {
             html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/view-contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
           },
-          { text: 'null' },
+          { text: "we don't have" },
           { text: contact.contactType },
         ]
       })

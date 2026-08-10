@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test'
 import { loginWithPrisonerAuth } from '../../testUtils'
 import SocialContactsPage from '../../pages/pin-phone/SocialContactsPage'
+import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 
 const expectedFirstSummaryKeys = ['Date added', 'Contact type']
 
 const expectedSecondSummaryKeys = [
-  'First name',
+  'Name',
   'Last name',
   'Date of birth or age',
   'Relationship',
@@ -20,17 +21,19 @@ const expectedSecondSummaryKeys = [
 
 test.describe('Pin Phone view contacts page', () => {
   test.beforeEach(async ({ page }) => {
+    await digitalCanteenApi.stubGetLessThan10Contacts('A-BOOKING-ID')
     await loginWithPrisonerAuth(page)
+    await page.goto('/pin-phone/view-contacts')
   })
 
   test.describe('View social contacts', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/pin-phone/view-contacts/social-contact/:contactId')
+      await page.goto('/pin-phone/view-contacts/social-contact/162439')
     })
-    // todo update once API implemented
-    test.skip('can see contacts full name', async ({ page }) => {
+
+    test('can see contacts full name', async ({ page }) => {
       const socialContactsPage = await SocialContactsPage.verifyOnPage(page)
-      await expect(socialContactsPage.header).toContainText('contact name')
+      await expect(socialContactsPage.header).toContainText('John Doe')
     })
 
     test('link to pin phone landing', async ({ page }) => {

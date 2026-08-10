@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test'
+import { type Locator, type Page } from '@playwright/test'
 import AbstractPage from '../abstractPage'
 
 export default class SocialContactsPage extends AbstractPage {
@@ -22,9 +22,6 @@ export default class SocialContactsPage extends AbstractPage {
   }
 
   static async verifyOnPage(page: Page): Promise<SocialContactsPage> {
-    const socialContactsPage = new SocialContactsPage(page)
-    // todo update once API implemented
-    await expect(socialContactsPage.header).toContainText('John Doe')
-    return socialContactsPage
+    return new SocialContactsPage(page)
   }
 }
