@@ -15,7 +15,7 @@ generic-service:
     LAUNCHPAD_URL: "https://launchpad-home-dev.hmpps.service.justice.gov.uk/"
     EXAMPLE_API_URL: "https://template-kotlin-dev.hmpps.service.justice.gov.uk"
     PRISONER_APPS_URL: "https://prisoner-apps-dev.hmpps.service.justice.gov.uk/"
-    DIGITAL_CANTEEN_API_URL: "https://digital-canteen-api-test.hmpps.service.justice.gov.uk"
+    DIGITAL_CANTEEN_API_URL: "https://digital-canteen-dev.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: TEST
     AUDIT_ENABLED: "false"
 
