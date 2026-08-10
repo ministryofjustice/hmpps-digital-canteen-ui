@@ -2,7 +2,7 @@ import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
-import { CreateCartRequest } from '../pinPhone.model'
+import { CreateCartRequest, PrisonerContact } from '../pinPhone.model'
 import { PATHS } from '../constants/paths'
 
 export default class DigitalPinPhoneApiClient extends RestClient {
@@ -28,19 +28,4 @@ export default class DigitalPinPhoneApiClient extends RestClient {
       asSystem(),
     )
   }
-}
-
-interface PrisonerContact {
-  prisonerId: string
-  id: number
-  name: string
-  phoneNumber: string
-  controlStatus: boolean
-  callAllowed: boolean
-  legal: boolean
-  allowMonitor: boolean
-  alert: boolean
-  override: boolean
-  contactType: string
-  contactTypeDescription: string
 }
