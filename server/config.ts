@@ -116,6 +116,7 @@ export default {
       },
       agent: new AgentConfig(Number(get('EXAMPLE_API_TIMEOUT_RESPONSE', 5000))),
     },
+
     digitalCanteenApi: {
       url: get('DIGITAL_CANTEEN_API_URL', 'http://localhost:8080', requiredInProduction),
       healthPath: '/health/ping',

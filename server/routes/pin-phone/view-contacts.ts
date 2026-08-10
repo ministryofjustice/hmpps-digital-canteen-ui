@@ -4,13 +4,14 @@ import AuditService, { Page } from '../../services/auditService'
 import paginationService from '../../services/paginationService'
 import config from '../../config'
 import PinPhoneService from '../../services/pinPhoneService'
+import { PATHS } from '../../constants/paths'
 
 export default function viewContactsRoutes(
   router: Router,
   auditService: AuditService,
   pinPhoneService: PinPhoneService,
 ): Router {
-  router.get('/pin-phone/view-contacts', async (req, res, _next) => {
+  router.get(PATHS.VIEW_CONTACTS, async (req, res, _next) => {
     await auditService.logPageView(Page.VIEW_CONTACTS, { who: res.locals.user.username, correlationId: req.id })
 
     const currentPage = Number.parseInt(req.query.page as string, 10) || 0
