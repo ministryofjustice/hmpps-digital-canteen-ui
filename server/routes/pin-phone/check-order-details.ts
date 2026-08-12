@@ -1,8 +1,9 @@
 import { Router } from 'express'
 import AuditService, { Page } from '../../services/auditService'
+import { PATHS } from '../../constants/paths'
 
 export default function checkOrderDetailsRoutes(router: Router, auditService: AuditService): Router {
-  router.get('/pin-phone/check-order-details', async (req, res, _next) => {
+  router.get(PATHS.CHECK_ORDER_DETAILS, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_CHECK_ORDER_DETAILS, {
       who: res.locals.user.username,
       correlationId: req.id,
@@ -18,8 +19,8 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
     })
   })
 
-  router.post('/pin-phone/check-order-details', async (req, res) => {
-    return res.redirect('/pin-phone/buy-credit-confirmation')
+  router.post(PATHS.CHECK_ORDER_DETAILS, async (req, res) => {
+    return res.redirect(PATHS.PIN_PHONE_CONFIRMATION)
   })
   return router
 }

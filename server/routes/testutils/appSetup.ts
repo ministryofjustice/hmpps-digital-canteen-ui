@@ -2,16 +2,20 @@ import express, { Express } from 'express'
 import { NotFound } from 'http-errors'
 
 import { randomUUID } from 'crypto'
+import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 import routes from '../index'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
 import AuditService from '../../services/auditService'
-import { HmppsUser } from '../../interfaces/hmppsUser'
+import { HmppsUser, PrisonUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
 import HmppsAuditClient from '../../data/hmppsAuditClient'
+import { DigitalPinPhoneApiClient } from '../../data'
+import PinPhoneService from '../../services/pinPhoneService'
 
 jest.mock('../../services/auditService')
+jest.mock('../../data/digitalPinPhoneApiClient')
 
 export const user: HmppsUser = {
   name: 'FIRST LAST',
@@ -22,7 +26,15 @@ export const user: HmppsUser = {
   authSource: 'nomis',
   staffId: 1234,
   userRoles: [],
-}
+  establishment: {
+    agency_id: 'HEI',
+    name: 'Hewell',
+    display_name: 'Hewell',
+    youth: false,
+  },
+  givenName: 'FIRST',
+  familyName: 'LAST',
+} as PrisonUser | LaunchpadUser
 
 export const flashProvider = jest.fn()
 
@@ -64,6 +76,7 @@ export function appWithAllRoutes({
   production = false,
   services = {
     auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
+    pinPhoneService: new PinPhoneService({} as DigitalPinPhoneApiClient) as jest.Mocked<PinPhoneService>,
   },
   userSupplier = () => user,
 }: {

@@ -2,9 +2,11 @@ import { test, expect } from '@playwright/test'
 import { loginWithPrisonerAuth } from '../../testUtils'
 import BuyPinPhoneCreditPage from '../../pages/pin-phone/buyPinPhoneCreditPage'
 import CheckOrderDetailsPage from '../../pages/pin-phone/checkOrderDetailsPage'
+import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 
 test.describe('Buy PIN phone credit page', () => {
   test.beforeEach(async ({ page }) => {
+    await digitalCanteenApi.stubCreateCart()
     await loginWithPrisonerAuth(page)
     await page.goto('/pin-phone/buy-credit')
   })

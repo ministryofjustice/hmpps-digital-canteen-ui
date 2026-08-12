@@ -31,6 +31,9 @@ function createIdToken(userToken: LaunchpadUserToken) {
     booking: {
       id: 'A-BOOKING-ID',
     },
+    establishment: {
+      agencyId: 'EEI',
+    },
     iss: 'http://localhost:9091/launchpadauth',
   }
   return jwt.sign(payload, 'secret')
