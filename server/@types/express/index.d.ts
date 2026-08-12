@@ -6,6 +6,7 @@ export declare module 'express-session' {
     returnTo: string
     creditAmount: string
     amountType: string
+    allContacts: import('../../routes/pin-phone/view-contacts').Contact[]
   }
 }
 

@@ -29,6 +29,29 @@ passport.use('prisoner-auth', prisonerAuth.passportStrategy())
 export default function setUpPrisonerAuth() {
   const router = Router()
 
+  if (process.env.BYPASS_AUTH === 'true') {
+    router.use((req, _res, next) => {
+      req.user = {
+        sub: 'G0001AA',
+        username: 'John Doe',
+        authSource: 'prisoner-auth',
+        token: 'fake-token',
+        displayName: 'Dev User',
+        userId: 'dev-user-id',
+        userRoles: [],
+        booking: { id: '12345' },
+        establishment: { agencyId: 'MDI', name: 'Moorland (HMP)' },
+      } as any
+      ;(req as any).isAuthenticated = () => true
+      next()
+    })
+    router.use((req, res, next) => {
+      res.locals.user = req.user as HmppsUser
+      next()
+    })
+    return router
+  }
+
   router.use(passport.initialize())
   router.use(passport.session())
   router.use(flash())

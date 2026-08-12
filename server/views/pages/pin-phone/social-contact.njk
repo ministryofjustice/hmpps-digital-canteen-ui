@@ -6,7 +6,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 
-{% set pageTitle = contact.name %}
+{% set pageTitle = selectedContact.name %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
@@ -36,15 +36,15 @@
           text: "Date added"
         },
         value: {
-          text: contact.dateAdded
+          text: selectedContact.dateAdded
         }
       },
       {
         key: {
-          text: "Contact type"
+          text: "selectedContact type"
         },
         value: {
-          text: contact.type
+          text: selectedContact.type
         }
       }
     ]
@@ -57,7 +57,7 @@
             text: "First name"
           },
           value: {
-            text: contact.firstName
+            text: selectedContact.firstName
           }
         },
         {
@@ -65,7 +65,7 @@
             text: "Last name"
           },
           value: {
-            text: contact.lastName
+            text: selectedContact.lastName
           }
         },
         {
@@ -73,7 +73,7 @@
             text: "Date of birth or age"
           },
           value: {
-            html: contact.dateOfBirth
+            html: selectedContact.dateOfBirth
           }
         },
         {
@@ -81,7 +81,7 @@
             text: "Relationship"
           },
           value: {
-            html: contact.relationship
+            html: selectedContact.relationship
           }
         },
         {
@@ -89,7 +89,7 @@
             text: "Address line 1"
           },
           value: {
-            text: contact.addressLine1
+            text: selectedContact.addressLine1
           }
         },
         {
@@ -97,7 +97,7 @@
             text: "Address line 2"
           },
           value: {
-            text: contact.addressLine2
+            text: selectedContact.addressLine2
           }
         },
         {
@@ -105,7 +105,7 @@
             text: "Town or city"
           },
           value: {
-            html: contact.townOrCity
+            html: selectedContact.townOrCity
           }
         },
         {
@@ -113,7 +113,7 @@
             text: "Postcode"
           },
           value: {
-            html: contact.postcode
+            html: selectedContact.postcode
           }
         },
         {
@@ -121,7 +121,7 @@
             text: "Country"
           },
           value: {
-            text: contact.country
+            text: selectedContact.country
           }
         },
         {
@@ -129,7 +129,7 @@
             text: "Telephone number 1"
           },
           value: {
-            text: contact.telephoneNumber1
+            text: selectedContact.telephoneNumber1
           }
         },
         {
@@ -137,7 +137,7 @@
             text: "Telephone number 2"
           },
           value: {
-            html: contact.telephoneNumber2
+            html: selectedContact.telephoneNumber2
           }
         }
       ]
