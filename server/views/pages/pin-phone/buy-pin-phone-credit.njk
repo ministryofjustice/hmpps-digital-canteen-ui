@@ -6,6 +6,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% set pageTitle = "Buy PIN phone credit" %}
 
@@ -39,6 +40,13 @@
      <div class="govuk-grid-row">
        <div class="govuk-grid-column-two-thirds">
          <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ pageTitle }}</h1>
+
+          {% if errorList %}
+          {{ govukErrorSummary({
+            titleText: "There is a problem",
+            errorList: errorList
+          }) }}
+          {% endif %}
 
           <form method="post" novalidate>
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -83,6 +91,7 @@
           {{ govukRadios({
             classes: "pin-credit-radios",
             name: "amount",
+            errorMessage: amountError,
             fieldset: {
               legend: {
                 text: "How much PIN phone credit would you like to buy?",
