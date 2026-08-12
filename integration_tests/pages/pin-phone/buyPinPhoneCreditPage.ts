@@ -23,7 +23,7 @@ export default class BuyPinPhoneCreditPage extends AbstractPage {
     this.header = page.locator('h1')
     this.creditTable = page.locator('.govuk-table')
     this.insetText = page.locator('.govuk-inset-text')
-    this.amountRadios = page.locator('.pin-credit-radios .govuk-radios__input')
+    this.amountRadios = page.locator('.pin-credit-radios .govuk-radios__item')
     this.customAmountInput = page.locator('#customAmount')
     this.continueButton = page.locator('button:has-text("Continue")')
     this.backLink = page.locator('.govuk-back-link')
