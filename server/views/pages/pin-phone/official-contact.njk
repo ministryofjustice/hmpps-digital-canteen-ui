@@ -6,7 +6,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-{% set pageTitle = contact.name %}
+{% set pageTitle = selectedContact.name %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
@@ -36,7 +36,7 @@
           text: "Date added"
         },
         value: {
-          text: contact.dateAdded
+          text: "we don't have"
         }
       },
       {
@@ -44,7 +44,7 @@
           text: "Contact type"
         },
         value: {
-          text: contact.type
+          text: selectedContact.contactType
         }
       }
     ]
@@ -54,10 +54,10 @@
       rows: [
         {
           key: {
-            text: "First name"
+            text: "Name"
           },
           value: {
-            text: contact.firstName
+            text: selectedContact.name
           }
         },
         {
@@ -65,7 +65,7 @@
             text: "Last name"
           },
           value: {
-            text: contact.lastName
+            text: "we don't have"
           }
         },
         {
@@ -73,7 +73,7 @@
             text: "Organisation"
           },
           value: {
-            html: contact.organisation
+            html: "we don't have"
           }
         },
         {
@@ -81,7 +81,7 @@
             text: "Relationship"
           },
           value: {
-            html: contact.relationship
+            html: selectedContact.contactTypeDescription
           }
         },
         {
@@ -89,7 +89,7 @@
             text: "Telephone number 1"
           },
           value: {
-            text: contact.telephoneNumber1
+            text: selectedContact.phoneNumber
           }
         },
         {
@@ -97,7 +97,7 @@
             text: "Telephone number 2"
           },
           value: {
-            text: contact.telephoneNumber2
+            text: "we don't have"
           }
         }
       ]
