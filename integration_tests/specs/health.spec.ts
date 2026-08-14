@@ -5,6 +5,7 @@ import tokenVerification from '../mockApis/tokenVerification'
 
 import { resetStubs } from '../testUtils'
 import prisonerAuth from '../mockApis/prisonerAuth'
+import digitalCanteenApi from '../mockApis/digitalCanteenApi'
 
 test.describe('Health', () => {
   test.afterEach(async () => {
@@ -18,6 +19,7 @@ test.describe('Health', () => {
         exampleApi.stubPing(),
         tokenVerification.stubPing(),
         prisonerAuth.stubPing(),
+        digitalCanteenApi.stubPing(),
       ])
     })
 
@@ -47,6 +49,7 @@ test.describe('Health', () => {
         exampleApi.stubPing(),
         tokenVerification.stubPing(500),
         prisonerAuth.stubPing(),
+        digitalCanteenApi.stubPing(),
       ])
     })
 

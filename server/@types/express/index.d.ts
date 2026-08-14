@@ -6,6 +6,8 @@ export declare module 'express-session' {
     returnTo: string
     creditAmount: string
     amountType: string
+    cartId: string
+    allContacts: PrisonerContact[]
   }
 }
 

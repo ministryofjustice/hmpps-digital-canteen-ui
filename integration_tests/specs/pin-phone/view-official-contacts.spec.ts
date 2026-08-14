@@ -1,31 +1,27 @@
 import { test, expect } from '@playwright/test'
 import { loginWithPrisonerAuth } from '../../testUtils'
 import OfficialContactsPage from '../../pages/pin-phone/OfficialContactsPage'
+import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 
 const expectedFirstSummaryKeys = ['Date added', 'Contact type']
 
-const expectedKeys = [
-  'First name',
-  'Last name',
-  'Organisation',
-  'Relationship',
-  'Telephone number 1',
-  'Telephone number 2',
-]
+const expectedKeys = ['Name', 'Last name', 'Organisation', 'Relationship', 'Telephone number 1', 'Telephone number 2']
 
 test.describe('Pin Phone view official contacts page', () => {
   test.beforeEach(async ({ page }) => {
+    await digitalCanteenApi.stubGetLessThan10Contacts('A-BOOKING-ID')
     await loginWithPrisonerAuth(page)
+    await page.goto('/pin-phone/view-contacts')
   })
 
   test.describe('View official contacts', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/pin-phone/view-contacts/official-contact/:contactId')
+      await page.goto('/pin-phone/view-contacts/official-contact/162442')
     })
-    // todo update once API implemented
-    test.skip('can see contacts full name', async ({ page }) => {
+
+    test('can see contacts full name', async ({ page }) => {
       const officialContactsPage = await OfficialContactsPage.verifyOnPage(page)
-      await expect(officialContactsPage.header).toContainText('contact name')
+      await expect(officialContactsPage.header).toContainText('Sarah Williams')
     })
 
     test('link to pin phone landing', async ({ page }) => {
