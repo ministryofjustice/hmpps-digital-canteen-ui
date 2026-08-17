@@ -17,6 +17,7 @@ generic-service:
     PRISONER_APPS_URL: "https://prisoner-apps-dev.hmpps.service.justice.gov.uk/"
     DIGITAL_CANTEEN_API_URL: "https://digital-canteen-dev.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEV
+    SHUTTER_ENABLED: "false"
     AUDIT_ENABLED: "false"
 
 generic-prometheus-alerts:

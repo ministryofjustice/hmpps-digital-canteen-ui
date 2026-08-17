@@ -1,4 +1,4 @@
-name: Deploy PR to dev
+name: Deploy PR to dev / test
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   build:
-    name: Build docker image for PR dev deploy
+    name: Build docker image for PR dev/test deploy
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@v2
     with:
       docker_registry: 'ghcr.io'
@@ -31,7 +31,7 @@ jobs:
       tag_latest: false
 
   deploy_dev:
-    name: Deploy to the development environment
+    name: Deploy to the dev/test environment
     needs:
       - build
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v2

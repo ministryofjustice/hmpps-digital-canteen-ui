@@ -16,7 +16,8 @@ generic-service:
     EXAMPLE_API_URL: "https://template-kotlin-preprod.hmpps.service.justice.gov.uk"
     PRISONER_APPS_URL: "https://prisoner-apps-preprod.hmpps.service.justice.gov.uk/"
     DIGITAL_CANTEEN_API_URL: "https://digital-canteen-preprod.prison.service.justice.gov.uk"
-    ENVIRONMENT_NAME: PRE-PRODUCTION
+    ENVIRONMENT_NAME: PREPROD
+    SHUTTER_ENABLED: "true"
     AUDIT_ENABLED: "false"
 
 generic-prometheus-alerts:
