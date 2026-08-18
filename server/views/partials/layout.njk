@@ -1,6 +1,8 @@
 {% extends "govuk/template.njk" %}
 {% from "pfs/components/launchpad-header/macro.njk" import launchpadHeader %}
 {% from "pfs/components/launchpad-footer/macro.njk" import launchpadFooter %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 {% block head %}
   <link href="{{ '/assets/css/index.css' | assetMap }}" rel="stylesheet"/>
@@ -10,6 +12,30 @@
 
 {% block header %}
   {{ launchpadHeader(launchpadHeaderConfig) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {% if backLinkHref %}
+    <div role="navigation" class="govuk-!-margin-top-6">
+      {{ govukBackLink({
+        text: "Back",
+        href: backLinkHref
+      }) }}
+    </div>
+  {% endif %}
+  {% if homeLinkHref %}
+      <div role="navigation" class="govuk-!-margin-top-6 govuk-!-margin-bottom-0">
+        {{ govukBreadcrumbs({
+            classes: "app-breadcrumbs--blue",
+            items: [
+              {
+                text: "Home",
+                href: homeLinkHref
+              }
+            ]
+        }) }}
+      </div>
+    {% endif %}
 {% endblock %}
 
 {% block bodyStart %}

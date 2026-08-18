@@ -5,19 +5,11 @@
 {%- from "moj/components/pagination/macro.njk" import mojPagination -%}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
+{% set backLinkHref = "/pin-phone" %}
 {% set pageTitle = "View PIN phone contacts" %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
-{% endblock %}
-
-{% block beforeContent %}
-  <div class="govuk-width-container govuk-!-margin-top-6">
-    {{ govukBackLink({
-      text: "Back",
-      href: "/pin-phone"
-    }) }}
-  </div>
 {% endblock %}
 
 {% block content %}
