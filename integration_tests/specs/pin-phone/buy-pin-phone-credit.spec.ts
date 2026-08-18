@@ -46,19 +46,19 @@ test.describe('Buy PIN phone credit page', () => {
   test('should allow selecting a predefined amount and continuing', async ({ page }) => {
     const buyPage = await BuyPinPhoneCreditPage.verifyOnPage(page)
 
-    await buyPage.amountRadios.nth(1).click() // £1.00
+    const radio = buyPage.amountRadios.nth(1).locator('input')
+    await radio.click()
     await buyPage.continueButton.click()
-
     await CheckOrderDetailsPage.verifyOnPage(page)
   })
 
   test('should allow entering a custom amount and continuing', async ({ page }) => {
     const buyPage = await BuyPinPhoneCreditPage.verifyOnPage(page)
 
-    await buyPage.amountRadios.last().click()
+    const otherAmountRadio = buyPage.amountRadios.last().locator('input[type="radio"]')
+    await otherAmountRadio.click()
     await buyPage.customAmountInput.fill('7.50')
     await buyPage.continueButton.click()
-
     await CheckOrderDetailsPage.verifyOnPage(page)
   })
 })

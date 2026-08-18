@@ -1,25 +1,11 @@
 {% extends "../../partials/layout.njk" %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
+{% set homeLinkHref = launchpadHome %}
 {% set pageTitle = userName + "'s PIN phone" %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
-{% endblock %}
-
-{% block beforeContent %}
-  <div class="govuk-width-container govuk-!-margin-top-6">
-
-    {{ govukBreadcrumbs({
-      classes: "app-breadcrumbs--blue govuk-!-margin-bottom-2",
-      items: [
-        {
-          text: "Home",
-          href: launchpadHome
-        }
-      ]
-    }) }}
-  </div>
 {% endblock %}
 
 {% block content %}
