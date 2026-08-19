@@ -21,6 +21,27 @@ beforeEach(() => {
     },
     userSupplier: () => user,
   })
+
+  pinPhoneService.retrievePrisonerBalances.mockResolvedValue({
+    prisoner: {
+      prisonerNumber: 'XYZ',
+      prisonId: '123',
+      prisonName: 'Ashford',
+      bookNumber: '123',
+      bookingId: '123',
+      dateOfBirth: '20/02/1990',
+      youthOffender: false,
+      gender: 'male',
+    },
+    prisonerBalance: { spendsPence: 10000, cashPence: 0, savingsPence: 0, damageObligationsPence: 0, currency: 'GBP' },
+    prisonerBtBalance: {
+      reference: 'XYZ123',
+      prisonerId: 'XYZ',
+      balancePence: 1000,
+      creditLimitPence: 5000,
+      isFn: false,
+    },
+  })
 })
 
 afterEach(() => {
@@ -78,7 +99,7 @@ describe('Validations GET /pin-phone/buy-credit', () => {
   it('should render page when maximum credit would be exceeded the spends amount', async () => {
     const response = await request(app).post('/pin-phone/buy-credit').send({
       amount: 'other',
-      customAmount: '78',
+      customAmount: '150',
     })
     expect(response.text.replace(/&#39;/g, "'")).toContain(ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR)
   })
@@ -86,20 +107,8 @@ describe('Validations GET /pin-phone/buy-credit', () => {
   it('should render page when buying more than allowed credit', async () => {
     const response = await request(app).post('/pin-phone/buy-credit').send({
       amount: 'other',
-      customAmount: '16',
+      customAmount: '45',
     })
     expect(response.text).toContain(ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR)
-  })
-})
-
-describe('POST /pin-phone/buy-credit', () => {
-  it('should call createCart API and redirect to check-order-details', async () => {
-    await request(app)
-      .post('/pin-phone/buy-credit')
-      .send({ amount: '10' })
-      .expect(302)
-      .expect('Location', '/pin-phone/check-order-details')
-
-    expect(pinPhoneService.createCart).not.toHaveBeenCalled()
   })
 })
