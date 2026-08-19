@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import exampleApi from '../mockApis/exampleApi'
 
 import { loginWithPrisonerAuth, resetStubs } from '../testUtils'
 import HomePage from '../pages/pin-phone/homePage'
@@ -8,9 +7,6 @@ import prisonerAuth from '../mockApis/prisonerAuth'
 test.describe('SignIn', () => {
   test.use({
     baseURL: 'http://localhost:3007',
-  })
-  test.beforeEach(async () => {
-    await exampleApi.stubExampleTime()
   })
 
   test.afterEach(async () => {

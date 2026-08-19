@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import exampleApi from '../mockApis/exampleApi'
 import hmppsAuth from '../mockApis/hmppsAuth'
 import tokenVerification from '../mockApis/tokenVerification'
 
@@ -16,7 +15,6 @@ test.describe('Health', () => {
     test.beforeEach(async () => {
       await Promise.all([
         hmppsAuth.stubPing(),
-        exampleApi.stubPing(),
         tokenVerification.stubPing(),
         prisonerAuth.stubPing(),
         digitalCanteenApi.stubPing(),
@@ -46,7 +44,6 @@ test.describe('Health', () => {
     test.beforeEach(async () => {
       await Promise.all([
         hmppsAuth.stubPing(),
-        exampleApi.stubPing(),
         tokenVerification.stubPing(500),
         prisonerAuth.stubPing(),
         digitalCanteenApi.stubPing(),
