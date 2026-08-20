@@ -30,6 +30,44 @@ export default {
       },
     }),
 
+  stubGetBalances: (prisonerNumber: string, httpStatus = 200): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/digitalCanteenApi/api/prisoner-enrichment/${prisonerNumber}`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          prisoner: {
+            prisonerNumber: 'XYZ',
+            prisonId: '123',
+            prisonName: 'Ashford',
+            bookNumber: '123',
+            bookingId: '123',
+            dateOfBirth: '20/02/1990',
+            youthOffender: false,
+            gender: 'male',
+          },
+          prisonerBalance: {
+            spendsPence: 10000,
+            cashPence: 0,
+            savingsPence: 0,
+            damageObligationsPence: 0,
+            currency: 'GBP',
+          },
+          prisonerBtBalance: {
+            reference: 'XYZ123',
+            prisonerId: 'XYZ',
+            balancePence: 1000,
+            creditLimitPence: 5000,
+            isFn: false,
+          },
+        },
+      },
+    }),
+
   stubGetLessThan10Contacts: (prisonerNumber: string, httpStatus = 200): SuperAgentRequest =>
     stubFor({
       request: {

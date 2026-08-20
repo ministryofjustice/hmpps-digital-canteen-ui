@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import AuditService, { Page } from '../../services/auditService'
 import { PATHS } from '../../constants/paths'
+import { stringToPence, toPounds } from '../../utils/utils'
 
 export default function checkOrderDetailsRoutes(router: Router, auditService: AuditService): Router {
   router.get(PATHS.CHECK_ORDER_DETAILS, async (req, res, _next) => {
@@ -9,9 +10,13 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
       correlationId: req.id,
     })
 
-    const currentCreditBalance = 35.13
-    const newCreditBalance = Number(req.session.creditAmount || 0).toFixed(2)
-    const totalCreditBalance = (currentCreditBalance + Number(req.session.creditAmount || 0)).toFixed(2)
+    const { currentCreditPence } = req.session
+    const requestedCreditPence = stringToPence(req.session.requestedCreditAmountPounds)
+
+    const currentCreditBalance = toPounds(currentCreditPence)
+    const newCreditBalance = toPounds(requestedCreditPence)
+    const totalCreditBalance = toPounds(currentCreditPence + requestedCreditPence)
+
     return res.render('pages/pin-phone/check-order-details', {
       currentCreditBalance,
       newCreditBalance,

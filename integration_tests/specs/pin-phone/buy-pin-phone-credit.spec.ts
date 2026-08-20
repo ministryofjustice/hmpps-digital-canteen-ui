@@ -7,6 +7,7 @@ import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 test.describe('Buy PIN phone credit page', () => {
   test.beforeEach(async ({ page }) => {
     await digitalCanteenApi.stubCreateCart()
+    await digitalCanteenApi.stubGetBalances('A-BOOKING-ID')
     await loginWithPrisonerAuth(page)
     await page.goto('/pin-phone/buy-credit')
   })
@@ -17,14 +18,14 @@ test.describe('Buy PIN phone credit page', () => {
     // Table details
     const rows = await buyPage.getTableRows()
     await expect(rows.nth(0)).toContainText('Current PIN phone credit')
-    await expect(rows.nth(0)).toContainText('£35.13')
+    await expect(rows.nth(0)).toContainText('£10.00')
     await expect(rows.nth(1)).toContainText('Spends balance')
-    await expect(rows.nth(1)).toContainText('£47.00')
+    await expect(rows.nth(1)).toContainText('£100.00')
     await expect(rows.nth(2)).toContainText('PIN phone credit limit')
     await expect(rows.nth(2)).toContainText('£50.00')
 
     // Inset text
-    await expect(buyPage.insetText).toContainText('You can buy up to £14.87')
+    await expect(buyPage.insetText).toContainText('You can buy up to £40.00')
 
     // Radio buttons
     const radios = buyPage.amountRadios
@@ -33,7 +34,7 @@ test.describe('Buy PIN phone credit page', () => {
     await expect(radios.nth(1)).toContainText('£1.00')
     await expect(radios.nth(2)).toContainText('£3.00')
     await expect(radios.nth(3)).toContainText('£5.00')
-    await expect(radios.nth(4)).toContainText('Max (£14.87)')
+    await expect(radios.nth(4)).toContainText('Max (£40.00)')
     await expect(radios.nth(5)).toContainText('£')
 
     // Other elements

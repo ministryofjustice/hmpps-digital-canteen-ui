@@ -29,6 +29,32 @@ passport.use('prisoner-auth', prisonerAuth.passportStrategy())
 export default function setUpPrisonerAuth() {
   const router = Router()
 
+  // Bypass login authentication on Local (add BYPASS_AUTH=true to .env)
+  if (process.env.BYPASS_AUTH === 'true') {
+    router.use((req, _res, next) => {
+      req.user = {
+        sub: 'G3682UE',
+        username: 'John Doe',
+        authSource: 'prisoner-auth',
+        token: 'fake-token',
+        displayName: 'Dev User',
+        userId: 'G3682UE',
+        userRoles: [],
+        booking: { id: '12345' },
+        establishment: { agencyId: 'MDI', name: 'Moorland (HMP)' },
+      } as unknown as LaunchpadUser
+      req.isAuthenticated = function faked(): this is Express.AuthenticatedRequest {
+        return true
+      }
+      next()
+    })
+    router.use((req, res, next) => {
+      res.locals.user = req.user as LaunchpadUser
+      next()
+    })
+    return router
+  }
+
   router.use(passport.initialize())
   router.use(passport.session())
   router.use(flash())
