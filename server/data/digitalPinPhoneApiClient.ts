@@ -37,4 +37,14 @@ export default class DigitalPinPhoneApiClient extends RestClient {
       asSystem(),
     )
   }
+
+  async addPinPhoneLineItem(cartId: string, creditAmount: number): Promise<EnrichedPinPhonePrisoner> {
+    return this.post(
+      {
+        path: `/api/add-line-item`,
+        data: { amount: creditAmount, cartId },
+      },
+      asSystem(),
+    )
+  }
 }

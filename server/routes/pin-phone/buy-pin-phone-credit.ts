@@ -5,7 +5,7 @@ import PinPhoneService from '../../services/pinPhoneService'
 import { CreateCartRequest, EnrichedPinPhonePrisoner } from '../../pinPhone.model'
 import { PATHS } from '../../constants/paths'
 import validateBuyCreditInput from '../../utils/validateBuyCreditInput'
-import { toPounds } from '../../utils/utils'
+import { stringToPence, toPounds } from '../../utils/utils'
 
 function getBalances(prisonerEnrichment: EnrichedPinPhonePrisoner) {
   const currentPinPhoneCreditPence = prisonerEnrichment.prisonerBtBalance?.balancePence ?? 0
@@ -100,11 +100,13 @@ export default function buyPinPhoneCreditRoutes(
         })
       }
 
+      const { cartId } = req.session
+      await pinPhoneService.addPinPhoneLineItem(cartId, stringToPence(req.session.requestedCreditAmountPounds))
+
       return res.redirect(PATHS.CHECK_ORDER_DETAILS)
     } catch (error) {
       return _next(error)
     }
   })
-
   return router
 }
