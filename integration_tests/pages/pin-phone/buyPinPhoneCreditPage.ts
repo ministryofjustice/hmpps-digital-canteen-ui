@@ -18,6 +18,8 @@ export default class BuyPinPhoneCreditPage extends AbstractPage {
 
   readonly divider: Locator
 
+  readonly errorSummary: Locator
+
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1')
@@ -28,6 +30,7 @@ export default class BuyPinPhoneCreditPage extends AbstractPage {
     this.continueButton = page.locator('button:has-text("Continue")')
     this.backLink = page.locator('.govuk-back-link')
     this.divider = page.locator('.govuk-divider')
+    this.errorSummary = page.locator('.govuk-error-summary')
   }
 
   static async verifyOnPage(page: Page): Promise<BuyPinPhoneCreditPage> {

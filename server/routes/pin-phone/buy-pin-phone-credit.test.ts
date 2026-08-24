@@ -4,6 +4,7 @@ import { appWithAllRoutes, user } from '../testutils/appSetup'
 import AuditService from '../../services/auditService'
 import PinPhoneService from '../../services/pinPhoneService'
 import ERROR_MESSAGE from '../../constants/errorMessages'
+import { CreateCartRequest } from '../../pinPhone.model'
 
 jest.mock('../../services/auditService')
 jest.mock('../../services/pinPhoneService')
@@ -50,10 +51,17 @@ afterEach(() => {
 
 describe('GET /pin-phone/buy-credit', () => {
   it('should render buy-pin-phone-credit page', async () => {
-    pinPhoneService.createCart.mockResolvedValue({ cartId: 'cart_01KZ8HJSJN77XAY04Y60VRSEAB' })
+    pinPhoneService.createCart.mockResolvedValue({ cart: { id: 'cart_01KZ8HJSJN77XAY04Y60VRSEAB' } })
     await request(app).get('/pin-phone/buy-credit').expect(200).expect('Content-Type', /html/)
 
-    const createCartRequest = { prisonId: 'HEI', offenderNo: 'id', firstName: 'FIRST', lastName: 'LAST' }
+    const createCartRequest: CreateCartRequest = {
+      metadata: {
+        prison_id: 'HEI',
+        offender_no: 'id',
+        first_name: 'FIRST',
+        second_name: 'LAST',
+      },
+    }
     expect(pinPhoneService.createCart).toHaveBeenCalledWith(createCartRequest)
   })
 })
@@ -110,5 +118,11 @@ describe('Validations GET /pin-phone/buy-credit', () => {
       customAmount: '45',
     })
     expect(response.text).toContain(ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR)
+  })
+
+  it('should add line item when valid amount is selected', async () => {
+    pinPhoneService.addPinPhoneLineItem.mockResolvedValue({ cart: { id: 'TEST_CART_ID' } })
+    const response = await request(app).post('/pin-phone/buy-credit').send({ amount: '1.00' })
+    expect(response.status).toBe(302)
   })
 })
