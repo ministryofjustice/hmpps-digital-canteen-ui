@@ -60,6 +60,10 @@ export default function buyPinPhoneCreditRoutes(
       const prisonerEnrichment = await pinPhoneService.retrievePrisonerBalances(user.userId)
       const balances = getBalances(prisonerEnrichment)
 
+      // get prisoner balances
+      const prisonerEnrichment = await pinPhoneService.retrievePrisonerBalances(user.userId)
+      const balances = getBalances(prisonerEnrichment)
+
       return res.render('pages/pin-phone/buy-pin-phone-credit', {
         ...balancesForDisplay(balances),
         creditAmount: requestedCreditAmountPounds || '',
@@ -110,5 +114,6 @@ export default function buyPinPhoneCreditRoutes(
       return _next(error)
     }
   })
+
   return router
 }
