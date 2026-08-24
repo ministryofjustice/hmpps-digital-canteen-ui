@@ -11,4 +11,8 @@ export default class PinPhoneService {
   retrieveContacts(prisonerNumber: string) {
     return this.digitalPinPhoneApiClient.retrieveContacts(prisonerNumber)
   }
+
+  retrievePrisonerBalances(prisonerNumber: string) {
+    return this.digitalPinPhoneApiClient.retrievePrisonerBalances(prisonerNumber)
+  }
 }

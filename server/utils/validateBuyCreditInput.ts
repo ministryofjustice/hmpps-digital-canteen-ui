@@ -1,4 +1,5 @@
 import ERROR_MESSAGE from '../constants/errorMessages'
+import { stringToPence } from './utils'
 
 type ValidationError = {
   href: string
@@ -13,13 +14,13 @@ type ValidationResult = {
 }
 
 const validateBuyCreditInput = (
-  selectedAmount: string,
-  pinPhoneCredit: string,
-  pinPhoneCreditLimit: string,
-  spendBalance: string,
+  requestedCreditAmountPounds: string,
+  currentPinPhoneCreditPence: number,
+  currentSpendsBalancePence: number,
+  pinPhoneCreditLimitPence: number,
 ): ValidationResult => {
   // No radio button selected
-  if (!selectedAmount) {
+  if (!requestedCreditAmountPounds) {
     return {
       errorList: [
         {
@@ -34,7 +35,7 @@ const validateBuyCreditInput = (
   }
 
   // Other selected, but the amount is not numeric or decimal place is more than 2
-  if (Number.isNaN(selectedAmount) || !/^\d+(\.\d{1,2})?$/.test(selectedAmount)) {
+  if (Number.isNaN(requestedCreditAmountPounds) || !/^\d+(\.\d{1,2})?$/.test(requestedCreditAmountPounds)) {
     return {
       errorList: [
         {
@@ -49,7 +50,7 @@ const validateBuyCreditInput = (
   }
 
   // the selected amount is greater than spendBalance
-  if (Number(selectedAmount) > Number(spendBalance)) {
+  if (stringToPence(requestedCreditAmountPounds) > currentSpendsBalancePence) {
     return {
       errorList: [
         {
@@ -64,7 +65,7 @@ const validateBuyCreditInput = (
   }
 
   // the amount is greater than allowed pinPhoneCreditLimit
-  if (Number(pinPhoneCredit) + Number(selectedAmount) > Number(pinPhoneCreditLimit)) {
+  if (currentPinPhoneCreditPence + stringToPence(requestedCreditAmountPounds) > pinPhoneCreditLimitPence) {
     return {
       errorList: [
         {

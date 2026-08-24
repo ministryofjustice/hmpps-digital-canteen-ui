@@ -8,7 +8,7 @@ export default function pinPhoneRoutes(router: Router, auditService: AuditServic
     await auditService.logPageView(Page.PIN_PHONE_LANDING, { who: res.locals.user.username, correlationId: req.id })
 
     // reset buy credit session data
-    delete req.session.creditAmount
+    delete req.session.requestedCreditAmountPounds
     delete req.session.amountType
 
     const user = req.user as LaunchpadUser
