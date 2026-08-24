@@ -20,4 +20,5 @@ generic-service:
     AUDIT_ENABLED: "false"
 
 generic-prometheus-alerts:
+  businessHoursOnly: true
   alertSeverity: hmpps-digital-canteen-dev
