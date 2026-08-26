@@ -18,7 +18,7 @@ export default function routes({ auditService, pinPhoneService }: Services): Rou
 
   pinPhoneRoutes(router, auditService)
   buyPinPhoneCreditRoutes(router, auditService, pinPhoneService)
-  checkOrderDetailsRoutes(router, auditService)
+  checkOrderDetailsRoutes(router, auditService, pinPhoneService)
   buyCreditConfirmation(router, auditService)
   viewContacts(router, auditService, pinPhoneService)
   socialContact(router, auditService)

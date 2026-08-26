@@ -54,3 +54,8 @@ export interface BtPinPhoneResponse {
   creditLimitPence: number
   isFn: boolean
 }
+
+export interface PaymentRequest {
+  offender_no: string
+  amountPence: number
+}
