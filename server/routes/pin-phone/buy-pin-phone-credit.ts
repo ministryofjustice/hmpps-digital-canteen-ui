@@ -5,7 +5,7 @@ import PinPhoneService from '../../services/pinPhoneService'
 import { CreateCartRequest, EnrichedPinPhonePrisoner } from '../../pinPhone.model'
 import { PATHS } from '../../constants/paths'
 import validateBuyCreditInput from '../../utils/validateBuyCreditInput'
-import { toPounds } from '../../utils/utils'
+import { stringToPence, toPounds } from '../../utils/utils'
 
 function getBalances(prisonerEnrichment: EnrichedPinPhonePrisoner) {
   const currentPinPhoneCreditPence = prisonerEnrichment.prisonerBtBalance?.balancePence ?? 0
@@ -46,13 +46,15 @@ export default function buyPinPhoneCreditRoutes(
       // create cart
       const user = req.user as LaunchpadUser
       const createCartRequest: CreateCartRequest = {
-        prisonId: user.establishment.agency_id,
-        offenderNo: user.userId,
-        firstName: user.givenName,
-        lastName: user.familyName,
+        metadata: {
+          prison_id: user.establishment.agency_id,
+          offender_no: user.userId,
+          first_name: user.givenName,
+          second_name: user.familyName,
+        },
       }
       const result = await pinPhoneService.createCart(createCartRequest)
-      req.session.cartId = result.cartId
+      req.session.cartId = result.cart.id
 
       // get prisoner balances
       const prisonerEnrichment = await pinPhoneService.retrievePrisonerBalances(user.userId)
@@ -99,6 +101,9 @@ export default function buyPinPhoneCreditRoutes(
           ...error,
         })
       }
+
+      const { cartId } = req.session
+      await pinPhoneService.addPinPhoneLineItem(cartId, stringToPence(req.session.requestedCreditAmountPounds))
 
       return res.redirect(PATHS.CHECK_ORDER_DETAILS)
     } catch (error) {

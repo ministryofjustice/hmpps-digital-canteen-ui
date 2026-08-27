@@ -10,11 +10,11 @@ export default class DigitalPinPhoneApiClient extends RestClient {
     super('Digital PinPhone API', config.apis.digitalCanteenApi, logger, authenticationClient)
   }
 
-  async createCart({ prisonId, offenderNo, firstName, lastName }: CreateCartRequest): Promise<{ cartId: string }> {
+  async createCart({ metadata }: CreateCartRequest): Promise<{ cart: { id: string } }> {
     return this.post(
       {
         path: PATHS.CREATE_CART,
-        data: { prisonId, offenderNo, firstName, lastName },
+        data: { metadata },
       },
       asSystem(),
     )
@@ -33,6 +33,16 @@ export default class DigitalPinPhoneApiClient extends RestClient {
     return this.get(
       {
         path: `/api/prisoner-enrichment/${prisonerNumber}`,
+      },
+      asSystem(),
+    )
+  }
+
+  async addPinPhoneLineItem(cartId: string, creditAmount: number): Promise<{ cart: { id: string } }> {
+    return this.post(
+      {
+        path: `/api/add-line-item/${cartId}`,
+        data: { amount: creditAmount },
       },
       asSystem(),
     )

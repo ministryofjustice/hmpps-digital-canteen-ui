@@ -15,4 +15,8 @@ export default class PinPhoneService {
   retrievePrisonerBalances(prisonerNumber: string) {
     return this.digitalPinPhoneApiClient.retrievePrisonerBalances(prisonerNumber)
   }
+
+  addPinPhoneLineItem(cartId: string, creditAmount: number) {
+    return this.digitalPinPhoneApiClient.addPinPhoneLineItem(cartId, creditAmount)
+  }
 }

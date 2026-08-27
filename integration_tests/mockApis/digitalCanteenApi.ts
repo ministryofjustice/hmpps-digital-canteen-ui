@@ -25,7 +25,22 @@ export default {
         status: httpStatus,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         jsonBody: {
-          cartId,
+          cart: { id: cartId },
+        },
+      },
+    }),
+
+  stubAddLineItem: (httpStatus = 200): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: '/digitalCanteenApi/api/add-line-item/.*',
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          cart: { id: 'TEST_CART_ID' },
         },
       },
     }),

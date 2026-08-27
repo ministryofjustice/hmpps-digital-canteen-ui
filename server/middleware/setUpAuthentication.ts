@@ -38,10 +38,12 @@ export default function setUpPrisonerAuth() {
         authSource: 'prisoner-auth',
         token: 'fake-token',
         displayName: 'Dev User',
+        givenName: 'John',
+        familyName: 'Doe',
         userId: 'G3682UE',
         userRoles: [],
         booking: { id: '12345' },
-        establishment: { agencyId: 'MDI', name: 'Moorland (HMP)' },
+        establishment: { agency_id: 'MDI', name: 'Moorland (HMP)' },
       } as unknown as LaunchpadUser
       req.isAuthenticated = function faked(): this is Express.AuthenticatedRequest {
         return true
