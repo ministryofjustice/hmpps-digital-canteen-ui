@@ -23,8 +23,6 @@ export default function checkOrderDetailsRoutes(
     const currentCreditBalance = toPounds(currentCreditPence)
     const newCreditBalance = toPounds(requestedCreditPence)
     const totalCreditBalance = toPounds(currentCreditPence + requestedCreditPence)
-    console.log('FIRST HERRREEEEE')
-    console.log(requestedCreditPence)
 
     return res.render('pages/pin-phone/check-order-details', {
       currentCreditBalance,
@@ -35,16 +33,14 @@ export default function checkOrderDetailsRoutes(
 
   router.post(PATHS.PIN_PHONE_CONFIRMATION, async (req, res, _next) => {
     try {
-      console.log('THEN HERRREEEEE', req.session)
       const requestedCreditPence = stringToPence(req.session.requestedCreditAmountPounds)
       const user = req.user as LaunchpadUser
-      console.log(user)
       const { cartId } = req.session
       const paymentRequest: PaymentRequest = {
-        offender_no: user.userId,
+        offenderNo: user.userId,
         amountPence: requestedCreditPence,
+        prisonId: user.establishment.agency_id,
       }
-      console.log('paymentrequest', paymentRequest)
 
       await pinPhoneService.completePayment(cartId, paymentRequest)
 

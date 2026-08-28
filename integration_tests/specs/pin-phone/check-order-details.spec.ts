@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import { loginWithPrisonerAuth } from '../../testUtils'
 import CheckOrderDetailsPage from '../../pages/pin-phone/checkOrderDetailsPage'
 import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
+import BuyCreditConfirmationPage from '../../pages/pin-phone/buyCreditConfirmationPage'
 
 test.describe('Check order details page', () => {
   test.beforeEach(async ({ page }) => {
@@ -44,5 +45,19 @@ test.describe('Check order details page', () => {
   test('can see cancel link', async ({ page }) => {
     const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
     await expect(checkOrderDetailsPage.cancelLink).toHaveAttribute('href', '/pin-phone')
+  })
+
+  test('Should proceed to confirmation page, on complete payment', async ({ page }) => {
+    const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
+    await digitalCanteenApi.stubCompletePayment('TEST_CART_ID')
+    await checkOrderDetailsPage.buyCreditButton.click()
+    await BuyCreditConfirmationPage.verifyOnPage(page)
+  })
+
+  test('Should not proceed to confirmation page, on complete payment failure', async ({ page }) => {
+    const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
+    await digitalCanteenApi.stubCompletePaymentFailure('TEST_CART_ID')
+    await checkOrderDetailsPage.buyCreditButton.click()
+    await expect(page.locator('h1')).toHaveText('Unprocessable Entity')
   })
 })

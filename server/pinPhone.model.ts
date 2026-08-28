@@ -56,6 +56,14 @@ export interface BtPinPhoneResponse {
 }
 
 export interface PaymentRequest {
-  offender_no: string
+  offenderNo: string
   amountPence: number
+  prisonId: string
+}
+
+export interface CompleteCartResponse {
+  paymentSuccessful: boolean
+  orderStatusRecorded: boolean
+  orderId: string | null
+  cartId: string
 }

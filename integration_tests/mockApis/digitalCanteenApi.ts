@@ -121,6 +121,35 @@ export default {
         jsonBody: null,
       },
     }),
+
+  stubCompletePayment: (cartId = 'TEST_CART_ID', httpStatus = 200): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: `/digitalCanteenApi/api/carts/${cartId}/checkout`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          paymentSuccessful: true,
+          orderStatusRecorded: true,
+          orderId: 'order_123',
+          cartId,
+        },
+      },
+    }),
+
+  stubCompletePaymentFailure: (cartId = 'TEST_CART_ID', httpStatus = 422): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: `/digitalCanteenApi/api/carts/${cartId}/checkout`,
+      },
+      response: {
+        status: httpStatus,
+      },
+    }),
 }
 
 const smallContactList = [

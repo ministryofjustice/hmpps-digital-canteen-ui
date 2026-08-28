@@ -2,7 +2,13 @@ import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
-import { CreateCartRequest, EnrichedPinPhonePrisoner, PaymentRequest, PrisonerContact } from '../pinPhone.model'
+import {
+  CompleteCartResponse,
+  CreateCartRequest,
+  EnrichedPinPhonePrisoner,
+  PaymentRequest,
+  PrisonerContact,
+} from '../pinPhone.model'
 import { PATHS } from '../constants/paths'
 
 export default class DigitalPinPhoneApiClient extends RestClient {
@@ -48,7 +54,7 @@ export default class DigitalPinPhoneApiClient extends RestClient {
     )
   }
 
-  async completePayment(cartId: string, paymentRequest: PaymentRequest): Promise<{ cart: { id: string } }> {
+  async completePayment(cartId: string, paymentRequest: PaymentRequest): Promise<CompleteCartResponse> {
     return this.post(
       {
         path: `/api/carts/${cartId}/checkout`,
