@@ -16,20 +16,11 @@
   <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
 
   {{ govukInsetText({
-      classes: "app-inset-text--blue",
       html: 'To change this contact go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
   }) }}
 
   {{ govukSummaryList({
     rows: [
-      {
-        key: {
-          text: "Date added"
-        },
-        value: {
-          text: "we don't have"
-        }
-      },
       {
         key: {
           text: "Contact type"
@@ -51,22 +42,7 @@
             text: selectedContact.name
           }
         },
-        {
-          key: {
-            text: "Last name"
-          },
-          value: {
-            text: "we don't have"
-          }
-        },
-        {
-          key: {
-            text: "Date of birth or age"
-          },
-          value: {
-            html: "we don't have"
-          }
-        },
+
         {
           key: {
             text: "Relationship"
@@ -77,58 +53,10 @@
         },
         {
           key: {
-            text: "Address line 1"
-          },
-          value: {
-            text: "we don't have"
-          }
-        },
-        {
-          key: {
-            text: "Address line 2"
-          },
-          value: {
-            text: "we don't have"
-          }
-        },
-        {
-          key: {
-            text: "Town or city"
-          },
-          value: {
-            html: "we don't have"
-          }
-        },
-        {
-          key: {
-            text: "Postcode"
-          },
-          value: {
-            html: "we don't have"
-          }
-        },
-        {
-          key: {
-            text: "Country"
-          },
-          value: {
-            text: "we don't have"
-          }
-        },
-        {
-          key: {
-            text: "Telephone number 1"
+            text: "Telephone number"
           },
           value: {
             text: selectedContact.phoneNumber
-          }
-        },
-        {
-          key: {
-            text: "Telephone number 2"
-          },
-          value: {
-            html: "we don't have"
           }
         }
       ]

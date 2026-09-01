@@ -17,14 +17,13 @@
 
   {% if hasContacts %}
     {{ govukInsetText({
-        classes: "app-inset-text--blue",
         html: 'To add or remove contacts go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
     }) }}
 
     {{ govukTable({
       head: [
-        { text: "Contact name" },
-        { text: "Date added" },
+        { text: "Name" },
+        { text: "Phone number" },
         { text: "Contact type" }
       ],
       rows: tableRows
@@ -34,7 +33,6 @@
   {% else %}
     <p class="govuk-body govuk-!-font-weight-bold">You have no approved contacts at the moment.</p>
     {{ govukInsetText({
-        classes: "app-inset-text--blue",
         html: 'To add or remove contacts go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
     }) }}
   {% endif %}
