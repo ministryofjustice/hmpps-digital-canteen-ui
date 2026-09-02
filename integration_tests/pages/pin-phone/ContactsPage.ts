@@ -30,7 +30,7 @@ export default class ContactsPage extends AbstractPage {
     this.backLink = page.locator('.govuk-back-link', { hasText: 'Back' })
     this.table = page.locator('.govuk-table').first()
     this.tableRows = page.locator('.govuk-table').first().locator('.govuk-table__body .govuk-table__row')
-    this.pagination = page.locator('.moj-pagination').first()
+    this.pagination = page.locator('.moj-pagination')
     this.paginationItems = page.locator('.moj-pagination__item')
     this.noContactsMessage = page.locator('p.govuk-body.govuk-\\!-font-weight-bold')
     this.freeSupportContactTableRows = page
