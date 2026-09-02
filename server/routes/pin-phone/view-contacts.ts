@@ -20,7 +20,7 @@ export default function viewContactsRoutes(
     const allContacts = await pinPhoneService.retrieveContacts(user.userId)
     req.session.allContacts = allContacts
     const freeSupportNumbers = [
-      [{ text: 'Samaritans' }, { text: '116 123' }, { text: 'Emotional support and crisis listening' }],
+      [{ text: 'Samaritans' }, { text: '116 123' }, { text: 'Emotional support and crisis listening.' }],
       [
         { text: 'Frank' },
         { text: '0300 1236600' },
@@ -28,7 +28,7 @@ export default function viewContactsRoutes(
       ],
     ]
 
-    if (allContacts.length > 0) {
+    if (allContacts.length > 100) {
       const sortedContacts = [...allContacts].sort((a, b) => a.name.localeCompare(b.name))
       const totalElements = sortedContacts.length
       const start = currentPage * pageSize
