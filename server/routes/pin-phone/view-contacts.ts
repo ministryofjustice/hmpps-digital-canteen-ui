@@ -19,6 +19,14 @@ export default function viewContactsRoutes(
     const user = req.user as LaunchpadUser
     const allContacts = await pinPhoneService.retrieveContacts(user.userId)
     req.session.allContacts = allContacts
+    const freeSupportNumbers = [
+      [{ text: 'Samaritans' }, { text: '116 123' }, { text: 'Emotional support and crisis listening' }],
+      [
+        { text: 'Frank' },
+        { text: '0300 1236600' },
+        { text: 'Non judgemental information about legal and illegal drugs, alcohol and volatile substances' },
+      ],
+    ]
 
     if (allContacts.length > 0) {
       const sortedContacts = [...allContacts].sort((a, b) => a.name.localeCompare(b.name))
@@ -44,7 +52,7 @@ export default function viewContactsRoutes(
           {
             html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/view-contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
           },
-          { text: "we don't have" },
+          { text: contact.phoneNumber },
           { text: contact.contactType },
         ]
       })
@@ -52,6 +60,7 @@ export default function viewContactsRoutes(
       return res.render('pages/pin-phone/view-contacts', {
         pinPhoneApps: config.prisonerAppsUrl,
         tableRows,
+        freeSupportNumbers,
         pagination,
         hasContacts: true,
       })
@@ -59,6 +68,7 @@ export default function viewContactsRoutes(
 
     return res.render('pages/pin-phone/view-contacts', {
       pinPhoneApps: config.prisonerAppsUrl,
+      freeSupportNumbers,
       hasContacts: false,
     })
   })

@@ -17,15 +17,14 @@
 
   {% if hasContacts %}
     {{ govukInsetText({
-        classes: "app-inset-text--blue",
         html: 'To add or remove contacts go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
     }) }}
 
     {{ govukTable({
       head: [
-        { text: "Contact name" },
-        { text: "Date added" },
-        { text: "Contact type" }
+        { text: "Name", classes: "govuk-!-width-one-third" },
+        { text: "Phone number", classes: "govuk-!-width-one-third" },
+        { text: "Contact type", classes: "govuk-!-width-one-third" }
       ],
       rows: tableRows
     }) }}
@@ -34,9 +33,17 @@
   {% else %}
     <p class="govuk-body govuk-!-font-weight-bold">You have no approved contacts at the moment.</p>
     {{ govukInsetText({
-        classes: "app-inset-text--blue",
         html: 'To add or remove contacts go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
     }) }}
   {% endif %}
-
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-55">
+    <h2 class="govuk-heading-l">Free Support Numbers</h1>
+    {{ govukTable({
+      head: [
+        { text: "Name", classes: "govuk-!-width-one-third" },
+        { text: "Phone number", classes: "govuk-!-width-one-third" },
+        { text: "Support offered", classes: "govuk-!-width-one-third" }
+      ],
+      rows: freeSupportNumbers
+    }) }}
 {% endblock %}
