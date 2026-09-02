@@ -24,7 +24,7 @@ export default function viewContactsRoutes(
       [
         { text: 'Frank' },
         { text: '0300 1236600' },
-        { text: 'Non judgemental information about legal and illegal drugs, alcohol and volatile substances' },
+        { text: 'Non-judgmental information about legal and illegal drugs, alcohol, and volatile substances.' },
       ],
     ]
 
