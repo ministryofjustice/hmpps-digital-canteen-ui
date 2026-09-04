@@ -21,7 +21,7 @@ export default class ContactsPage extends AbstractPage {
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1')
-    this.insetText = page.locator('.app-inset-text--blue')
+    this.insetText = page.locator('.govuk-inset-text')
     this.backLink = page.locator('.govuk-back-link', { hasText: 'Back' })
     this.table = page.locator('.govuk-table')
     this.tableRows = page.locator('.govuk-table__body .govuk-table__row')
