@@ -1,5 +1,5 @@
 import { DigitalPinPhoneApiClient } from '../data'
-import { CreateCartRequest } from '../pinPhone.model'
+import { CreateCartRequest, PaymentRequest } from '../pinPhone.model'
 
 export default class PinPhoneService {
   constructor(private readonly digitalPinPhoneApiClient: DigitalPinPhoneApiClient) {}
@@ -18,5 +18,9 @@ export default class PinPhoneService {
 
   addPinPhoneLineItem(cartId: string, creditAmount: number) {
     return this.digitalPinPhoneApiClient.addPinPhoneLineItem(cartId, creditAmount)
+  }
+
+  completePayment(cartId: string, paymentRequest: PaymentRequest) {
+    return this.digitalPinPhoneApiClient.completePayment(cartId, paymentRequest)
   }
 }

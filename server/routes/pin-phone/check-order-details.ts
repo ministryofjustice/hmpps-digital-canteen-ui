@@ -1,9 +1,16 @@
 import { Router } from 'express'
+import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 import AuditService, { Page } from '../../services/auditService'
 import { PATHS } from '../../constants/paths'
 import { stringToPence, toPounds } from '../../utils/utils'
+import PinPhoneService from '../../services/pinPhoneService'
+import { PaymentRequest } from '../../pinPhone.model'
 
-export default function checkOrderDetailsRoutes(router: Router, auditService: AuditService): Router {
+export default function checkOrderDetailsRoutes(
+  router: Router,
+  auditService: AuditService,
+  pinPhoneService: PinPhoneService,
+): Router {
   router.get(PATHS.CHECK_ORDER_DETAILS, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_CHECK_ORDER_DETAILS, {
       who: res.locals.user.username,
@@ -24,8 +31,24 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
     })
   })
 
-  router.post(PATHS.CHECK_ORDER_DETAILS, async (req, res) => {
-    return res.redirect(PATHS.PIN_PHONE_CONFIRMATION)
+  router.post(PATHS.PIN_PHONE_CONFIRMATION, async (req, res, _next) => {
+    try {
+      const requestedCreditPence = stringToPence(req.session.requestedCreditAmountPounds)
+      const user = req.user as LaunchpadUser
+      const { cartId } = req.session
+      const paymentRequest: PaymentRequest = {
+        offenderNo: user.userId,
+        amountPence: requestedCreditPence,
+        prisonId: user.establishment.agency_id,
+      }
+
+      await pinPhoneService.completePayment(cartId, paymentRequest)
+
+      return res.redirect(PATHS.PIN_PHONE_CONFIRMATION)
+    } catch (error) {
+      return _next(error)
+    }
   })
+
   return router
 }
