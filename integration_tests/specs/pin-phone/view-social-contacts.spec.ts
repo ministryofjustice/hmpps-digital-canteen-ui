@@ -3,21 +3,9 @@ import { loginWithPrisonerAuth } from '../../testUtils'
 import SocialContactsPage from '../../pages/pin-phone/SocialContactsPage'
 import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 
-const expectedFirstSummaryKeys = ['Date added', 'Contact type']
+const expectedFirstSummaryKeys = ['Contact type']
 
-const expectedSecondSummaryKeys = [
-  'Name',
-  'Last name',
-  'Date of birth or age',
-  'Relationship',
-  'Address line 1',
-  'Address line 2',
-  'Town or city',
-  'Postcode',
-  'Country',
-  'Telephone number 1',
-  'Telephone number 2',
-]
+const expectedSecondSummaryKeys = ['Name', 'Relationship', 'Telephone number']
 
 test.describe('Pin Phone view contacts page', () => {
   test.beforeEach(async ({ page }) => {

@@ -5,6 +5,7 @@ import paginationService from '../../services/paginationService'
 import config from '../../config'
 import PinPhoneService from '../../services/pinPhoneService'
 import { PATHS } from '../../constants/paths'
+import { convertToTitleCase } from '../../utils/utils'
 
 export default function viewContactsRoutes(
   router: Router,
@@ -47,13 +48,13 @@ export default function viewContactsRoutes(
       )
 
       const tableRows = pageContacts.map(contact => {
-        const contactType = contact.contactType.toLowerCase()
+        const contactType = contact.contactType ? convertToTitleCase(contact.contactType) : ''
         return [
           {
-            html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/view-contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
+            html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/view-contacts/${contact.contactType.toLowerCase()}-contact/${contact.id}">${contact.name}</a>`,
           },
           { text: contact.phoneNumber },
-          { text: contact.contactType },
+          { text: contactType },
         ]
       })
 
