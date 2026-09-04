@@ -1,8 +1,8 @@
 const environments: { [key: string]: string[] } = {
   PROD: [],
   PREPROD: [],
-  TEST: ['BWI', 'CKI', 'RNI', 'EEI'],
-  DEV: ['BWI', 'CKI', 'RNI', 'EEI', 'WLI'],
+  TEST: ['CKI'],
+  DEV: ['CKI'],
 }
 
 // eslint-disable-next-line import/prefer-default-export
