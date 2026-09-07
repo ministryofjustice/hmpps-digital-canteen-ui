@@ -8,7 +8,7 @@ export default function buyCreditConfirmation(router: Router, auditService: Audi
       correlationId: req.id,
     })
     // reset buy credit session data
-    delete req.session.creditAmount
+    delete req.session.requestedCreditAmountPounds
     delete req.session.amountType
 
     const dateBought = new Date().toLocaleDateString('en-GB', {

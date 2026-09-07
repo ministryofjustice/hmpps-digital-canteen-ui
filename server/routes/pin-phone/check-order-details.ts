@@ -9,8 +9,8 @@ export default function checkOrderDetailsRoutes(router: Router, auditService: Au
     })
 
     const currentCreditBalance = 35.13
-    const newCreditBalance = Number(req.session.creditAmount || 0).toFixed(2)
-    const totalCreditBalance = (currentCreditBalance + Number(req.session.creditAmount || 0)).toFixed(2)
+    const newCreditBalance = Number(req.session.requestedCreditAmountPounds || 0).toFixed(2)
+    const totalCreditBalance = (currentCreditBalance + Number(req.session.requestedCreditAmountPounds || 0)).toFixed(2)
     return res.render('pages/pin-phone/check-order-details', {
       currentCreditBalance,
       newCreditBalance,
