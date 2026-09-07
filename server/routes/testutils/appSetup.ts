@@ -1,5 +1,5 @@
 import express, { Express } from 'express'
-import { NotFound } from 'http-errors'
+import createError, { NotFound } from 'http-errors'
 
 import { randomUUID } from 'crypto'
 import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
@@ -66,6 +66,9 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(routes(services))
+  app.get('/error', (_req, _res, next) => next(createError(500, 'Test Error')))
+  app.get('/401', (_req, _res, next) => next(createError(401)))
+  app.get('/403', (_req, _res, next) => next(createError(403)))
   app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 

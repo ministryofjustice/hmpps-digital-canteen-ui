@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import type { HTTPError } from 'superagent'
 import logger from '../logger'
 
@@ -11,9 +11,11 @@ export default function createErrorHandler(production: boolean) {
       return res.redirect('/sign-out')
     }
 
-    res.locals.message = production
-      ? 'Something went wrong. The error has been logged. Please try again'
-      : error.message
+    res.locals.message = `<h2 class="govuk-heading-l">Sorry, there is a problem with the service.</h2>
+      <p class="govuk-body">Try again later.</p>
+      <p class="govuk-body">
+        You are unable to add credit or view contacts online at this time.<br>
+        Please use a kiosk instead.</p>`
     res.locals.status = error.status
     res.locals.stack = production ? null : error.stack
 
