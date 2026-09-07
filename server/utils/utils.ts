@@ -21,3 +21,12 @@ export const initialiseName = (fullName?: string | null): string | null => {
   const array = fullName.split(' ')
   return `${array[0]?.[0]}. ${array.reverse()[0]}`
 }
+
+export function toPounds(pence: number): string {
+  return (pence / 100).toFixed(2)
+}
+
+export function stringToPence(pounds: string): number {
+  const value = Number(pounds)
+  return Math.round(value * 100)
+}

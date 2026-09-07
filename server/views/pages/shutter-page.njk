@@ -1,0 +1,15 @@
+{% extends "../partials/layout.njk" %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+
+{% set pageTitle = "Service unavailable" %}
+
+{% block content %}
+
+  {{ mojAlert({
+    variant: "error",
+    title: "PIN Phone Credit is not yet available.",
+    showTitleAsHeading: true,
+    dismissible: false
+  }) }}
+
+{% endblock %}

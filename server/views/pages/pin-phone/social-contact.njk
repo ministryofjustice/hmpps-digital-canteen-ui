@@ -5,27 +5,17 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-
+{% set backLinkHref = "/pin-phone/view-contacts" %}
 {% set pageTitle = selectedContact.name %}
 
 {% block pageTitle %}
   {{ pageTitle }} - GOV.UK
 {% endblock %}
 
-{% block beforeContent %}
-  <div class="govuk-width-container govuk-!-margin-top-6">
-    {{ govukBackLink({
-      text: "Back",
-      href: "/pin-phone/view-contacts"
-    }) }}
-  </div>
-{% endblock %}
-
 {% block content %}
   <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
 
   {{ govukInsetText({
-      classes: "app-inset-text--blue",
       html: 'To change this contact go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
   }) }}
 
@@ -33,15 +23,7 @@
     rows: [
       {
         key: {
-          text: "Date added"
-        },
-        value: {
-          text: selectedContact.dateAdded
-        }
-      },
-      {
-        key: {
-          text: "selectedContact type"
+          text: "Contact type"
         },
         value: {
           text: selectedContact.type
@@ -54,28 +36,13 @@
       rows: [
         {
           key: {
-            text: "First name"
+            text: "Name"
           },
           value: {
-            text: selectedContact.firstName
+            text: selectedContact.name
           }
         },
-        {
-          key: {
-            text: "Last name"
-          },
-          value: {
-            text: selectedContact.lastName
-          }
-        },
-        {
-          key: {
-            text: "Date of birth or age"
-          },
-          value: {
-            html: selectedContact.dateOfBirth
-          }
-        },
+
         {
           key: {
             text: "Relationship"
@@ -86,58 +53,10 @@
         },
         {
           key: {
-            text: "Address line 1"
-          },
-          value: {
-            text: selectedContact.addressLine1
-          }
-        },
-        {
-          key: {
-            text: "Address line 2"
-          },
-          value: {
-            text: selectedContact.addressLine2
-          }
-        },
-        {
-          key: {
-            text: "Town or city"
-          },
-          value: {
-            html: selectedContact.townOrCity
-          }
-        },
-        {
-          key: {
-            text: "Postcode"
-          },
-          value: {
-            html: selectedContact.postcode
-          }
-        },
-        {
-          key: {
-            text: "Country"
-          },
-          value: {
-            text: selectedContact.country
-          }
-        },
-        {
-          key: {
-            text: "Telephone number 1"
+            text: "Telephone number"
           },
           value: {
             text: selectedContact.telephoneNumber1
-          }
-        },
-        {
-          key: {
-            text: "Telephone number 2"
-          },
-          value: {
-            html: selectedContact.telephoneNumber2
           }
         }
       ]

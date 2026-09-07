@@ -86,6 +86,14 @@ export default function viewContactsRoutes(router: Router, auditService: AuditSe
     const response = getContacts(currentPage, pageSize)
 
     req.session.allContacts = getContacts(0, 999).content
+    const freeSupportNumbers = [
+      [{ text: 'Samaritans' }, { text: '116 123' }, { text: 'Emotional support and crisis listening.' }],
+      [
+        { text: 'Frank' },
+        { text: '0300 1236600' },
+        { text: 'Non-judgmental information about legal and illegal drugs, alcohol, and volatile substances.' },
+      ],
+    ]
 
     if (response.totalElements > 0) {
       const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
@@ -101,7 +109,7 @@ export default function viewContactsRoutes(router: Router, auditService: AuditSe
           {
             html: `<a class="govuk-link govuk-link--no-underline" href="/pin-phone/view-contacts/${contactType}-contact/${contact.id}">${contact.name}</a>`,
           },
-          { text: contact.dateAdded },
+          { text: contact.telephoneNumber1 },
           { text: contact.type },
         ]
       })
@@ -109,6 +117,7 @@ export default function viewContactsRoutes(router: Router, auditService: AuditSe
       return res.render('pages/pin-phone/view-contacts', {
         pinPhoneApps: config.prisonerAppsUrl,
         tableRows,
+        freeSupportNumbers,
         pagination,
         hasContacts: true,
       })
