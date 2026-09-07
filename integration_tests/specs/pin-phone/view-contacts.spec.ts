@@ -89,7 +89,7 @@ test.describe('Pin Phone view contacts page', () => {
       await expect(contactsPage.insetText.locator('a')).toHaveAttribute('href', /prisoner-apps/)
     })
 
-    test('displays 10 contacts per page', async ({ page }) => {
+    test('displays 5 contacts per page', async ({ page }) => {
       const contactsPage = await ContactsPage.verifyOnPage(page)
       const rows = contactsPage.tableRows
       await expect(rows).toHaveCount(5)
@@ -99,6 +99,13 @@ test.describe('Pin Phone view contacts page', () => {
       const contactsPage = await ContactsPage.verifyOnPage(page)
       await expect(contactsPage.pagination).toBeVisible()
       await expect(contactsPage.pagination.locator('a:has-text("2")')).not.toBeVisible()
+    })
+
+    test('displays free support contact header and table rows', async ({ page }) => {
+      const contactsPage = await ContactsPage.verifyOnPage(page)
+      const rows = contactsPage.freeSupportContactTableRows
+      await expect(contactsPage.freeSupportContactHeader).toContainText('Free Support Numbers')
+      await expect(rows).toHaveCount(2)
     })
   })
 
@@ -128,6 +135,13 @@ test.describe('Pin Phone view contacts page', () => {
       const contactsPage = await ContactsPage.verifyOnPage(page)
       const noContacts = contactsPage.noContactsMessage
       await expect(noContacts).toBeVisible()
+    })
+
+    test('displays free support contact header and table rows', async ({ page }) => {
+      const contactsPage = await ContactsPage.verifyOnPage(page)
+      const rows = contactsPage.freeSupportContactTableRows
+      await expect(contactsPage.freeSupportContactHeader).toContainText('Free Support Numbers')
+      await expect(rows).toHaveCount(2)
     })
   })
 })
