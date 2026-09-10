@@ -30,8 +30,7 @@ afterEach(() => {
 describe('checkOrderDetailsRoutes', () => {
   describe('GET /pin-phone/check-order-details', () => {
     it('should render check-order-details page', async () => {
-      const response = await request(app).get('/pin-phone/check-order-details').set('Cookie', ['session=...']) // Mock session if needed, but appWithAllRoutes might handle it
-
+      const response = await request(app).get('/pin-phone/check-order-details').set('Cookie', ['session=...'])
       expect(response.status).toBe(200)
       expect(response.text).toContain('Check order details')
     })
