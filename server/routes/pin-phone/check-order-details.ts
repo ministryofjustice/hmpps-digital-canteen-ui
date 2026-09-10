@@ -4,7 +4,8 @@ import AuditService, { Page } from '../../services/auditService'
 import { PATHS } from '../../constants/paths'
 import { stringToPence, toPounds } from '../../utils/utils'
 import PinPhoneService from '../../services/pinPhoneService'
-import { PaymentRequest } from '../../pinPhone.model'
+import { PaymentRequest, PolicyEvaluation } from '../../pinPhone.model'
+import errorMessages from '../../constants/errorMessages'
 
 export default function checkOrderDetailsRoutes(
   router: Router,
@@ -31,10 +32,36 @@ export default function checkOrderDetailsRoutes(
     })
   })
 
-  router.post(PATHS.PIN_PHONE_CONFIRMATION, async (req, res, _next) => {
+  router.post(PATHS.CHECK_ORDER_DETAILS, async (req, res, _next) => {
     try {
+      const { currentCreditPence } = req.session
       const requestedCreditPence = stringToPence(req.session.requestedCreditAmountPounds)
       const user = req.user as LaunchpadUser
+
+      // Evaluate policy rules
+      const prisonerEnrichment = await pinPhoneService.retrievePrisonerBalances(user.userId)
+      const pinPhoneCreditLimitPence = prisonerEnrichment.prisonerBtBalance?.creditLimitPence ?? 0
+      const opaData: PolicyEvaluation = {
+        input: {
+          productId: 'BT_PIN_Phone',
+          currentBalance: currentCreditPence,
+          creditLimit: pinPhoneCreditLimitPence,
+        },
+      }
+      const policyResult = await pinPhoneService.evaluateRules(opaData)
+
+      if (policyResult.result.decision === 'DENY') {
+        const currentCreditBalance = toPounds(currentCreditPence)
+        const newCreditBalance = toPounds(requestedCreditPence)
+        const totalCreditBalance = toPounds(currentCreditPence + requestedCreditPence)
+        return res.render('pages/pin-phone/check-order-details', {
+          currentCreditBalance,
+          newCreditBalance,
+          totalCreditBalance,
+          errorList: [{ text: errorMessages.POLICY_EVALUATION_ERROR, href: '#' }],
+        })
+      }
+
       const { cartId } = req.session
       const paymentRequest: PaymentRequest = {
         offenderNo: user.userId,

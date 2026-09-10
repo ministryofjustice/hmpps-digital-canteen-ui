@@ -1,11 +1,15 @@
 import { DigitalPinPhoneApiClient } from '../data'
-import { CreateCartRequest, PaymentRequest } from '../pinPhone.model'
+import { CreateCartRequest, PaymentRequest, PolicyEvaluation, PolicyResult } from '../pinPhone.model'
 
 export default class PinPhoneService {
   constructor(private readonly digitalPinPhoneApiClient: DigitalPinPhoneApiClient) {}
 
   createCart(createCartRequest: CreateCartRequest) {
     return this.digitalPinPhoneApiClient.createCart(createCartRequest)
+  }
+
+  evaluateRules(policyEvaluation: PolicyEvaluation): Promise<PolicyResult> {
+    return this.digitalPinPhoneApiClient.evaluate(policyEvaluation)
   }
 
   retrieveContacts(prisonerNumber: string) {
