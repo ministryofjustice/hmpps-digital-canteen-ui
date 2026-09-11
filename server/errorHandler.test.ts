@@ -62,10 +62,10 @@ describe('ErrorHandler', () => {
       .expect(400)
       .expect('Content-Type', /html/)
       .expect(res => {
-        expect(res.text).toContain('You are unable to add credit at this time.')
+        expect(res.text).toContain('You are unable to add credit right now.')
         expect(res.text).toContain('Please use a kiosk instead.')
         expect(res.text).toContain(
-          '<p class="govuk-body"> You can still use this service to <a href="/pin-phone/view-contacts" class="govuk-link">view contacts.</a></p></h1>',
+          '<p class="govuk-body">You can still use this service to <a href="/pin-phone/view-contacts" class="govuk-link">view contacts</a>.</p>',
         )
         expect(res.text).not.toContain('You are unable to add credit or view contacts online at this time.')
       })

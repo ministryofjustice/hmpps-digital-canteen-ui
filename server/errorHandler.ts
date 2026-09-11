@@ -26,10 +26,14 @@ export default function createErrorHandler(production: boolean) {
     res.locals.message = `<h2 class="govuk-heading-l">Sorry, there is a problem with the service.</h2>
       <p class="govuk-body">Try again later.</p>
       <p class="govuk-body">
-        You are unable to add credit ${isMedusaUnavailable ? '' : 'or view contacts online '}at this time.<br>
+        You are unable to add credit ${isMedusaUnavailable ? 'right now' : 'or view contacts online at this time'}.<br>
         Please use a kiosk instead.</p>
+        ${
+          isMedusaUnavailable
+            ? `<p class="govuk-body">You can still use this service to <a href="/pin-phone/view-contacts" class="govuk-link">view contacts</a>.</p>`
+            : ''
+        }`
 
-       <p class="govuk-body"> ${isMedusaUnavailable ? 'You can still use this service to <a href="/pin-phone/view-contacts" class="govuk-link">view contacts.</a>' : ''}</p>`
     res.locals.status = error.status
     res.locals.stack = production ? null : error.stack
 
