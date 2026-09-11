@@ -67,8 +67,11 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
   app.use(express.urlencoded({ extended: true }))
   app.use(routes(services))
   app.get('/error', (_req, _res, next) => next(createError(500, 'Test Error')))
-  app.get('/401', (_req, _res, next) => next(createError(401)))
-  app.get('/403', (_req, _res, next) => next(createError(403)))
+  app.get('/medusa-error', (_req, _res, next) => {
+    const error = createError(400, 'Bad Request')
+    error.data = { status: 400, userMessage: 'Medusa service is currently unavailable' }
+    next(error)
+  })
   app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 
