@@ -43,8 +43,14 @@ export default function buyPinPhoneCreditRoutes(
     try {
       const { requestedCreditAmountPounds, amountType } = req.session
 
-      // create cart
+      // get user
       const user = req.user as LaunchpadUser
+
+      // get prisoner balances
+      const prisonerEnrichment = await pinPhoneService.retrievePrisonerBalances(user.userId)
+      const balances = getBalances(prisonerEnrichment)
+
+      // create cart
       const createCartRequest: CreateCartRequest = {
         metadata: {
           prison_id: user.establishment.agency_id,
@@ -55,10 +61,6 @@ export default function buyPinPhoneCreditRoutes(
       }
       const result = await pinPhoneService.createCart(createCartRequest)
       req.session.cartId = result.cart.id
-
-      // get prisoner balances
-      const prisonerEnrichment = await pinPhoneService.retrievePrisonerBalances(user.userId)
-      const balances = getBalances(prisonerEnrichment)
 
       return res.render('pages/pin-phone/buy-pin-phone-credit', {
         ...balancesForDisplay(balances),

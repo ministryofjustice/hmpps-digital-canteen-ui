@@ -58,6 +58,6 @@ test.describe('Check order details page', () => {
     const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
     await digitalCanteenApi.stubCompletePaymentFailure('TEST_CART_ID')
     await checkOrderDetailsPage.buyCreditButton.click()
-    await expect(page.locator('h1')).toHaveText('Unprocessable Entity')
+    await expect(checkOrderDetailsPage.header2).toHaveText('Sorry, there is a problem with the service.')
   })
 })
