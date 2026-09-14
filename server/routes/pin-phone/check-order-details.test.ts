@@ -71,16 +71,9 @@ describe('checkOrderDetailsRoutes', () => {
         result: {
           hidden: false,
           decision: 'ALLOW',
-          provider: null,
-          productId: null,
-          prisonId: null,
-          creditLimitEnabled: false,
           creditLimit: 5000,
-          currentBalance: 500,
           maxAvailableCredit: 4500,
-          accountSource: [],
           warnings: [],
-          errors: [],
         },
       })
 
@@ -97,16 +90,9 @@ describe('checkOrderDetailsRoutes', () => {
         result: {
           hidden: false,
           decision: 'DENY',
-          provider: null,
-          productId: null,
-          prisonId: null,
-          creditLimitEnabled: false,
           creditLimit: 5000,
-          currentBalance: 500,
           maxAvailableCredit: 4500,
-          accountSource: [],
           warnings: [],
-          errors: [],
         },
       })
 

@@ -19,16 +19,9 @@ export interface PolicyResult {
   result: {
     hidden: boolean
     decision: 'ALLOW' | 'DENY'
-    provider: string | null
-    productId: string | null
-    prisonId: string | null
-    creditLimitEnabled: boolean
     creditLimit: number
-    currentBalance: number
     maxAvailableCredit: number
-    accountSource: string[]
     warnings: string[]
-    errors: string[]
   }
 }
 
