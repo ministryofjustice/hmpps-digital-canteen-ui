@@ -150,6 +150,27 @@ export default {
         status: httpStatus,
       },
     }),
+
+  stubEvaluate: (decision: 'ALLOW' | 'DENY' = 'ALLOW', httpStatus = 200): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: '/digitalCanteenApi/api/opa/evaluate',
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          result: {
+            decision,
+            hidden: false,
+            creditLimit: 5000,
+            maxAvailableCredit: 5000,
+            warnings: [],
+          },
+        },
+      },
+    }),
 }
 
 const smallContactList = [
