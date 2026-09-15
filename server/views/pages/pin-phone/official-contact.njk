@@ -20,6 +20,8 @@
       html: 'To change this contact go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
   }) }}
 
+ <div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
   {{ govukSummaryList({
     rows: [
       {
@@ -61,11 +63,13 @@
         }
       ]
     }) }}
+  </div>
+ </div>
 
-    {{ govukButton({
-      text: "Back to view contacts",
-      classes: "govuk-button--secondary",
-      href: "/pin-phone/view-contacts"
-    }) }}
+ {{ govukButton({
+   text: "Back to view contacts",
+   classes: "govuk-button--secondary",
+   href: "/pin-phone/view-contacts"
+ }) }}
 
 {% endblock %}
