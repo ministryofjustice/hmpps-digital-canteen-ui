@@ -46,9 +46,11 @@ export default function checkOrderDetailsRoutes(
           productId: 'BT_PIN_Phone',
           currentBalance: currentCreditPence,
           creditLimit: pinPhoneCreditLimitPence,
+          creditRequested: requestedCreditPence,
         },
       }
       const policyResult = await pinPhoneService.evaluateRules(opaData)
+      console.log('Policy Result: ', policyResult)
 
       if (policyResult.result.decision === 'DENY') {
         const currentCreditBalance = toPounds(currentCreditPence)

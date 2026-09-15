@@ -12,6 +12,7 @@ export interface PolicyEvaluation {
     productId: string
     currentBalance: number
     creditLimit: number
+    creditRequested: number
   }
 }
 
