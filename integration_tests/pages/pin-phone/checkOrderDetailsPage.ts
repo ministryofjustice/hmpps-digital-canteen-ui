@@ -12,9 +12,12 @@ export default class CheckOrderDetailsPage extends AbstractPage {
 
   readonly cancelLink: Locator
 
+  readonly header2: Locator
+
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1')
+    this.header2 = page.getByRole('heading', { name: 'Sorry, there is a problem with the service.', level: 2 })
     this.backLink = page.locator('.govuk-back-link')
     this.summaryList = page.locator('.govuk-summary-list')
     this.buyCreditButton = page.locator('button', { hasText: 'Buy credit' })
