@@ -1,5 +1,5 @@
 import ERROR_MESSAGE from '../constants/errorMessages'
-import { stringToPence } from './utils'
+// import { stringToPence } from './utils'
 
 type ValidationError = {
   href: string
@@ -15,9 +15,9 @@ type ValidationResult = {
 
 const validateBuyCreditInput = (
   requestedCreditAmountPounds: string,
-  currentPinPhoneCreditPence: number,
-  currentSpendsBalancePence: number,
-  pinPhoneCreditLimitPence: number,
+  // currentPinPhoneCreditPence: number,
+  // currentSpendsBalancePence: number,
+  // pinPhoneCreditLimitPence: number,
 ): ValidationResult => {
   // No radio button selected
   if (!requestedCreditAmountPounds) {
