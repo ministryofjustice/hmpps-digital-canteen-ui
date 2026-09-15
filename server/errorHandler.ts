@@ -1,6 +1,7 @@
-import type { Request, Response, NextFunction } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import type { HTTPError } from 'superagent'
 import logger from '../logger'
+import errorMessages from './constants/errorMessages'
 
 export default function createErrorHandler(production: boolean) {
   return (error: HTTPError, req: Request, res: Response, _next: NextFunction): void => {
@@ -11,9 +12,28 @@ export default function createErrorHandler(production: boolean) {
       return res.redirect('/sign-out')
     }
 
-    res.locals.message = production
-      ? 'Something went wrong. The error has been logged. Please try again'
-      : error.message
+    type ErrorWithData = {
+      data?: {
+        status?: number
+        userMessage?: string
+      }
+    }
+
+    const { data } = error as ErrorWithData
+
+    const isMedusaUnavailable = data?.status === 400 && data?.userMessage === errorMessages.MEDUSA_UNAVAILABLE_MESSAGE
+
+    res.locals.message = `<h2 class="govuk-heading-l">Sorry, there is a problem with the service.</h2>
+      <p class="govuk-body">Try again later.</p>
+      <p class="govuk-body">
+        You are unable to add credit ${isMedusaUnavailable ? 'right now' : 'or view contacts online at this time'}.<br>
+        Please use a kiosk instead.</p>
+        ${
+          isMedusaUnavailable
+            ? `<p class="govuk-body">You can still use this service to <a href="/pin-phone/view-contacts" class="govuk-link">view contacts</a>.</p>`
+            : ''
+        }`
+
     res.locals.status = error.status
     res.locals.stack = production ? null : error.stack
 
