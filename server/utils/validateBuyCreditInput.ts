@@ -49,35 +49,35 @@ const validateBuyCreditInput = (
     }
   }
 
-  // the selected amount is greater than spendBalance
-  if (stringToPence(requestedCreditAmountPounds) > currentSpendsBalancePence) {
-    return {
-      errorList: [
-        {
-          href: '#amount',
-          text: ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR,
-        },
-      ],
-      amountError: {
-        text: ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR,
-      },
-    }
-  }
-
-  // the amount is greater than allowed pinPhoneCreditLimit
-  if (currentPinPhoneCreditPence + stringToPence(requestedCreditAmountPounds) > pinPhoneCreditLimitPence) {
-    return {
-      errorList: [
-        {
-          href: '#amount',
-          text: ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR,
-        },
-      ],
-      amountError: {
-        text: ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR,
-      },
-    }
-  }
+  // // the selected amount is greater than spendBalance
+  // if (stringToPence(requestedCreditAmountPounds) > currentSpendsBalancePence) {
+  //   return {
+  //     errorList: [
+  //       {
+  //         href: '#amount',
+  //         text: ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR,
+  //       },
+  //     ],
+  //     amountError: {
+  //       text: ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR,
+  //     },
+  //   }
+  // }
+  //
+  // // the amount is greater than allowed pinPhoneCreditLimit
+  // if (currentPinPhoneCreditPence + stringToPence(requestedCreditAmountPounds) > pinPhoneCreditLimitPence) {
+  //   return {
+  //     errorList: [
+  //       {
+  //         href: '#amount',
+  //         text: ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR,
+  //       },
+  //     ],
+  //     amountError: {
+  //       text: ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR,
+  //     },
+  //   }
+  // }
 
   return {
     errorList: [],
