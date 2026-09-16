@@ -32,7 +32,7 @@ function createIdToken(userToken: LaunchpadUserToken) {
       id: 'A-BOOKING-ID',
     },
     establishment: {
-      agencyId: 'EEI',
+      agency_id: 'CKI',
     },
     iss: 'http://localhost:9091/launchpadauth',
   }
