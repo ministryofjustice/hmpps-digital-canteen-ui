@@ -104,21 +104,21 @@ describe('Validations GET /pin-phone/buy-credit', () => {
     expect(response.text).toContain(ERROR_MESSAGE.INVALID_AMOUNT_ERROR)
   })
 
-  // it('should render page when maximum credit would be exceeded the spends amount', async () => {
-  //   const response = await request(app).post('/pin-phone/buy-credit').send({
-  //     amount: 'other',
-  //     customAmount: '150',
-  //   })
-  //   expect(response.text.replace(/&#39;/g, "'")).toContain(ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR)
-  // })
+  it('should render page when maximum credit would be exceeded the spends amount', async () => {
+    const response = await request(app).post('/pin-phone/buy-credit').send({
+      amount: 'other',
+      customAmount: '150',
+    })
+    expect(response.text.replace(/&#39;/g, "'")).toContain(ERROR_MESSAGE.NOT_ENOUGH_SPEND_BALANCE_ERROR)
+  })
 
-  // it('should render page when buying more than allowed credit', async () => {
-  //   const response = await request(app).post('/pin-phone/buy-credit').send({
-  //     amount: 'other',
-  //     customAmount: '45',
-  //   })
-  //   expect(response.text).toContain(ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR)
-  // })
+  it('should render page when buying more than allowed credit', async () => {
+    const response = await request(app).post('/pin-phone/buy-credit').send({
+      amount: 'other',
+      customAmount: '45',
+    })
+    expect(response.text).toContain(ERROR_MESSAGE.CREDIT_LIMIT_EXCEEDED_ERROR)
+  })
 
   it('should add line item when valid amount is selected', async () => {
     pinPhoneService.addPinPhoneLineItem.mockResolvedValue({ cart: { id: 'TEST_CART_ID' } })
