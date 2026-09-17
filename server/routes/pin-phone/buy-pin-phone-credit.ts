@@ -88,7 +88,12 @@ export default function buyPinPhoneCreditRoutes(
       const balances = getBalances(prisonerEnrichment)
       req.session.currentCreditPence = balances.currentPinPhoneCreditPence
 
-      const error = validateBuyCreditInput(req.session.requestedCreditAmountPounds)
+      const error = validateBuyCreditInput(
+        req.session.requestedCreditAmountPounds,
+        balances.currentPinPhoneCreditPence,
+        balances.currentSpendsBalancePence,
+        balances.pinPhoneCreditLimitPence,
+      )
 
       if (error.errorList.length > 0) {
         return res.render('pages/pin-phone/buy-pin-phone-credit', {

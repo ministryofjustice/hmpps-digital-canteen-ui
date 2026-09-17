@@ -50,8 +50,6 @@ export default function checkOrderDetailsRoutes(
         },
       }
       const policyResult = await pinPhoneService.evaluateRules(opaData)
-      // eslint-disable-next-line no-console
-      console.log('Policy Result: ', policyResult)
 
       if (policyResult.result.decision === 'DENY') {
         const currentCreditBalance = toPounds(currentCreditPence)
