@@ -7,6 +7,8 @@ import {
   CreateCartRequest,
   EnrichedPinPhonePrisoner,
   PaymentRequest,
+  PolicyEvaluation,
+  PolicyResult,
   PrisonerContact,
 } from '../pinPhone.model'
 import { PATHS } from '../constants/paths'
@@ -21,6 +23,16 @@ export default class DigitalPinPhoneApiClient extends RestClient {
       {
         path: PATHS.CREATE_CART,
         data: { metadata },
+      },
+      asSystem(),
+    )
+  }
+
+  async evaluate(policyEvaluation: PolicyEvaluation): Promise<PolicyResult> {
+    return this.post(
+      {
+        path: `/api/opa/evaluate`,
+        data: { ...policyEvaluation },
       },
       asSystem(),
     )
