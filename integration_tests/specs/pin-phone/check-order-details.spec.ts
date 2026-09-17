@@ -61,7 +61,7 @@ test.describe('Check order details page', () => {
     await digitalCanteenApi.stubEvaluate('ALLOW')
     await digitalCanteenApi.stubCompletePaymentFailure('TEST_CART_ID')
     await checkOrderDetailsPage.buyCreditButton.click()
-    await expect(page.locator('h1')).toHaveText('Unprocessable Entity')
+    await expect(checkOrderDetailsPage.header2).toHaveText('Sorry, there is a problem with the service.')
   })
 
   test('Should show error message when policy evaluation is denied', async ({ page }) => {
