@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express'
 import checkActiveAgencyAccess from './checkActiveAgencyAccess'
+import ERROR_MESSAGE from '../constants/errorMessages'
 
 let mockActiveAgencies: readonly string[] = []
 
@@ -31,7 +32,7 @@ describe('checkActiveAgencyAccess', () => {
   }
 
   const ENTRY_DENIED_ERROR_PAGE = {
-    message: 'You do not have access to this service.',
+    message: ERROR_MESSAGE.ENTRY_DENIED_ERROR_MESSAGE,
     accessDenied: true,
   }
 

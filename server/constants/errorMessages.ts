@@ -4,6 +4,7 @@ const ERROR_MESSAGE = {
   NOT_ENOUGH_SPEND_BALANCE_ERROR: "You don't have enough spends to buy this much credit. Enter a smaller amount.",
   CREDIT_LIMIT_EXCEEDED_ERROR: 'You cannot have more than £50 phone credit. Enter a smaller amount.',
   MEDUSA_UNAVAILABLE_MESSAGE: 'Medusa service is currently unavailable',
+  ENTRY_DENIED_ERROR_MESSAGE: 'You do not have access to this service.',
 }
 
 export default ERROR_MESSAGE

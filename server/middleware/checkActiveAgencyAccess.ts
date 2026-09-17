@@ -2,9 +2,10 @@ import type { RequestHandler } from 'express'
 import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 import logger from '../../logger'
 import { ACTIVE_AGENCIES } from '../constants/activeAgencies'
+import ERROR_MESSAGE from '../constants/errorMessages'
 
 const NO_ACTIVE_CASELOAD = '-no-active-case-load-id-'
-const ENTRY_DENIED_ERROR_PAGE = { message: 'You do not have access to this service.', accessDenied: true }
+const ENTRY_DENIED_ERROR_PAGE = { message: ERROR_MESSAGE.ENTRY_DENIED_ERROR_MESSAGE, accessDenied: true }
 
 export default function checkActiveAgencyAccess(): RequestHandler {
   return async (_req, res, next) => {
