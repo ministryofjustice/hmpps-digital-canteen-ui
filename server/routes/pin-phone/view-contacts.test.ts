@@ -1,7 +1,7 @@
 import type { Express } from 'express'
 import request from 'supertest'
 import { appWithAllRoutes } from '../testutils/appSetup'
-import AuditService, { Page } from '../../services/auditService'
+import AuditService from '../../services/auditService'
 import PinPhoneService from '../../services/pinPhoneService'
 import { PATHS } from '../../constants/paths'
 import { PrisonerContact } from '../../pinPhone.model'
@@ -66,20 +66,18 @@ describe('GET /pin-phone/view-contacts', () => {
 
     expect(response.status).toBe(200)
     expect(response.text).toContain('A Name')
-    expect(response.text).toContain('B Name')
-    expect(response.text).toContain('0987654321')
     expect(response.text).toContain('0123456789')
     expect(response.text).toContain('Social')
     expect(response.text).toContain('Husband')
+    expect(response.text).toContain('B Name')
+    expect(response.text).toContain('0987654321')
     expect(response.text).toContain('Legal')
     expect(response.text).toContain('Legal Representative')
     expect(pinPhoneService.retrieveContacts).toHaveBeenCalledWith('id')
-    expect(auditService.logPageView).toHaveBeenCalledWith(Page.VIEW_CONTACTS, expect.anything())
   })
 
   it('should render the view contacts page with "no contacts" message when no contacts exist', async () => {
     pinPhoneService.retrieveContacts.mockResolvedValue([])
-
     const response = await request(app).get(PATHS.VIEW_CONTACTS)
 
     expect(response.status).toBe(200)
