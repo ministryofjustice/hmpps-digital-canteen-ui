@@ -30,7 +30,7 @@ export default function checkActiveAgencyAccess(): RequestHandler {
     }
 
     logger.warn(
-      `Access denied for user ${user.username}. activeCaseLoadId=${activeCaseLoadId}, activeAgencies=${JSON.stringify(activeAgencies)}`,
+      `Access denied for user ${user.userId}. activeCaseLoadId=${activeCaseLoadId}, activeAgencies=${JSON.stringify(activeAgencies)}`,
     )
     return res.status(403).render('pages/error', ENTRY_DENIED_ERROR_PAGE)
   }
