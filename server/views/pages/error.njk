@@ -1,4 +1,5 @@
 {% extends "../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = applicationName + " - Error" %}
 {% set mainClasses = "govuk-body" %}
@@ -8,5 +9,13 @@
   <h1>{{ message | safe }}</h1>
   <h2>{{ status }}</h2>
   <pre>{{ stack }}</pre>
+
+  {% if accessDenied %}
+    {{ govukButton({
+        text: "Return Home",
+        href: launchpadHome,
+        type: "submit"
+     }) }}
+   {% endif %}
 
 {% endblock %}
