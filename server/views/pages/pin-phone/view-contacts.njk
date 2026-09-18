@@ -17,18 +17,19 @@
 
   {% if hasContacts %}
     {{ govukInsetText({
-        html: 'To add or remove contacts go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
+        html: 'If you want to add, change or delete a number, go to Apps and select <a class="govuk-link" href="' + pinPhoneApps + '">PIN phones apps</a>.'
     }) }}
 
     {{ govukTable({
+      classes: "govuk-!-width-three-quarters",
       head: [
         { text: "Name", classes: "govuk-!-width-one-third" },
         { text: "Phone number", classes: "govuk-!-width-one-third" },
-        { text: "Contact type", classes: "govuk-!-width-one-third" }
+        { text: "Contact type", classes: "govuk-!-width-one-third" },
+        { text: "Relationship", classes: "govuk-!-width-one-third" }
       ],
       rows: tableRows
     }) }}
-
     {{ mojPagination(pagination) }}
   {% else %}
     <p class="govuk-body govuk-!-font-weight-bold">You have no approved contacts at the moment.</p>
@@ -36,14 +37,4 @@
         html: 'To add or remove contacts go to Apps and choose <a class="govuk-link govuk-link--no-underline" href="' + pinPhoneApps + '">PIN phones apps</a>'
     }) }}
   {% endif %}
-    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-55">
-    <h2 class="govuk-heading-l">Free Support Numbers</h1>
-    {{ govukTable({
-      head: [
-        { text: "Name", classes: "govuk-!-width-one-third" },
-        { text: "Phone number", classes: "govuk-!-width-one-third" },
-        { text: "Support offered", classes: "govuk-!-width-one-third" }
-      ],
-      rows: freeSupportNumbers
-    }) }}
 {% endblock %}

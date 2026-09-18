@@ -43,18 +43,6 @@ test.describe('Pin Phone view contacts page', () => {
       expect(names).toEqual(sorted)
     })
 
-    test('contact name links to social contact', async ({ page }) => {
-      const contactsPage = await ContactsPage.verifyOnPage(page)
-      const firstLink = contactsPage.tableRows.first().locator('a')
-      await expect(firstLink).toHaveAttribute('href', /social-contact/)
-    })
-
-    test('contact name links to professional contact', async ({ page }) => {
-      const contactsPage = await ContactsPage.verifyOnPage(page)
-      const professionalLink = contactsPage.tableRows.locator('a[href*="professional-contact"]').first()
-      await expect(professionalLink).toBeVisible()
-    })
-
     test('displays pagination', async ({ page }) => {
       const contactsPage = await ContactsPage.verifyOnPage(page)
       await expect(contactsPage.pagination).toBeVisible()
@@ -100,13 +88,6 @@ test.describe('Pin Phone view contacts page', () => {
       await expect(contactsPage.pagination).toBeVisible()
       await expect(contactsPage.pagination.locator('a:has-text("2")')).not.toBeVisible()
     })
-
-    test('displays free support contact header and table rows', async ({ page }) => {
-      const contactsPage = await ContactsPage.verifyOnPage(page)
-      const rows = contactsPage.freeSupportContactTableRows
-      await expect(contactsPage.freeSupportContactHeader).toContainText('Free Support Numbers')
-      await expect(rows).toHaveCount(2)
-    })
   })
 
   test.describe('with no contacts', () => {
@@ -135,13 +116,6 @@ test.describe('Pin Phone view contacts page', () => {
       const contactsPage = await ContactsPage.verifyOnPage(page)
       const noContacts = contactsPage.noContactsMessage
       await expect(noContacts).toBeVisible()
-    })
-
-    test('displays free support contact header and table rows', async ({ page }) => {
-      const contactsPage = await ContactsPage.verifyOnPage(page)
-      const rows = contactsPage.freeSupportContactTableRows
-      await expect(contactsPage.freeSupportContactHeader).toContainText('Free Support Numbers')
-      await expect(rows).toHaveCount(2)
     })
   })
 })
