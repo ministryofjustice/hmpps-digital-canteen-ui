@@ -7,6 +7,25 @@ export interface CreateCartRequest {
   }
 }
 
+export interface PolicyEvaluation {
+  input: {
+    productId: string
+    currentBalance: number
+    creditLimit: number
+    creditRequested: number
+  }
+}
+
+export interface PolicyResult {
+  result: {
+    hidden: boolean
+    decision: 'ALLOW' | 'DENY'
+    creditLimit: number
+    maxAvailableCredit: number
+    warnings: string[]
+  }
+}
+
 export interface PrisonerContact {
   prisonerId: string
   id: number

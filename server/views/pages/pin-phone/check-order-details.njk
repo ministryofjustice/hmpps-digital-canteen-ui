@@ -3,6 +3,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
  {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+ {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% set backLinkHref = "/pin-phone/buy-credit" %}
 {% set pageTitle = "Check order details" %}
@@ -13,11 +14,19 @@
 
 {% block content %}
  <div class="govuk-body govuk-width-container">
+
+    {% if errorList %}
+       {{ govukErrorSummary({
+         titleText: "There is a problem",
+         errorList: errorList
+       }) }}
+    {% endif %}
+
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
        <span class="govuk-caption-l govuk-!-margin-bottom-1">Buy PIN phone credit</span>
         <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ pageTitle }}</h1>
-        <form method="POST" action="/pin-phone/buy-credit-confirmation" id="check-order-details">
+        <form method="POST" action="/pin-phone/check-order-details" id="check-order-details">
           <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
            {{ govukSummaryList({
              rows: [

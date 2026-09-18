@@ -3,6 +3,7 @@ import { loginWithPrisonerAuth } from '../../testUtils'
 import CheckOrderDetailsPage from '../../pages/pin-phone/checkOrderDetailsPage'
 import digitalCanteenApi from '../../mockApis/digitalCanteenApi'
 import BuyCreditConfirmationPage from '../../pages/pin-phone/buyCreditConfirmationPage'
+import errorMessages from '../../../server/constants/errorMessages'
 
 test.describe('Check order details page', () => {
   test.beforeEach(async ({ page }) => {
@@ -49,6 +50,7 @@ test.describe('Check order details page', () => {
 
   test('Should proceed to confirmation page, on complete payment', async ({ page }) => {
     const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
+    await digitalCanteenApi.stubEvaluate('ALLOW')
     await digitalCanteenApi.stubCompletePayment('TEST_CART_ID')
     await checkOrderDetailsPage.buyCreditButton.click()
     await BuyCreditConfirmationPage.verifyOnPage(page)
@@ -56,8 +58,17 @@ test.describe('Check order details page', () => {
 
   test('Should not proceed to confirmation page, on complete payment failure', async ({ page }) => {
     const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
+    await digitalCanteenApi.stubEvaluate('ALLOW')
     await digitalCanteenApi.stubCompletePaymentFailure('TEST_CART_ID')
     await checkOrderDetailsPage.buyCreditButton.click()
     await expect(checkOrderDetailsPage.header2).toHaveText('Sorry, there is a problem with the service.')
+  })
+
+  test('Should show error message when policy evaluation is denied', async ({ page }) => {
+    const checkOrderDetailsPage = await CheckOrderDetailsPage.verifyOnPage(page)
+    await digitalCanteenApi.stubEvaluate('DENY')
+    await checkOrderDetailsPage.buyCreditButton.click()
+    await CheckOrderDetailsPage.verifyOnPage(page)
+    await expect(page.locator('.govuk-error-summary')).toContainText(errorMessages.POLICY_EVALUATION_ERROR)
   })
 })
