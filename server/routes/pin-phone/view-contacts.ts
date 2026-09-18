@@ -61,7 +61,7 @@ function formatContactsForTable(contacts: PrisonerContact[]) {
   return contacts.map(contact => [
     { text: contact.name },
     { text: contact.phoneNumber },
-    { text: contact.contactType ? convertToTitleCase(contact.contactType) : '' },
-    { text: convertToTitleCase(contact.contactTypeDescription) },
+    { text: convertToTitleCase(contact.contactType ?? '') },
+    { text: convertToTitleCase(contact.contactTypeDescription ?? '') },
   ])
 }
