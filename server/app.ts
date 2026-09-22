@@ -15,6 +15,7 @@ import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
+import checkActiveAgencyAccess from './middleware/checkActiveAgencyAccess'
 
 import routes from './routes'
 import type { Services } from './services'
@@ -41,6 +42,7 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpLaunchpadHeader)
   app.use(setUpLaunchpadFooter)
   app.use(setUpShuttering())
+  app.use(checkActiveAgencyAccess())
   app.use(routes(services))
 
   app.use((_req, _res, next) => next(createError(404, 'Not found')))
