@@ -43,6 +43,11 @@
 
           <form method="post" novalidate>
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+            {% call govukInsetText() %}
+               Available to spend: £{{ creditBuyCapacity }}
+            {% endcall %}
+
             {{ govukTable({
               classes: "govuk-!-width-two-thirds",
               firstCellIsHeader: false,
@@ -77,10 +82,6 @@
               ]
             }) }}
 
-            {% call govukInsetText() %}
-               You can buy up to £{{ creditBuyCapacity }}
-            {% endcall %}
-
           {{ govukRadios({
             classes: "pin-credit-radios",
             name: "amount",
@@ -91,34 +92,33 @@
                 classes: "govuk-fieldset__legend--m"
               }
             },
+            hint: {
+              text: "Your credit may last longer if you call a landline or call at the weekend. Call charges vary."
+            },
+
             items: [
               {
                 value: "0.50",
-                text: "£0.50",
+                text: "£0.50 (about 9 minutes to mobile)",
                 checked: amountType == '0.50'
               },
               {
                 value: "1",
-                text: "£1.00",
+                text: "£1.00 (about 18 minutes to mobile)",
                 checked: amountType == '1'
               },
               {
                 value: "3",
-                text: "£3.00",
+                text: "£3.00 (about 54 minutes to mobile)",
                 checked: amountType == '3'
               },
               {
                 value: "5",
-                text: "£5.00",
+                text: "£5.00 (about 90 minutes to mobile)",
                 checked: amountType == '5'
               },
               {
-               value: creditBuyCapacity,
-               text: "Max (£" +  creditBuyCapacity  +")",
-               checked: amountType == creditBuyCapacity
-              },
-              {
-                divider: "Or add your own amount"
+                divider: "Or enter your own amount. For example, for £1, enter 1.00 or for 70p, enter 0.70"
               },
               {
                 value: "other",
