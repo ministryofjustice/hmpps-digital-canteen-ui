@@ -11,6 +11,7 @@ describe('telemetryService', () => {
     activeCaseLoadId: 'BXI',
     name: 'User',
     userId: 'user_id',
+    userUuid: '11111111-1111-1111-1111-111111111111',
     token: 'token',
     username: 'username',
     displayName: 'User',
