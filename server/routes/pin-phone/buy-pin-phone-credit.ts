@@ -8,7 +8,6 @@ import validateBuyCreditInput from '../../utils/validateBuyCreditInput'
 import { stringToPence, toPounds } from '../../utils/utils'
 import TelemetryService from '../../services/telemetryService'
 
-
 function getBalances(prisonerEnrichment: EnrichedPinPhonePrisoner) {
   const currentPinPhoneCreditPence = prisonerEnrichment.prisonerBtBalance?.balancePence ?? 0
   const currentSpendsBalancePence = prisonerEnrichment.prisonerBalance?.spendsPence ?? 0

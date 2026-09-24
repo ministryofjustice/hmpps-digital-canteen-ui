@@ -7,7 +7,6 @@ import checkOrderDetailsRoutes from './pin-phone/check-order-details'
 import buyCreditConfirmation from './pin-phone/buy-credit-confirmation'
 import viewContacts from './pin-phone/view-contacts'
 
-
 export default function routes({ auditService, pinPhoneService, telemetryService }: Services): Router {
   const router = Router()
 

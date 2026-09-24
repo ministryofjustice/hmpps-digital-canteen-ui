@@ -25,10 +25,10 @@ describe('telemetryService', () => {
     expect(telemetryClient.trackEvent).toHaveBeenCalledWith({
       name: 'FOO',
       properties: {
-        "foo": "bar",
-        "username": "username",
-        "x": 0,
-        "y": null,
+        foo: 'bar',
+        username: 'username',
+        x: 0,
+        y: null,
       },
     })
   })

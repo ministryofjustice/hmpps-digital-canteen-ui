@@ -7,7 +7,6 @@ import ERROR_MESSAGE from '../../constants/errorMessages'
 import { CreateCartRequest } from '../../pinPhone.model'
 import TelemetryService from '../../services/telemetryService'
 
-
 jest.mock('../../services/auditService')
 jest.mock('../../services/pinPhoneService')
 jest.mock('../../services/telemetryService')

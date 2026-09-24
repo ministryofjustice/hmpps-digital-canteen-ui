@@ -15,7 +15,6 @@ const auditService = new AuditService(null) as jest.Mocked<AuditService>
 const pinPhoneService = new PinPhoneService(null) as jest.Mocked<PinPhoneService>
 const telemetryService = { trackEvent: jest.fn() } as unknown as jest.Mocked<TelemetryService>
 
-
 let app: Express
 
 const contacts: PrisonerContact[] = [
