@@ -13,7 +13,8 @@ export default class TelemetryService {
           name,
           properties: {
             ...properties,
-            username: user.username,
+            userUuid: userUuid,
+            userId: user.userId,
           },
         })
       } catch (error) {
