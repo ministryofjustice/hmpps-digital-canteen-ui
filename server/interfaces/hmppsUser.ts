@@ -1,5 +1,4 @@
 import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
-import { UUID } from 'crypto'
 
 export type AuthSource = 'nomis' | 'delius' | 'external' | 'azuread' | 'prisoner-auth'
 
