@@ -129,4 +129,5 @@ export default {
     'https://prisoner-apps-dev.hmpps.service.justice.gov.uk/',
     requiredInProduction,
   ),
+  appInsightsConnectionString: get('APPLICATIONINSIGHTS_CONNECTION_STRING', '', requiredInProduction),
 }

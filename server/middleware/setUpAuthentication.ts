@@ -41,6 +41,7 @@ export default function setUpPrisonerAuth() {
         givenName: 'John',
         familyName: 'Doe',
         userId: 'G3682UE',
+
         userRoles: [],
         booking: { id: '12345' },
         establishment: { agency_id: 'CKI', name: 'Cookham Wood (HMP)' },
