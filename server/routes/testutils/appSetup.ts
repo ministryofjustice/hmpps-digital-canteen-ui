@@ -13,9 +13,21 @@ import setUpWebSession from '../../middleware/setUpWebSession'
 import HmppsAuditClient from '../../data/hmppsAuditClient'
 import { DigitalPinPhoneApiClient } from '../../data'
 import PinPhoneService from '../../services/pinPhoneService'
+import TelemetryService from '../../services/telemetryService'
+import { ApplicationInfo } from '../../applicationInfo'
 
 jest.mock('../../services/auditService')
 jest.mock('../../data/digitalPinPhoneApiClient')
+jest.mock('../../services/telemetryService')
+
+const testAppInfo: ApplicationInfo = {
+  applicationName: 'test',
+  buildNumber: '1',
+  gitRef: 'long ref',
+  gitShortHash: 'short ref',
+  productId: '1',
+  branchName: 'main',
+}
 
 export const user: HmppsUser = {
   name: 'FIRST LAST',
@@ -36,6 +48,7 @@ export const user: HmppsUser = {
   familyName: 'LAST',
 } as PrisonUser | LaunchpadUser
 
+
 export const flashProvider = jest.fn()
 
 function appSetup(services: Services, production: boolean, userSupplier: () => HmppsUser): Express {
@@ -43,7 +56,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
 
   app.set('view engine', 'njk')
 
-  nunjucksSetup(app)
+  nunjucksSetup(app, testAppInfo)
   app.use(setUpWebSession())
   app.use((req, res, next) => {
     req.user = userSupplier() as Express.User
@@ -83,6 +96,7 @@ export function appWithAllRoutes({
   services = {
     auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
     pinPhoneService: new PinPhoneService({} as DigitalPinPhoneApiClient) as jest.Mocked<PinPhoneService>,
+    telemetryService: new TelemetryService(null) as jest.Mocked<TelemetryService>,
   },
   userSupplier = () => user,
 }: {
