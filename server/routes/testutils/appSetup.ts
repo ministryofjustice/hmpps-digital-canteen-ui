@@ -48,7 +48,6 @@ export const user: HmppsUser = {
   familyName: 'LAST',
 } as PrisonUser | LaunchpadUser
 
-
 export const flashProvider = jest.fn()
 
 function appSetup(services: Services, production: boolean, userSupplier: () => HmppsUser): Express {

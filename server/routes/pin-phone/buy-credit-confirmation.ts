@@ -1,10 +1,14 @@
 import { Router } from 'express'
-import AuditService, { Page } from '../../services/auditService'
 import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
+import AuditService, { Page } from '../../services/auditService'
 import { PATHS } from '../../constants/paths'
 import TelemetryService from '../../services/telemetryService'
 
-export default function buyCreditConfirmation(router: Router, auditService: AuditService, telemetryService: TelemetryService): Router {
+export default function buyCreditConfirmation(
+  router: Router,
+  auditService: AuditService,
+  telemetryService: TelemetryService,
+): Router {
   router.get(PATHS.PIN_PHONE_CONFIRMATION, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_BUY_CONFIRMATION, {
       who: res.locals.user.username,
@@ -20,9 +24,9 @@ export default function buyCreditConfirmation(router: Router, auditService: Audi
       month: 'long',
       year: 'numeric',
     })
-   telemetryService.trackEvent('PIN_PHONE_CONFIRMATION', user, {
+    telemetryService.trackEvent('PIN_PHONE_CONFIRMATION', user, {
       prisonCode: user.establishment.agency_id,
-     })
+    })
     return res.render('pages/pin-phone/buy-credit-confirmation', { dateBought })
   })
 

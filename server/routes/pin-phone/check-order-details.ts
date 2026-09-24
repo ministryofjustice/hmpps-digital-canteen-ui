@@ -8,7 +8,6 @@ import { PaymentRequest, PolicyEvaluation } from '../../pinPhone.model'
 import errorMessages from '../../constants/errorMessages'
 import TelemetryService from '../../services/telemetryService'
 
-
 export default function checkOrderDetailsRoutes(
   router: Router,
   auditService: AuditService,
@@ -29,8 +28,8 @@ export default function checkOrderDetailsRoutes(
     const newCreditBalance = toPounds(requestedCreditPence)
     const totalCreditBalance = toPounds(currentCreditPence + requestedCreditPence)
     telemetryService.trackEvent('CHECK_ORDER_DETAILS', user, {
-            prisonCode: user.establishment.agency_id,
-          })
+      prisonCode: user.establishment.agency_id,
+    })
 
     return res.render('pages/pin-phone/check-order-details', {
       currentCreditBalance,

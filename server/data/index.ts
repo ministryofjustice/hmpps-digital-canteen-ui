@@ -29,7 +29,6 @@ export const dataAccess = () => {
     digitalCanteenApiClient: new DigitalPinPhoneApiClient(hmppsAuthClient),
     hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
     applicationInsightsClient,
-
   }
 }
 

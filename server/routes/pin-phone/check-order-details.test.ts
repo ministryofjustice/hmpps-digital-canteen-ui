@@ -6,11 +6,9 @@ import PinPhoneService from '../../services/pinPhoneService'
 import errorMessages from '../../constants/errorMessages'
 import TelemetryService from '../../services/telemetryService'
 
-
 jest.mock('../../services/auditService')
 jest.mock('../../services/pinPhoneService')
 jest.mock('../../services/telemetryService')
-
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
 const pinPhoneService = new PinPhoneService(null) as jest.Mocked<PinPhoneService>
