@@ -14,6 +14,7 @@ export default class TelemetryService {
           properties: {
             ...properties,
             username: user.username,
+            userUuid: user.userUuid,
           },
         })
       } catch (error) {
