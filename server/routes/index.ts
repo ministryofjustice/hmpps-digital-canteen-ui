@@ -7,17 +7,18 @@ import checkOrderDetailsRoutes from './pin-phone/check-order-details'
 import buyCreditConfirmation from './pin-phone/buy-credit-confirmation'
 import viewContacts from './pin-phone/view-contacts'
 
-export default function routes({ auditService, pinPhoneService }: Services): Router {
+
+export default function routes({ auditService, pinPhoneService, telemetryService }: Services): Router {
   const router = Router()
 
   router.get('/', async (req, res, _next) => {
     res.redirect('/pin-phone')
   })
 
-  pinPhoneRoutes(router, auditService)
-  buyPinPhoneCreditRoutes(router, auditService, pinPhoneService)
-  checkOrderDetailsRoutes(router, auditService, pinPhoneService)
-  buyCreditConfirmation(router, auditService)
-  viewContacts(router, auditService, pinPhoneService)
+  pinPhoneRoutes(router, auditService, telemetryService)
+  buyPinPhoneCreditRoutes(router, auditService, pinPhoneService, telemetryService)
+  checkOrderDetailsRoutes(router, auditService, pinPhoneService, telemetryService)
+  buyCreditConfirmation(router, auditService, telemetryService)
+  viewContacts(router, auditService, pinPhoneService, telemetryService)
   return router
 }

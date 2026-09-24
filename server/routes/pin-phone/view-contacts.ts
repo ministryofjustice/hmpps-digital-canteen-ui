@@ -7,6 +7,8 @@ import PinPhoneService from '../../services/pinPhoneService'
 import { PATHS } from '../../constants/paths'
 import { convertToTitleCase } from '../../utils/utils'
 import { PrisonerContact } from '../../pinPhone.model'
+import TelemetryService from "../../services/telemetryService"
+
 
 const PAGE_SIZE = 10
 
@@ -14,6 +16,7 @@ export default function viewContactsRoutes(
   router: Router,
   auditService: AuditService,
   pinPhoneService: PinPhoneService,
+  telemetryService: TelemetryService,
 ): Router {
   router.get(PATHS.VIEW_CONTACTS, async (req, res, _next) => {
     await auditService.logPageView(Page.VIEW_CONTACTS, { who: res.locals.user.username, correlationId: req.id })
@@ -34,7 +37,9 @@ export default function viewContactsRoutes(
 
     const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
     const pagination = paginationService.getPagination({ totalElements, page: currentPage, size: PAGE_SIZE }, url)
-
+    telemetryService.trackEvent('PIN_PHONE_VIEW_CONTACTS', user, {
+          prisonCode: user.establishment.agency_id,
+         })
     return res.render('pages/pin-phone/view-contacts', {
       pinPhoneApps: config.prisonerAppsUrl,
       tableRows: formatContactsForTable(pageContacts),

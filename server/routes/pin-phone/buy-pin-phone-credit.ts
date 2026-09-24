@@ -6,6 +6,8 @@ import { CreateCartRequest, EnrichedPinPhonePrisoner } from '../../pinPhone.mode
 import { PATHS } from '../../constants/paths'
 import validateBuyCreditInput from '../../utils/validateBuyCreditInput'
 import { stringToPence, toPounds } from '../../utils/utils'
+import TelemetryService from '../../services/telemetryService'
+
 
 function getBalances(prisonerEnrichment: EnrichedPinPhonePrisoner) {
   const currentPinPhoneCreditPence = prisonerEnrichment.prisonerBtBalance?.balancePence ?? 0
@@ -33,6 +35,7 @@ export default function buyPinPhoneCreditRoutes(
   router: Router,
   auditService: AuditService,
   pinPhoneService: PinPhoneService,
+  telemetryService: TelemetryService,
 ): Router {
   router.get(PATHS.BUY_CREDIT, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_BUY_CREDITS, {
@@ -61,6 +64,10 @@ export default function buyPinPhoneCreditRoutes(
       }
       const result = await pinPhoneService.createCart(createCartRequest)
       req.session.cartId = result.cart.id
+
+      telemetryService.trackEvent('PIN_PHONE_BUY_CREDIT', user, {
+        prisonCode: user.establishment.agency_id,
+      })
 
       return res.render('pages/pin-phone/buy-pin-phone-credit', {
         ...balancesForDisplay(balances),
