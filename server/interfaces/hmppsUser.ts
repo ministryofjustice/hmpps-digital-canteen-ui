@@ -10,7 +10,6 @@ export interface BaseUser {
   authSource: AuthSource
   username: string
   userId: string | undefined
-  userUuid: UUID | undefined
   name: string | undefined
   displayName: string
   userRoles: string[]
