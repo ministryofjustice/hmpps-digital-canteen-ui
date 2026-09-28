@@ -30,6 +30,8 @@
     "npm": "^11"
   },
   "dependencies": {
+    "@microsoft/applicationinsights-clickanalytics-js": "^3.4.3",
+    "@microsoft/applicationinsights-web": "^3.4.3",
     "@aws-sdk/client-sqs": "^3.1036.0",
     "@ministryofjustice/frontend": "^9.0.0",
     "@ministryofjustice/hmpps-auth-clients": "^1.0.2",

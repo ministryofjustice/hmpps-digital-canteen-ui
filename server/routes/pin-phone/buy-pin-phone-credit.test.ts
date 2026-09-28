@@ -5,12 +5,15 @@ import AuditService from '../../services/auditService'
 import PinPhoneService from '../../services/pinPhoneService'
 import ERROR_MESSAGE from '../../constants/errorMessages'
 import { CreateCartRequest } from '../../pinPhone.model'
+import TelemetryService from '../../services/telemetryService'
 
 jest.mock('../../services/auditService')
 jest.mock('../../services/pinPhoneService')
+jest.mock('../../services/telemetryService')
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
 const pinPhoneService = new PinPhoneService(null) as jest.Mocked<PinPhoneService>
+const telemetryService = { trackEvent: jest.fn() } as unknown as jest.Mocked<TelemetryService>
 
 let app: Express
 
@@ -19,6 +22,7 @@ beforeEach(() => {
     services: {
       auditService,
       pinPhoneService,
+      telemetryService,
     },
     userSupplier: () => user,
   })

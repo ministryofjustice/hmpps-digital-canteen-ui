@@ -6,6 +6,56 @@
 
 {% block head %}
   <link href="{{ '/assets/css/index.css' | assetMap }}" rel="stylesheet"/>
+  {% if appInsightsConnectionString %}
+      <script type="text/javascript" src="/assets/applicationinsights-web.min.js"  nonce="{{ cspNonce }}"></script>
+      <script type="text/javascript" src="/assets/applicationinsights-clickanalytics-js.min.js"  nonce="{{ cspNonce }}"></script>
+      <script type="text/javascript" nonce="{{ cspNonce }}">
+        var clickPluginInstance = new Microsoft.ApplicationInsights.ClickAnalyticsPlugin();
+        // Click Analytics configuration
+        var clickPluginConfig = {
+            autoCapture : true,
+            dataTags: {
+                useDefaultContentNameOrId: true
+            }
+        }
+        var snippet = {
+          config: {
+            connectionString: "{{ appInsightsConnectionString }}",
+            extensions: [
+                  clickPluginInstance
+              ],
+            extensionConfig: {
+                  [clickPluginInstance.identifier] : clickPluginConfig
+              },
+            autoTrackPageVisitTime: true
+          }
+        }
+        var init = new Microsoft.ApplicationInsights.ApplicationInsights(snippet)
+        var appInsights = init.loadAppInsights();
+        appInsights.addTelemetryInitializer(function (envelope) {
+            envelope.tags["ai.cloud.role"] = "{{ appInsightsApplicationName }}"
+            envelope.tags["ai.application.ver"] = "{{ buildNumber }}"
+            if (envelope.data.baseTypeSource === "ClickEvent") {
+               let contentArray = JSON.parse(envelope.data.content);
+                for (let content of contentArray) {
+                   if (content.contentName && content.qa === "prisoner-link") {
+                      let redactedStr = "REDACTED";
+                       content.contentName = redactedStr;
+                       envelope.baseData.name= redactedStr;
+                        }
+                   }
+                   envelope.data.content = JSON.stringify(contentArray);
+                }
+
+            if (envelope && (envelope.baseType === "EventData" || envelope.baseType === "PageviewData")) {
+               envelope.baseData.properties = envelope.baseData.properties || {};
+               envelope.baseData.properties.username = '{{ user.username | default("") | safe }}';
+               envelope.baseData.properties.caseloadId = '{{ user.establishment.agency_id | default("") | safe }}';
+              }
+            });
+        appInsights.trackPageView()
+      </script>
+    {% endif %}
 {% endblock %}
 
 {% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}

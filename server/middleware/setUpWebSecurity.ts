@@ -35,6 +35,7 @@ export default function setUpWebSecurity(): Router {
           ],
           fontSrc: ["'self'"],
           formAction: [`'self' ${config.apis.hmppsAuth.externalUrl}`],
+          connectSrc: ["'self' https://northeurope-0.in.applicationinsights.azure.com"],
           ...(config.production ? {} : { upgradeInsecureRequests: null }),
         },
       },

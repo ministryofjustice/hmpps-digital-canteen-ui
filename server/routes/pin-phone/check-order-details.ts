@@ -6,24 +6,30 @@ import { stringToPence, toPounds } from '../../utils/utils'
 import PinPhoneService from '../../services/pinPhoneService'
 import { PaymentRequest, PolicyEvaluation } from '../../pinPhone.model'
 import errorMessages from '../../constants/errorMessages'
+import TelemetryService from '../../services/telemetryService'
 
 export default function checkOrderDetailsRoutes(
   router: Router,
   auditService: AuditService,
   pinPhoneService: PinPhoneService,
+  telemetryService: TelemetryService,
 ): Router {
   router.get(PATHS.CHECK_ORDER_DETAILS, async (req, res, _next) => {
     await auditService.logPageView(Page.PIN_PHONE_CHECK_ORDER_DETAILS, {
       who: res.locals.user.username,
       correlationId: req.id,
     })
-
+    // get user
+    const user = req.user as LaunchpadUser
     const { currentCreditPence } = req.session
     const requestedCreditPence = stringToPence(req.session.requestedCreditAmountPounds)
 
     const currentCreditBalance = toPounds(currentCreditPence)
     const newCreditBalance = toPounds(requestedCreditPence)
     const totalCreditBalance = toPounds(currentCreditPence + requestedCreditPence)
+    telemetryService.trackEvent('CHECK_ORDER_DETAILS', user, {
+      prisonCode: user.establishment.agency_id,
+    })
 
     return res.render('pages/pin-phone/check-order-details', {
       currentCreditBalance,

@@ -9,8 +9,7 @@ import applicationInfoSupplier from '../applicationInfo'
 
 const applicationInfo = applicationInfoSupplier()
 initialiseAppInsights()
-buildAppInsightsClient(applicationInfo)
-
+const applicationInsightsClient = buildAppInsightsClient(applicationInfo)
 import { createRedisClient } from './redisClient'
 import config from '../config'
 import HmppsAuditClient from './hmppsAuditClient'
@@ -29,6 +28,7 @@ export const dataAccess = () => {
     hmppsAuthClient,
     digitalCanteenApiClient: new DigitalPinPhoneApiClient(hmppsAuthClient),
     hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
+    applicationInsightsClient,
   }
 }
 
