@@ -36,7 +36,7 @@ test.describe('Buy PIN phone credit page', () => {
 
     test('should show how much credit can be purchased', async ({ page }) => {
       const buyPage = await BuyPinPhoneCreditPage.verifyOnPage(page)
-      await expect(buyPage.insetText).toContainText('You can buy up to £40.00')
+      await expect(buyPage.insetText).toContainText('Available to spend: £40.00')
     })
   })
 
@@ -45,13 +45,11 @@ test.describe('Buy PIN phone credit page', () => {
       const buyPage = await BuyPinPhoneCreditPage.verifyOnPage(page)
       // Radio buttons
       const radios = buyPage.amountRadios
-      await expect(radios).toHaveCount(6)
+      await expect(radios).toHaveCount(5)
       await expect(radios.nth(0)).toContainText('£0.50')
       await expect(radios.nth(1)).toContainText('£1.00')
       await expect(radios.nth(2)).toContainText('£3.00')
       await expect(radios.nth(3)).toContainText('£5.00')
-      await expect(radios.nth(4)).toContainText('Max (£40.00)')
-      await expect(radios.nth(5)).toContainText('£')
       // Other elements
       await expect(buyPage.divider.isVisible()).toBeTruthy()
     })
