@@ -18,6 +18,3 @@ generic-service:
     ENVIRONMENT_NAME: PROD
     SHUTTER_ENABLED: "true"
     AUDIT_ENABLED: "false"
-
-generic-prometheus-alerts:
-  alertSeverity: hmpps-digital-canteen-prod
