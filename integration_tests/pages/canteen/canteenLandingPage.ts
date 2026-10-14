@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import AbstractPage from '../abstractPage'
 
-export default class PinPhoneLandingPage extends AbstractPage {
+export default class CanteenLandingPage extends AbstractPage {
   readonly header: Locator
 
   readonly buyCreditsCard: Locator
@@ -18,8 +18,8 @@ export default class PinPhoneLandingPage extends AbstractPage {
     this.breadcrumbHome = page.locator('.govuk-breadcrumbs__link', { hasText: 'Home' })
   }
 
-  static async verifyOnPage(page: Page): Promise<PinPhoneLandingPage> {
-    const pinPhonePage = new PinPhoneLandingPage(page)
+  static async verifyOnPage(page: Page): Promise<CanteenLandingPage> {
+    const pinPhonePage = new CanteenLandingPage(page)
     await expect(pinPhonePage.header).toContainText('PIN phone')
     return pinPhonePage
   }

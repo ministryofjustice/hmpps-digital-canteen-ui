@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { loginWithPrisonerAuth, resetStubs } from '../testUtils'
-import HomePage from '../pages/pin-phone/homePage'
+import HomePage from '../pages/canteen/homePage'
 import prisonerAuth from '../mockApis/prisonerAuth'
 
 test.describe('SignIn', () => {

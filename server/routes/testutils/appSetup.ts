@@ -11,13 +11,13 @@ import AuditService from '../../services/auditService'
 import { HmppsUser, PrisonUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
 import HmppsAuditClient from '../../data/hmppsAuditClient'
-import { DigitalPinPhoneApiClient } from '../../data'
-import PinPhoneService from '../../services/pinPhoneService'
+import { DigitalCanteenApiClient } from '../../data'
+import CanteenService from '../../services/canteenService'
 import TelemetryService from '../../services/telemetryService'
 import { ApplicationInfo } from '../../applicationInfo'
 
 jest.mock('../../services/auditService')
-jest.mock('../../data/digitalPinPhoneApiClient')
+jest.mock('../../data/digitalCanteenApiClient')
 jest.mock('../../services/telemetryService')
 
 const testAppInfo: ApplicationInfo = {
@@ -94,7 +94,7 @@ export function appWithAllRoutes({
   production = false,
   services = {
     auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
-    pinPhoneService: new PinPhoneService({} as DigitalPinPhoneApiClient) as jest.Mocked<PinPhoneService>,
+    canteenService: new CanteenService({} as DigitalCanteenApiClient) as jest.Mocked<CanteenService>,
     telemetryService: new TelemetryService(null) as jest.Mocked<TelemetryService>,
   },
   userSupplier = () => user,
