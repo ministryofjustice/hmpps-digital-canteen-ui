@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
-import AuditService, { Page } from '../../services/auditService'
-import { PATHS } from '../../constants/paths'
-import TelemetryService from '../../services/telemetryService'
+import AuditService, { Page } from '../services/auditService'
+import { PATHS } from '../constants/paths'
+import TelemetryService from '../services/telemetryService'
 
 export default function canteenRoutes(
   router: Router,
@@ -18,7 +18,7 @@ export default function canteenRoutes(
       prisonCode: user.establishment.agency_id,
     })
 
-    return res.render('pages/canteen/canteen-landing', {
+    return res.render('pages/canteen-landing', {
       userName,
       canteenUrl: 'abc',
     })

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import type { Services } from '../services'
-import canteenRoutes from './canteen/canteen-landing'
+import canteenRoutes from './canteen-landing'
 
 export default function routes({ auditService, canteenService, telemetryService }: Services): Router {
   const router = Router()
