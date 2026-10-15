@@ -1,5 +1,5 @@
 import { DigitalCanteenApiClient } from '../data'
-import { CreateCartRequest, PaymentRequest, PolicyEvaluation, PolicyResult } from '../canteen.model'
+import { CreateCartRequest, PaymentRequest } from '../canteen.model'
 
 export default class CanteenService {
   constructor(private readonly digitalCanteenApiClient: DigitalCanteenApiClient) {}
