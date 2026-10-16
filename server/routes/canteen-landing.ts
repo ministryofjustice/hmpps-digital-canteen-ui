@@ -20,7 +20,6 @@ export default function canteenRoutes(
 
     return res.render('pages/canteen-landing', {
       userName,
-      canteenUrl: 'abc',
     })
   })
 
