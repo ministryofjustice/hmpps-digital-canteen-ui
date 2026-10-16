@@ -1,23 +1,15 @@
 import { Router } from 'express'
 
 import type { Services } from '../services'
-import pinPhoneRoutes from './pin-phone/pin-phone-landing'
-import buyPinPhoneCreditRoutes from './pin-phone/buy-pin-phone-credit'
-import checkOrderDetailsRoutes from './pin-phone/check-order-details'
-import buyCreditConfirmation from './pin-phone/buy-credit-confirmation'
-import viewContacts from './pin-phone/view-contacts'
+import canteenRoutes from './canteen-landing'
 
-export default function routes({ auditService, pinPhoneService, telemetryService }: Services): Router {
+export default function routes({ auditService, telemetryService }: Services): Router {
   const router = Router()
 
   router.get('/', async (req, res, _next) => {
-    res.redirect('/pin-phone')
+    res.redirect('/canteen')
   })
 
-  pinPhoneRoutes(router, auditService, telemetryService)
-  buyPinPhoneCreditRoutes(router, auditService, pinPhoneService, telemetryService)
-  checkOrderDetailsRoutes(router, auditService, pinPhoneService, telemetryService)
-  buyCreditConfirmation(router, auditService, telemetryService)
-  viewContacts(router, auditService, pinPhoneService, telemetryService)
+  canteenRoutes(router, auditService, telemetryService)
   return router
 }

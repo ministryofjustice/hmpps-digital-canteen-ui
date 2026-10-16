@@ -41,10 +41,9 @@ export interface PrisonerContact {
   contactTypeDescription: string
 }
 
-export interface EnrichedPinPhonePrisoner {
+export interface EnrichedPrisoner {
   prisoner: PrisonerSearchResponse
   prisonerBalance: BalanceResponse | null
-  prisonerBtBalance: BtPinPhoneResponse | null
 }
 
 export interface PrisonerSearchResponse {
@@ -64,14 +63,6 @@ export interface BalanceResponse {
   savingsPence: number
   damageObligationsPence: number
   currency: string
-}
-
-export interface BtPinPhoneResponse {
-  reference: string
-  prisonerId: string
-  balancePence: number
-  creditLimitPence: number
-  isFn: boolean
 }
 
 export interface PaymentRequest {

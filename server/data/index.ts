@@ -14,7 +14,7 @@ import { createRedisClient } from './redisClient'
 import config from '../config'
 import HmppsAuditClient from './hmppsAuditClient'
 import logger from '../../logger'
-import DigitalPinPhoneApiClient from './digitalPinPhoneApiClient'
+import DigitalCanteenApiClient from './digitalCanteenApiClient'
 
 export const dataAccess = () => {
   const hmppsAuthClient = new AuthenticationClient(
@@ -26,7 +26,7 @@ export const dataAccess = () => {
   return {
     applicationInfo,
     hmppsAuthClient,
-    digitalCanteenApiClient: new DigitalPinPhoneApiClient(hmppsAuthClient),
+    digitalCanteenApiClient: new DigitalCanteenApiClient(hmppsAuthClient),
     hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
     applicationInsightsClient,
   }
@@ -34,4 +34,4 @@ export const dataAccess = () => {
 
 export type DataAccess = ReturnType<typeof dataAccess>
 
-export { AuthenticationClient, HmppsAuditClient, DigitalPinPhoneApiClient }
+export { AuthenticationClient, HmppsAuditClient, DigitalCanteenApiClient }
