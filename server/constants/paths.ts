@@ -1,10 +1,6 @@
 // eslint-disable-next-line import/prefer-default-export
 export const PATHS = {
-  LANDING_PAGE: '/pin-phone',
-  BUY_CREDIT: '/pin-phone/buy-credit',
-  CHECK_ORDER_DETAILS: '/pin-phone/check-order-details',
-  VIEW_CONTACTS: '/pin-phone/view-contacts',
-  PIN_PHONE_CONFIRMATION: '/pin-phone/buy-credit-confirmation',
+  LANDING_PAGE: '/canteen',
   SHUTTER_PAGE: 'pages/shutter-page.njk',
 
   // BACKEND API

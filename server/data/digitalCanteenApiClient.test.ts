@@ -1,10 +1,10 @@
 import nock from 'nock'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
-import DigitalPinPhoneApiClient from './digitalPinPhoneApiClient'
+import DigitalCanteenApiClient from './digitalCanteenApiClient'
 import config from '../config'
 
-describe('DigitalPinPhoneApiClient', () => {
-  let digitalPinPhoneApiClient: DigitalPinPhoneApiClient
+describe('DigitalCanteenApiClient', () => {
+  let digitalPinPhoneApiClient: DigitalCanteenApiClient
   let mockAuthenticationClient: jest.Mocked<AuthenticationClient>
 
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe('DigitalPinPhoneApiClient', () => {
       getToken: jest.fn(),
     } as unknown as jest.Mocked<AuthenticationClient>
 
-    digitalPinPhoneApiClient = new DigitalPinPhoneApiClient(mockAuthenticationClient)
+    digitalPinPhoneApiClient = new DigitalCanteenApiClient(mockAuthenticationClient)
   })
 
   afterEach(() => {
@@ -42,27 +42,6 @@ describe('DigitalPinPhoneApiClient', () => {
       expect(nock.isDone()).toBe(true)
       expect(mockAuthenticationClient.getToken).toHaveBeenCalled()
       expect(result.cart.id).toBe('123')
-    })
-  })
-
-  describe('addPinPhoneLineItem', () => {
-    it('should make a POST request to /api/add-line-item/{cartId} using system token', async () => {
-      const token = 'test-system-token'
-      mockAuthenticationClient.getToken.mockResolvedValue(token)
-
-      const cartId = 'cart_123'
-      const amount = 500
-
-      nock(config.apis.digitalCanteenApi.url)
-        .post(`/api/add-line-item/${cartId}`, { amount })
-        .matchHeader('authorization', `Bearer ${token}`)
-        .reply(200, { cart: { id: cartId } })
-
-      const result = await digitalPinPhoneApiClient.addPinPhoneLineItem(cartId, amount)
-
-      expect(nock.isDone()).toBe(true)
-      expect(mockAuthenticationClient.getToken).toHaveBeenCalled()
-      expect(result.cart.id).toBe(cartId)
     })
   })
 })
