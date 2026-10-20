@@ -5,17 +5,16 @@ import logger from '../../logger'
 import {
   CompleteCartResponse,
   CreateCartRequest,
-  EnrichedPinPhonePrisoner,
+  EnrichedPrisoner,
   PaymentRequest,
   PolicyEvaluation,
   PolicyResult,
-  PrisonerContact,
-} from '../pinPhone.model'
+} from '../canteen.model'
 import { PATHS } from '../constants/paths'
 
-export default class DigitalPinPhoneApiClient extends RestClient {
+export default class DigitalCanteenApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
-    super('Digital PinPhone API', config.apis.digitalCanteenApi, logger, authenticationClient)
+    super('Digital Canteen API', config.apis.digitalCanteenApi, logger, authenticationClient)
   }
 
   async createCart({ metadata }: CreateCartRequest): Promise<{ cart: { id: string } }> {
@@ -38,29 +37,10 @@ export default class DigitalPinPhoneApiClient extends RestClient {
     )
   }
 
-  async retrieveContacts(prisonerNumber: string): Promise<PrisonerContact[]> {
-    return this.get(
-      {
-        path: `/api/prisoner-contacts/${prisonerNumber}`,
-      },
-      asSystem(),
-    )
-  }
-
-  async retrievePrisonerBalances(prisonerNumber: string): Promise<EnrichedPinPhonePrisoner> {
+  async retrievePrisonerBalances(prisonerNumber: string): Promise<EnrichedPrisoner> {
     return this.get(
       {
         path: `/api/prisoner-enrichment/${prisonerNumber}`,
-      },
-      asSystem(),
-    )
-  }
-
-  async addPinPhoneLineItem(cartId: string, creditAmount: number): Promise<{ cart: { id: string } }> {
-    return this.post(
-      {
-        path: `/api/add-line-item/${cartId}`,
-        data: { amount: creditAmount },
       },
       asSystem(),
     )

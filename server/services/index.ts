@@ -1,6 +1,6 @@
 import { dataAccess } from '../data'
 import AuditService from './auditService'
-import PinPhoneService from './pinPhoneService'
+import CanteenService from './canteenService'
 import TelemetryService from './telemetryService'
 
 export const services = () => {
@@ -10,7 +10,7 @@ export const services = () => {
     applicationInfo,
     auditService: new AuditService(hmppsAuditClient),
     telemetryService: new TelemetryService(applicationInsightsClient),
-    pinPhoneService: new PinPhoneService(digitalCanteenApiClient),
+    canteenService: new CanteenService(digitalCanteenApiClient),
   }
 }
 
