@@ -1,24 +1,19 @@
-import { TelemetryClient } from 'applicationinsights'
+import { telemetry } from '@ministryofjustice/hmpps-azure-telemetry'
 import { HmppsUser } from '../interfaces/hmppsUser'
 import logger from '../../logger'
 
 export default class TelemetryService {
-  // nullable in environments without app insights
-  constructor(private readonly applicationInsightsClient: TelemetryClient | null) {}
-
   trackEvent(name: string, user: HmppsUser, properties?: { [key: string]: string | number | null | undefined }) {
-    if (this.applicationInsightsClient) {
-      try {
-        this.applicationInsightsClient.trackEvent({
-          name,
-          properties: {
-            ...properties,
-            username: user.username,
-          },
-        })
-      } catch (error) {
-        logger.error('Error sending telemetry event, ', error)
-      }
+    try {
+      const attributes = Object.fromEntries(
+        Object.entries({
+          ...properties,
+          username: user.username,
+        }).filter(([, value]) => value !== null && value !== undefined),
+      )
+      telemetry.trackEvent(name, attributes)
+    } catch (error) {
+      logger.error('Error sending telemetry event, ', error)
     }
   }
 }

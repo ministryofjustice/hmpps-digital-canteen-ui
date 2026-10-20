@@ -34,6 +34,7 @@ export const user: HmppsUser = {
   userId: 'id',
   token: 'token',
   username: 'user1',
+  userUuid: '11111111-1111-1111-1111-111111111111',
   displayName: 'First Last',
   authSource: 'nomis',
   staffId: 1234,
@@ -95,7 +96,7 @@ export function appWithAllRoutes({
   services = {
     auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
     canteenService: new CanteenService({} as DigitalCanteenApiClient) as jest.Mocked<CanteenService>,
-    telemetryService: new TelemetryService(null) as jest.Mocked<TelemetryService>,
+    telemetryService: new TelemetryService() as jest.Mocked<TelemetryService>,
   },
   userSupplier = () => user,
 }: {

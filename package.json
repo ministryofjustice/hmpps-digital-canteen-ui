@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.1141.0",
+    "@emnapi/core": "^1.11.3",
+    "@emnapi/runtime": "^1.11.3",
     "@flipt-io/flipt-client-js": "0.5.1",
     "@microsoft/applicationinsights-clickanalytics-js": "^3.4.4",
     "@microsoft/applicationinsights-web": "^3.4.4",
@@ -40,6 +42,7 @@
     "@ministryofjustice/hmpps-prisoner-auth": "0.0.5",
     "@ministryofjustice/hmpps-prisoner-facing-components": "0.0.14",
     "@ministryofjustice/hmpps-rest-client": "^2.2.0",
+    "@ministryofjustice/hmpps-azure-telemetry": "^1.1.0",
     "applicationinsights": "^2.9.8",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
@@ -108,6 +111,7 @@
     "handlebars": "4.7.10",
     "ip-address": "10.7.3",
     "source-map-js": "1.2.2",
+    "js-yaml": "5.4.2",
     "qs": "6.16.1"
   }
 }
