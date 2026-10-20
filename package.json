@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.1141.0",
+    "@emnapi/core": "^1.11.3",
+    "@emnapi/runtime": "^1.11.3",
     "@flipt-io/flipt-client-js": "0.5.1",
     "@microsoft/applicationinsights-clickanalytics-js": "^3.4.4",
     "@microsoft/applicationinsights-web": "^3.4.4",
