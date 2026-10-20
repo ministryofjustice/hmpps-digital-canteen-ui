@@ -96,7 +96,8 @@ export function appWithAllRoutes({
   services = {
     auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
     canteenService: new CanteenService({} as DigitalCanteenApiClient) as jest.Mocked<CanteenService>,
-    telemetryService: new TelemetryService() as jest.Mocked<TelemetryService>,  },
+    telemetryService: new TelemetryService() as jest.Mocked<TelemetryService>,
+  },
   userSupplier = () => user,
 }: {
   production?: boolean
