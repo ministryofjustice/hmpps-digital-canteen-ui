@@ -15,6 +15,7 @@ import { DigitalCanteenApiClient } from '../../data'
 import CanteenService from '../../services/canteenService'
 import TelemetryService from '../../services/telemetryService'
 import { ApplicationInfo } from '../../applicationInfo'
+import { PortalType } from '../../@types/portalTypes'
 
 jest.mock('../../services/auditService')
 jest.mock('../../data/digitalCanteenApiClient')
@@ -51,7 +52,12 @@ export const user: HmppsUser = {
 
 export const flashProvider = jest.fn()
 
-function appSetup(services: Services, production: boolean, userSupplier: () => HmppsUser): Express {
+function appSetup(
+  services: Services,
+  production: boolean,
+  userSupplier: () => HmppsUser,
+  portalType: PortalType,
+): Express {
   const app = express()
 
   app.set('view engine', 'njk')
@@ -61,8 +67,11 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
   app.use((req, res, next) => {
     req.user = userSupplier() as Express.User
     req.flash = flashProvider
+    req.portalType = portalType
     res.locals = {
       user: { ...req.user } as HmppsUser,
+      isStaffPortal: portalType === 'staff',
+      isPrisonerPortal: portalType === 'prisoner',
       cspNonce: '',
       csrfToken: '',
       asset_path: '',
@@ -99,10 +108,12 @@ export function appWithAllRoutes({
     telemetryService: new TelemetryService() as jest.Mocked<TelemetryService>,
   },
   userSupplier = () => user,
+  portalType = 'prisoner' as PortalType,
 }: {
   production?: boolean
   services?: Partial<Services>
   userSupplier?: () => HmppsUser
+  portalType?: PortalType
 }): Express {
-  return appSetup(services as Services, production, userSupplier)
+  return appSetup(services as Services, production, userSupplier, portalType)
 }

@@ -1,9 +1,12 @@
 import passport from 'passport'
 import flash from 'connect-flash'
 import { Router } from 'express'
-import { LaunchpadUser, PrisonerAuth, minutes } from '@ministryofjustice/hmpps-prisoner-auth'
-import { HmppsUser } from '../interfaces/hmppsUser'
 import config from '../config'
+import { HmppsUser } from '../interfaces/hmppsUser'
+import authStrategyFor from './authentication/authStrategyFor'
+import bypassAuth from './authentication/bypassAuth'
+import { prisonerAuth } from './authentication/prisoner-auth/prisonerAuthStrategy'
+import { hmppsAuthPassportStrategy } from './authentication/hmpps-auth/hmppsAuthStrategy'
 
 passport.serializeUser((user, done) => {
   // Not used but required for Passport
@@ -15,90 +18,59 @@ passport.deserializeUser((user, done) => {
   done(null, user as Express.User)
 })
 
-const prisonerAuth = new PrisonerAuth({
-  launchpadAuthUrl: config.apis.prisonerAuth.externalUrl,
-  clientId: config.apis.prisonerAuth.apiClientId,
-  clientSecret: config.apis.prisonerAuth.apiClientSecret,
-  tokenMinimumLifespan: minutes(5),
-  nonce: config.apis.prisonerAuth.nonce,
-  scope: ['user.basic.read', 'user.establishment.read'],
-})
-
 passport.use('prisoner-auth', prisonerAuth.passportStrategy())
+passport.use('hmpps-auth', hmppsAuthPassportStrategy)
 
-export default function setUpPrisonerAuth() {
-  const router = Router()
-
+export default function setUpAuthentication() {
   // Bypass login authentication on Local (add BYPASS_AUTH=true to .env)
-  if (process.env.BYPASS_AUTH === 'true') {
-    router.use((req, _res, next) => {
-      req.user = {
-        sub: 'G3682UE',
-        username: 'John Doe',
-        authSource: 'prisoner-auth',
-        token: 'fake-token',
-        displayName: 'Dev User',
-        givenName: 'John',
-        familyName: 'Doe',
-        userId: 'G3682UE',
-
-        userRoles: [],
-        booking: { id: '12345' },
-        establishment: { agency_id: 'CKI', name: 'Cookham Wood (HMP)' },
-      } as unknown as LaunchpadUser
-      req.isAuthenticated = function faked(): this is Express.AuthenticatedRequest {
-        return true
-      }
-      next()
-    })
-    router.use((req, res, next) => {
-      res.locals.user = req.user as LaunchpadUser
-      next()
-    })
-    return router
+  if (process.env.BYPASS_AUTH === 'true' && !config.production) {
+    return bypassAuth()
   }
+
+  const router = Router()
 
   router.use(passport.initialize())
   router.use(passport.session())
   router.use(flash())
 
-  router.get('/autherror', (req, res) => {
+  router.use((req, _res, next) => {
+    req.authStrategy = authStrategyFor(req)
+    next()
+  })
+
+  router.get('/autherror', (_req, res) => {
     res.status(401)
     return res.render('autherror')
   })
 
-  router.get('/sign-in', passport.authenticate('prisoner-auth'))
+  router.get('/sign-in', (req, res, next) => passport.authenticate(req.authStrategy.name)(req, res, next))
 
   router.get('/sign-in/callback', (req, res, next) =>
-    passport.authenticate('prisoner-auth', {
+    passport.authenticate(req.authStrategy.name, {
       successReturnToOrRedirect: req.session.returnTo || '/',
       failureRedirect: '/autherror',
     })(req, res, next),
   )
 
   router.use('/sign-out', (req, res, next) => {
+    const signOutUrl = req.authStrategy.signOutUrl(req)
     if (req.user) {
       req.logout(err => {
         if (err) return next(err)
-        return req.session.destroy(() => res.redirect('/'))
+        return req.session.destroy(() => res.redirect(signOutUrl))
       })
-    } else res.redirect('/')
+    } else res.redirect(signOutUrl)
   })
 
-  router.use(async (req, res, next) => {
-    if (!req.isAuthenticated()) {
-      req.session.returnTo = req.originalUrl
-      return res.redirect('/sign-in')
-    }
-
-    return prisonerAuth
-      .validateAndRefreshUser(req.user as LaunchpadUser)
-      .then(user => {
-        req.user = user
-        next()
-      })
-      .catch(() => res.redirect('/sign-out'))
+  router.use('/account-details', (req, res, next) => {
+    if (req.portalType !== 'staff') return next()
+    const { externalUrl, authClientId } = config.apis.hmppsAuth
+    return res.redirect(
+      `${externalUrl}/account-details?client_id=${authClientId}&redirect_uri=${req.protocol}://${req.host}`,
+    )
   })
+
+  router.use((req, res, next) => req.authStrategy.checkAuthentication(req, res, next))
 
   router.use((req, res, next) => {
     res.locals.user = req.user as HmppsUser

@@ -9,6 +9,10 @@ const ENTRY_DENIED_ERROR_PAGE = { message: ERROR_MESSAGE.ENTRY_DENIED_ERROR_MESS
 
 export default function checkActiveAgencyAccess(): RequestHandler {
   return async (_req, res, next) => {
+    if (res.locals.isStaffPortal) {
+      return next()
+    }
+
     const user = res.locals.user as LaunchpadUser
 
     if (!user) {
