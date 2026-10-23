@@ -16,7 +16,7 @@ export const portalsMiddleware: RequestHandler = (req, res, next) => {
 export const requirePortal =
   (portalType: PortalType): RequestHandler =>
   (req, res, next) =>
-    req.portalType === portalType ? next() : res.status(404).render('pages/error', { message: 'Page not found' })
+    req.portalType === portalType ? next() : res.status(404).render('pages/error', { message: 'Access denied' })
 
 export default function setUpPortals(): Router {
   const router = express.Router()
