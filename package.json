@@ -39,7 +39,7 @@
     "@ministryofjustice/frontend": "^9.0.0",
     "@ministryofjustice/hmpps-auth-clients": "^1.0.2",
     "@ministryofjustice/hmpps-monitoring": "^2.1.0",
-    "@ministryofjustice/hmpps-prisoner-auth": "0.0.5",
+    "@ministryofjustice/hmpps-prisoner-auth": "0.0.10",
     "@ministryofjustice/hmpps-prisoner-facing-components": "0.0.14",
     "@ministryofjustice/hmpps-rest-client": "^2.2.0",
     "@ministryofjustice/hmpps-azure-telemetry": "^1.1.0",

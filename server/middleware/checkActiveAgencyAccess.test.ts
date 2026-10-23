@@ -14,9 +14,10 @@ describe('checkActiveAgencyAccess', () => {
   const req: Request = {} as jest.Mocked<Request>
   const next = jest.fn()
 
-  function createRes(prisonId: string, hasUser: boolean): Response {
+  function createRes(prisonId: string, hasUser: boolean, isStaffPortal: boolean): Response {
     return {
       locals: {
+        isStaffPortal,
         ...(hasUser
           ? {
               user: {
@@ -42,7 +43,7 @@ describe('checkActiveAgencyAccess', () => {
   })
 
   it('allows access when prisoner caseload/prisonId matches active agencies', async () => {
-    const res = createRes('CKI', true)
+    const res = createRes('CKI', true, false)
 
     const middleware = checkActiveAgencyAccess()
     await middleware(req, res, next)
@@ -52,7 +53,7 @@ describe('checkActiveAgencyAccess', () => {
   })
 
   it('denies access when when prisoner caseload/prisonId is not in active agencies', async () => {
-    const res = createRes('LEI', true)
+    const res = createRes('LEI', true, false)
 
     await checkActiveAgencyAccess()(req, res, next)
 
@@ -62,7 +63,7 @@ describe('checkActiveAgencyAccess', () => {
   })
 
   it('denies access when user is missing', async () => {
-    const res = createRes(undefined, false)
+    const res = createRes(undefined, false, false)
 
     const middleware = checkActiveAgencyAccess()
     await middleware(req, res, next)
@@ -70,5 +71,15 @@ describe('checkActiveAgencyAccess', () => {
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(403)
     expect(res.render).toHaveBeenCalledWith('pages/error', ENTRY_DENIED_ERROR_PAGE)
+  })
+
+  it('Default allows access when staff', async () => {
+    const res = createRes('CKI', true, true)
+
+    const middleware = checkActiveAgencyAccess()
+    await middleware(req, res, next)
+
+    expect(next).toHaveBeenCalled()
+    expect(res.render).not.toHaveBeenCalled()
   })
 })

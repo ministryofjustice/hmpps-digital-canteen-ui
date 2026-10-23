@@ -2,6 +2,7 @@ import HmppsAuditClient, { AuditEvent } from '../data/hmppsAuditClient'
 
 export enum Page {
   CANTEEN_LANDING = 'CANTEEN_LANDING',
+  STAFF_CANTEEN_LANDING = 'STAFF_CANTEEN_LANDING',
 }
 
 export interface PageViewEventDetails {
