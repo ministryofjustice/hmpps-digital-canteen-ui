@@ -15,7 +15,7 @@ export default function canteenRoutes(
     const user = req.user as LaunchpadUser
     const userName = user.username
     telemetryService.trackEvent('CANTEEN_LANDING', user, {
-      prisonCode: 'CKI',
+      prisonCode: user.establishment.agency_id,
     })
 
     return res.render('pages/canteen-landing', {

@@ -32,6 +32,7 @@ describe('authorisationMiddleware', () => {
   }
 
   beforeEach(() => {
+    process.env.BYPASS_AUTH = 'false'
     jest.resetAllMocks()
   })
 

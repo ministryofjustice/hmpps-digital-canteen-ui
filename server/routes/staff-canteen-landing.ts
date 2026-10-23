@@ -15,9 +15,7 @@ export default function staffCanteenRoutes(
 
     const user = req.user as HmppsUser
     const userName = user.username
-    telemetryService.trackEvent('STAFF_CANTEEN_LANDING', user, {
-      prisonCode: 'CKI',
-    })
+    telemetryService.trackEvent('STAFF_CANTEEN_LANDING', user, {})
 
     return res.render('pages/staff-canteen-landing', {
       userName,

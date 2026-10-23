@@ -33,6 +33,8 @@ const fakeStaff = {
 
 /**
  * Local-only bypass (BYPASS_AUTH=true in .env).
+ *
+ * REMOVE BEFORE ITHC AND BEFORE GOING LIVE
  */
 export default function bypassAuth(): Router {
   const router = Router()

@@ -2,7 +2,6 @@ import { LaunchpadUser, PrisonerAuth, minutes } from '@ministryofjustice/hmpps-p
 import config from '../../../config'
 import { AuthStrategy } from '../authStrategy'
 
-// Unchanged from the previous inline setup in setUpAuthentication.ts
 export const prisonerAuth = new PrisonerAuth({
   launchpadAuthUrl: config.apis.prisonerAuth.externalUrl,
   clientId: config.apis.prisonerAuth.apiClientId,

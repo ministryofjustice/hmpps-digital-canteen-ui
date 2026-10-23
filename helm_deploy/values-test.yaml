@@ -6,8 +6,8 @@ generic-service:
 
   ingress:
     hosts:
-    - digital-canteen-ui-test.hmpps.service.justice.gov.uk
-    - staff.digital-canteen-ui-test.hmpps.service.justice.gov.uk
+      - digital-canteen-ui-test.hmpps.service.justice.gov.uk
+      - staff.digital-canteen-ui-test.hmpps.service.justice.gov.uk
 
   env:
     INGRESS_URL: "https://digital-canteen-ui-test.hmpps.service.justice.gov.uk"
