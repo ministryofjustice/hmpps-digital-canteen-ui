@@ -1,9 +1,8 @@
 generic-service:
   nameOverride: hmpps-digital-canteen-ui
   productId: 'DPS128' # productId for the product that this belongs too, i.e. DPS001, see README.md for details
-
   # the IRSA service account name for accessing AWS resources
-  # serviceAccountName: "hmpps-digital-canteen-ui"
+  serviceAccountName: 'hmpps-digital-canteen-ui'
 
   replicaCount: 1
 
@@ -18,7 +17,7 @@ generic-service:
     tlsSecretName: hmpps-digital-canteen-ui-cert
     annotations:
       modsecurity_enabled: 'true'
-      modsecurity_github_team: "hmpps-digital-canteen"
+      modsecurity_github_team: 'hmpps-digital-canteen'
       modsecurity_snippet: |
         SecAuditEngine On
         SecRuleEngine On
@@ -39,7 +38,7 @@ generic-service:
     REDIS_TLS_ENABLED: 'true'
     TOKEN_VERIFICATION_ENABLED: 'true'
     AUDIT_SQS_REGION: 'eu-west-2'
-    AUDIT_SERVICE_NAME: 'DPS128' # Your audit service name
+    AUDIT_SERVICE_NAME: 'hmpps-digital-canteen-ui'
 
   # Pre-existing kubernetes secrets to load as environment variables in the deployment.
   # namespace_secrets:
@@ -63,11 +62,15 @@ generic-service:
       REDIS_HOST: 'primary_endpoint_address'
       REDIS_AUTH_TOKEN: 'auth_token'
     hmpps-digital-canteen-api-application-insights:
-      APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
-    # This secret will need to be created in your namespace (note it isn't in hmpps-templates-dev)
-    # IRSA configuration in your namespace will also be required, and then uncomment serviceAccountName above.
-    # sqs-hmpps-audit-secret:
-    #   AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
+      APPLICATIONINSIGHTS_CONNECTION_STRING: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+    # HMPPS audit queues, one per audited user group (IRSA grants the service account write access)
+    # Staff: injected by the hmpps-audit namespace
+    sqs-hmpps-audit-secret:
+      AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
+      AUDIT_SQS_QUEUE_NAME: 'sqs_queue_name'
+    # Prisoner: created in this namespace
+    sqs-hmpps-prisoner-audit-secret:
+      AUDIT_PRISONER_SQS_QUEUE_URL: 'sqs_queue_url'
 
   allowlist:
     groups:

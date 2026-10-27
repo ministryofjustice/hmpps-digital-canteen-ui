@@ -7,10 +7,9 @@ import routes from '../index'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
-import AuditService from '../../services/auditService'
+import AuditService, { HmppsAuditClients } from '../../services/auditService'
 import { HmppsUser, PrisonUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
-import HmppsAuditClient from '../../data/hmppsAuditClient'
 import { DigitalCanteenApiClient } from '../../data'
 import CanteenService from '../../services/canteenService'
 import TelemetryService from '../../services/telemetryService'
@@ -94,7 +93,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
 export function appWithAllRoutes({
   production = false,
   services = {
-    auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
+    auditService: new AuditService({} as HmppsAuditClients) as jest.Mocked<AuditService>,
     canteenService: new CanteenService({} as DigitalCanteenApiClient) as jest.Mocked<CanteenService>,
     telemetryService: new TelemetryService() as jest.Mocked<TelemetryService>,
   },

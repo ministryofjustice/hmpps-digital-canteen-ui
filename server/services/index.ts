@@ -4,11 +4,11 @@ import CanteenService from './canteenService'
 import TelemetryService from './telemetryService'
 
 export const services = () => {
-  const { applicationInfo, hmppsAuditClient, digitalCanteenApiClient } = dataAccess()
+  const { applicationInfo, hmppsAuditClients, digitalCanteenApiClient } = dataAccess()
 
   return {
     applicationInfo,
-    auditService: new AuditService(hmppsAuditClient),
+    auditService: new AuditService(hmppsAuditClients),
     telemetryService: new TelemetryService(),
     canteenService: new CanteenService(digitalCanteenApiClient),
   }
