@@ -30,7 +30,7 @@
     "npm": "^11"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.1153.0",
+    "@aws-sdk/client-sqs": "^3.1154.0",
     "@emnapi/core": "^1.11.3",
     "@emnapi/runtime": "^1.11.3",
     "@flipt-io/flipt-client-js": "0.6.0",
@@ -104,7 +104,7 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "@opentelemetry/core": "2.11.0",
+    "@opentelemetry/core": "2.12.0",
     "brace-expansion": ">=5.0.12",
     "proxy-addr": "2.0.8",
     "moment": "2.31.0",
