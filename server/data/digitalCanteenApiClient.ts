@@ -17,6 +17,16 @@ export default class DigitalCanteenApiClient extends RestClient {
     super('Digital Canteen API', config.apis.digitalCanteenApi, logger, authenticationClient)
   }
 
+  async createMedusaUser(prisonerNumber: string): Promise<string> {
+    return this.post(
+      {
+        path: PATHS.CREATE_MEDUSA_USER,
+        data: { prisonerNumber },
+      },
+      asSystem(),
+    )
+  }
+
   async createCart({ metadata }: CreateCartRequest): Promise<{ cart: { id: string } }> {
     return this.post(
       {

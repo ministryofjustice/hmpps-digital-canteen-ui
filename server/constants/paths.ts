@@ -4,6 +4,7 @@ export const PATHS = {
   SHUTTER_PAGE: 'pages/shutter-page.njk',
 
   // BACKEND API
+  CREATE_MEDUSA_USER: '/api/create-medusa-user',
   CREATE_CART: '/api/carts',
   RETRIEVE_CONTACTS: '/api/prisoner-contacts/:prisonerNumber',
 }
