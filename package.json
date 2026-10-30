@@ -30,7 +30,7 @@
     "npm": "^11"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.1154.0",
+    "@aws-sdk/client-sqs": "^3.1156.0",
     "@emnapi/core": "^1.11.3",
     "@emnapi/runtime": "^1.11.3",
     "@flipt-io/flipt-client-js": "0.6.0",
