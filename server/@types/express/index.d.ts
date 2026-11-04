@@ -24,10 +24,14 @@ export declare global {
       verified?: boolean
       id: string
       logout(done: (err: unknown) => void): void
+      portalType?: PortalType
+      authStrategy?: AuthStrategy
     }
 
     interface Locals {
       user: HmppsUser
+      isStaffPortal: boolean
+      isPrisonerPortal: boolean
       cspNonce: string
       csrfToken: string
       asset_path: string
