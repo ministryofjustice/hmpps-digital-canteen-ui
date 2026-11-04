@@ -52,7 +52,7 @@ $app-card-width: 210px;
   @include govuk-font($size: 24, $weight: bold);
   margin-top: 0;
   margin-bottom: govuk-spacing(1);
-  a {
+  a, span {
     text-decoration: none;
   }
 }
@@ -72,4 +72,12 @@ $app-card-width: 210px;
   @include govuk-font($size: 16);
   color: $govuk-secondary-text-colour;
   margin-bottom: 0;
+}
+
+.app-card--button {
+  font: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
 }

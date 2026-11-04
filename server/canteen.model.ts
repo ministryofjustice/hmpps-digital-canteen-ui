@@ -1,9 +1,60 @@
-export interface CreateCartRequest {
+export interface CreateMedusaUserRequest {
   metadata: {
-    prison_id: string
-    offender_no: string
-    first_name: string
-    second_name: string
+    prisonId: string
+    offenderNo: string
+  }
+}
+
+export interface GetBasketRequest {
+  metadata: {
+    offenderNo: string
+    cartId: string
+  }
+}
+
+export interface GetBasketResponse {
+  cartId: string
+  items: [BasketLineItem]
+  itemCount: number
+}
+
+export interface BasketLineItem {
+  lineItemId: string
+  variantId: string
+  title: string
+  quantity: number
+  unitPrice: number
+  lineTotal: number
+}
+
+export interface AddLineItemsRequest {
+  metadata: {
+    prisonId: string
+    offenderNo: string
+    productVariantId: string
+    cartId: string
+  }
+}
+
+export interface AddLineItemsResponse {
+  cartId: string
+}
+
+export interface RemoveLineItemFromBasketRequest {
+  metadata: {
+    cartId: string
+    lineItemId: string
+    quantity: number
+  }
+}
+
+export interface RemoveLineItemsResponse {
+  cartId: string
+}
+
+export interface RemoveBasketRequest {
+  metadata: {
+    cartId: string
   }
 }
 

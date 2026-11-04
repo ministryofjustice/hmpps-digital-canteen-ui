@@ -3,12 +3,19 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import config from '../config'
 import logger from '../../logger'
 import {
+  AddLineItemsRequest,
+  AddLineItemsResponse,
   CompleteCartResponse,
-  CreateCartRequest,
+  CreateMedusaUserRequest,
   EnrichedPrisoner,
+  GetBasketRequest,
+  GetBasketResponse,
   PaymentRequest,
   PolicyEvaluation,
   PolicyResult,
+  RemoveBasketRequest,
+  RemoveLineItemFromBasketRequest,
+  RemoveLineItemsResponse,
 } from '../canteen.model'
 import { PATHS } from '../constants/paths'
 
@@ -17,20 +24,50 @@ export default class DigitalCanteenApiClient extends RestClient {
     super('Digital Canteen API', config.apis.digitalCanteenApi, logger, authenticationClient)
   }
 
-  async createMedusaUser(prisonerNumber: string): Promise<string> {
+  async createMedusaUser({ metadata }: CreateMedusaUserRequest): Promise<string> {
     return this.post(
       {
         path: PATHS.CREATE_MEDUSA_USER,
-        data: { prisonerNumber },
+        data: { metadata },
       },
       asSystem(),
     )
   }
 
-  async createCart({ metadata }: CreateCartRequest): Promise<{ cart: { id: string } }> {
+  async retrieveCurrentBasket({ metadata }: GetBasketRequest): Promise<GetBasketResponse> {
     return this.post(
       {
-        path: PATHS.CREATE_CART,
+        path: PATHS.RETRIEVE_CURRENT_BASKET,
+        data: { metadata },
+      },
+      asSystem(),
+    )
+  }
+
+  async addLineItems({ metadata }: AddLineItemsRequest): Promise<AddLineItemsResponse> {
+    return this.post(
+      {
+        path: PATHS.ADD_LINE_ITEM,
+        data: { metadata },
+      },
+      asSystem(),
+    )
+  }
+
+  async removeLineItemFromBasket({ metadata }: RemoveLineItemFromBasketRequest): Promise<RemoveLineItemsResponse> {
+    return this.post(
+      {
+        path: PATHS.REMOVE_LINE_ITEM,
+        data: { metadata },
+      },
+      asSystem(),
+    )
+  }
+
+  async removeBasket({ metadata }: RemoveBasketRequest): Promise<string> {
+    return this.post(
+      {
+        path: PATHS.REMOVE_BASKET,
         data: { metadata },
       },
       asSystem(),
