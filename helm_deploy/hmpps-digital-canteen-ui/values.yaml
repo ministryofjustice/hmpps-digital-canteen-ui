@@ -14,7 +14,6 @@ generic-service:
 
   ingress:
     enabled: true
-    host: app-hostname.local # override per environment
     tlsSecretName: hmpps-digital-canteen-ui-cert
     annotations:
       modsecurity_enabled: 'true'
