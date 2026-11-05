@@ -16,6 +16,7 @@ export interface GetBasketResponse {
   cartId: string
   items: [BasketLineItem]
   itemCount: number
+  allItemsTotal: number
 }
 
 export interface BasketLineItem {

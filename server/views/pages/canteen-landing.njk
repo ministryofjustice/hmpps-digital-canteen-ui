@@ -33,6 +33,7 @@
   }) %}
     <strong>cartID: {{ basketDetails.cartId }}</strong><br>
     <strong>Total items: {{ basketDetails.itemCount }}</strong><br>
+    <strong>Total item value: {{ basketDetails.allItemsTotal }}</strong><br>
     <br>
     {% for item in basketDetails.items %}
       <div>

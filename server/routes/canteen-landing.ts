@@ -61,45 +61,44 @@ export default function canteenRoutes(
           cartId: req.session.cartId || null,
         },
       })
-
       req.session.cartId = cart.cartId
     } catch (error) {
       return _next(error)
     }
-
     return res.redirect(PATHS.LANDING_PAGE)
   })
 
   router.post('/api/remove-line-item', async (req, res, _next) => {
     const { lineItemId, quantity } = req.body
     const newQuantity = parseInt(quantity, 10) - 1
-
-    try {
-      await medusaBasketService.removeLineItemFromBasket({
-        metadata: {
-          cartId: req.session.cartId,
-          lineItemId,
-          quantity: newQuantity,
-        },
-      })
-    } catch (error) {
-      return _next(error)
+    if (req.session.cartId) {
+      try {
+        await medusaBasketService.removeLineItemFromBasket({
+          metadata: {
+            cartId: req.session.cartId,
+            lineItemId,
+            quantity: newQuantity,
+          },
+        })
+      } catch (error) {
+        return _next(error)
+      }
     }
-
     return res.redirect(PATHS.LANDING_PAGE)
   })
 
   router.post('/api/remove-basket', async (req, res, _next) => {
-    try {
-      await medusaBasketService.removeBasket({
-        metadata: {
-          cartId: req.session.cartId,
-        },
-      })
-    } catch (error) {
-      return _next(error)
+    if (req.session.cartId) {
+      try {
+        await medusaBasketService.removeBasket({
+          metadata: {
+            cartId: req.session.cartId,
+          },
+        })
+      } catch (error) {
+        return _next(error)
+      }
     }
-
     return res.redirect(PATHS.LANDING_PAGE)
   })
 
