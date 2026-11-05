@@ -11,11 +11,11 @@
 {% set cheeseLineItemId = "" %}
 {% set cheeseQuantity = 0 %}
 {% for item in basketDetails.items %}
-    {% if item.variantId == "variant_01M6H0PRQ9ZQ2XGR2A1B1HG043" %}
+    {% if item.variantId == "variant_01M6NNAC4FXFBZ39R2JGXT9MRS" %}
         {% set vapeLineItemId = item.lineItemId %}
         {% set vapeQuantity = item.quantity %}
     {% endif %}
-    {% if item.variantId == "variant_01M6H0QDAZ17DAJB1S7KA1RM5V" %}
+    {% if item.variantId == "variant_01M6NN82NBN7DXBBTX4ZESGPBR" %}
         {% set cheeseLineItemId = item.lineItemId %}
         {% set cheeseQuantity = item.quantity %}
     {% endif %}
