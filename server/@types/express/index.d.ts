@@ -9,6 +9,7 @@ export declare module 'express-session' {
     currentCreditPence: number
     cartId: string
     allContacts: PrisonerContact[]
+    medusaUserCreated: boolean
   }
 }
 
