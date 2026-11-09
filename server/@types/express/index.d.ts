@@ -1,4 +1,5 @@
 import { HmppsUser } from '../../interfaces/hmppsUser'
+import { AuditDetails } from '../../services/auditService'
 
 export declare module 'express-session' {
   // Declare that the session will potentially contain these additional fields
@@ -41,6 +42,8 @@ export declare global {
       appInsightsConnectionString?: string
       appInsightsApplicationName?: string
       buildNumber?: string
+      // Details a handler adds to the audit outcome, e.g. search results
+      auditDetails?: AuditDetails
     }
   }
 }
