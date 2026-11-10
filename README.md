@@ -45,6 +45,14 @@ Running locally login can be bypassed with
 
 Or an example DEV prisoner can be used if set up for Launchpad.
 
+### Auditing
+
+Page views and form submissions are audited to the HMPPS staff and prisoner audit queues.
+
+- Adding a page or form so it is audited: [docs/AUDITING_PAGES_AND_FORMS.md](docs/AUDITING_PAGES_AND_FORMS.md)
+- Testing locally, against fake queues (ElasticMQ): [docs/AUDIT_LOCAL_TESTING.md](docs/AUDIT_LOCAL_TESTING.md)
+- In dev and test, against the real queues: [docs/AUDIT_DEV_TEST_QUEUES.md](docs/AUDIT_DEV_TEST_QUEUES.md)
+
 ### Installing dependencies
 
 By default no pre or post install scripts will be run during `npm install`.
