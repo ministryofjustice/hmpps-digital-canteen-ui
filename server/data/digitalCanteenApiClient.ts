@@ -5,17 +5,17 @@ import logger from '../../logger'
 import {
   AddLineItemsRequest,
   AddLineItemsResponse,
-  CompleteCartResponse,
   CreateMedusaUserRequest,
-  EnrichedPrisoner,
+  CreateDraftOrderRequest,
   GetBasketRequest,
   GetBasketResponse,
-  PaymentRequest,
-  PolicyEvaluation,
-  PolicyResult,
+  PrisonerBalance,
   RemoveBasketRequest,
   RemoveLineItemFromBasketRequest,
   RemoveLineItemsResponse,
+  CreateDraftOrderResponse,
+  CancelDraftOrderRequest,
+  GetDraftOrderResponse,
 } from '../canteen.model'
 import { PATHS } from '../constants/paths'
 
@@ -24,80 +24,89 @@ export default class DigitalCanteenApiClient extends RestClient {
     super('Digital Canteen API', config.apis.digitalCanteenApi, logger, authenticationClient)
   }
 
-  async createMedusaUser({ metadata }: CreateMedusaUserRequest): Promise<string> {
+  async createMedusaUser({ data }: CreateMedusaUserRequest): Promise<string> {
     return this.post(
       {
         path: PATHS.CREATE_MEDUSA_USER,
-        data: { metadata },
+        data: { data },
       },
       asSystem(),
     )
   }
 
-  async retrieveCurrentBasket({ metadata }: GetBasketRequest): Promise<GetBasketResponse> {
+  async retrieveCurrentBasket({ data }: GetBasketRequest): Promise<GetBasketResponse> {
     return this.post(
       {
         path: PATHS.RETRIEVE_CURRENT_BASKET,
-        data: { metadata },
+        data: { data },
       },
       asSystem(),
     )
   }
 
-  async addLineItems({ metadata }: AddLineItemsRequest): Promise<AddLineItemsResponse> {
+  async addLineItems({ data }: AddLineItemsRequest): Promise<AddLineItemsResponse> {
     return this.post(
       {
         path: PATHS.ADD_LINE_ITEM,
-        data: { metadata },
+        data: { data },
       },
       asSystem(),
     )
   }
 
-  async removeLineItemFromBasket({ metadata }: RemoveLineItemFromBasketRequest): Promise<RemoveLineItemsResponse> {
+  async removeLineItemFromBasket({ data }: RemoveLineItemFromBasketRequest): Promise<RemoveLineItemsResponse> {
     return this.post(
       {
         path: PATHS.REMOVE_LINE_ITEM,
-        data: { metadata },
+        data: { data },
       },
       asSystem(),
     )
   }
 
-  async removeBasket({ metadata }: RemoveBasketRequest): Promise<string> {
+  async removeBasket({ data }: RemoveBasketRequest): Promise<string> {
     return this.post(
       {
         path: PATHS.REMOVE_BASKET,
-        data: { metadata },
+        data: { data },
       },
       asSystem(),
     )
   }
 
-  async evaluate(policyEvaluation: PolicyEvaluation): Promise<PolicyResult> {
-    return this.post(
-      {
-        path: `/api/opa/evaluate`,
-        data: { ...policyEvaluation },
-      },
-      asSystem(),
-    )
-  }
-
-  async retrievePrisonerBalances(prisonerNumber: string): Promise<EnrichedPrisoner> {
+  async retrievePrisonerBalances(prisonerNumber: string): Promise<PrisonerBalance> {
     return this.get(
       {
-        path: `/api/prisoner-enrichment/${prisonerNumber}`,
+        path: `/api/prisoner-balance/${prisonerNumber}`,
       },
       asSystem(),
     )
   }
 
-  async completePayment(cartId: string, paymentRequest: PaymentRequest): Promise<CompleteCartResponse> {
+  async createDraftOrder(cartId: string, { data }: CreateDraftOrderRequest): Promise<CreateDraftOrderResponse> {
     return this.post(
       {
-        path: `/api/carts/${cartId}/checkout`,
-        data: { ...paymentRequest },
+        path: `/api/create-draft-order/${cartId}`,
+        data: { data },
+      },
+      asSystem(),
+    )
+  }
+
+  async getOrder(orderId: string): Promise<GetDraftOrderResponse> {
+    return this.get(
+      {
+        path: `/api/get-draft-order/${orderId}`,
+      },
+      asSystem(),
+    )
+  }
+
+  async cancelDraftOrder({ data }: CancelDraftOrderRequest): Promise<string> {
+    return this.post(
+      {
+        path: PATHS.CANCEL_DRAFT_ORDER,
+        data: { data },
       },
       asSystem(),
     )

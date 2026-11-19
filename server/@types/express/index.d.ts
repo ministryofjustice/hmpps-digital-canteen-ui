@@ -10,6 +10,7 @@ export declare module 'express-session' {
     cartId: string
     allContacts: PrisonerContact[]
     medusaUserCreated: boolean
+    draftOrderId: string
   }
 }
 

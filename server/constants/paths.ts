@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/prefer-default-export
 export const PATHS = {
   LANDING_PAGE: '/canteen',
+  ORDER_SUMMARY: '/canteen/order-summary',
   STAFF_LANDING_PAGE: '/staff-canteen',
   SHUTTER_PAGE: 'pages/shutter-page.njk',
 
@@ -11,5 +12,6 @@ export const PATHS = {
   ADD_LINE_ITEM: '/api/add-line-item',
   REMOVE_LINE_ITEM: '/api/remove-line-item',
   REMOVE_BASKET: '/api/remove-basket',
+  CANCEL_DRAFT_ORDER: '/api/cancel-draft-order',
   RETRIEVE_CONTACTS: '/api/prisoner-contacts/:prisonerNumber',
 }

@@ -1,12 +1,12 @@
 export interface CreateMedusaUserRequest {
-  metadata: {
+  data: {
     prisonId: string
     offenderNo: string
   }
 }
 
 export interface GetBasketRequest {
-  metadata: {
+  data: {
     offenderNo: string
     cartId: string
   }
@@ -17,6 +17,7 @@ export interface GetBasketResponse {
   items: [BasketLineItem]
   itemCount: number
   allItemsTotal: number
+  draftOrderId: string
 }
 
 export interface BasketLineItem {
@@ -29,11 +30,12 @@ export interface BasketLineItem {
 }
 
 export interface AddLineItemsRequest {
-  metadata: {
+  data: {
     prisonId: string
     offenderNo: string
     productVariantId: string
     cartId: string
+    canteenWindowEnd: Date
   }
 }
 
@@ -42,7 +44,7 @@ export interface AddLineItemsResponse {
 }
 
 export interface RemoveLineItemFromBasketRequest {
-  metadata: {
+  data: {
     cartId: string
     lineItemId: string
     quantity: number
@@ -54,62 +56,43 @@ export interface RemoveLineItemsResponse {
 }
 
 export interface RemoveBasketRequest {
-  metadata: {
+  data: {
     cartId: string
   }
 }
 
-export interface PolicyEvaluation {
-  input: {
-    productId: string
-    currentBalance: number
-    creditLimit: number
-    creditRequested: number
+export interface GetDraftOrderResponse {
+  hasDraftOrder: boolean
+  items: [DraftOrderLineItem]
+  itemCount: number
+  subTotal: number
+  total: number
+}
+
+export interface DraftOrderLineItem {
+  title: string
+  quantity: number
+  unitPrice: number
+  lineTotal: number
+}
+
+export interface CreateDraftOrderRequest {
+  data: {
+    draftOrderId?: string
   }
 }
 
-export interface PolicyResult {
-  result: {
-    hidden: boolean
-    decision: 'ALLOW' | 'DENY'
-    creditLimit: number
-    maxAvailableCredit: number
-    warnings: string[]
+export interface CreateDraftOrderResponse {
+  draftOrderId: string
+}
+
+export interface CancelDraftOrderRequest {
+  data: {
+    draftOrderId: string
   }
 }
 
-export interface PrisonerContact {
-  prisonerId: string
-  id: number
-  name: string
-  phoneNumber: string
-  controlStatus: boolean
-  callAllowed: boolean
-  legal: boolean
-  allowMonitor: boolean
-  alert: boolean
-  override: boolean
-  contactType: string
-  contactTypeDescription: string
-}
-
-export interface EnrichedPrisoner {
-  prisoner: PrisonerSearchResponse
-  prisonerBalance: BalanceResponse | null
-}
-
-export interface PrisonerSearchResponse {
-  prisonerNumber: string
-  prisonId: string | null
-  prisonName: string | null
-  bookNumber: string | null
-  bookingId: string | null
-  dateOfBirth: string | null
-  youthOffender: boolean | null
-  gender: string | null
-}
-
-export interface BalanceResponse {
+export interface PrisonerBalance {
   spendsPence: number
   cashPence: number
   savingsPence: number

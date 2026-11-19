@@ -1,5 +1,5 @@
 import { DigitalCanteenApiClient } from '../data'
-import { CreateMedusaUserRequest, PaymentRequest } from '../canteen.model'
+import { CreateMedusaUserRequest } from '../canteen.model'
 
 export default class CanteenService {
   constructor(private readonly digitalCanteenApiClient: DigitalCanteenApiClient) {}
@@ -8,7 +8,7 @@ export default class CanteenService {
     return this.digitalCanteenApiClient.createMedusaUser(createMedusaUserRequest)
   }
 
-  completePayment(cartId: string, paymentRequest: PaymentRequest) {
-    return this.digitalCanteenApiClient.completePayment(cartId, paymentRequest)
+  retrievePrisonerBalance(prisonerNumber: string) {
+    return this.digitalCanteenApiClient.retrievePrisonerBalances(prisonerNumber)
   }
 }
