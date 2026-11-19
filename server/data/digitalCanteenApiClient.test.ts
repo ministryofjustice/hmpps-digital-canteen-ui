@@ -25,17 +25,17 @@ describe('DigitalCanteenApiClient', () => {
       const token = 'test-system-token'
       mockAuthenticationClient.getToken.mockResolvedValue(token)
 
-      const metadata = {
+      const data = {
         offenderNo: 'A1234BC',
         prisonId: '12345',
       }
 
       nock(config.apis.digitalCanteenApi.url)
-        .post('/api/create-medusa-user', { metadata })
+        .post('/api/create-medusa-user', { data })
         .matchHeader('authorization', `Bearer ${token}`)
         .reply(200, { status: 'success' })
 
-      const result = await digitalPinPhoneApiClient.createMedusaUser({ metadata })
+      const result = await digitalPinPhoneApiClient.createMedusaUser({ data })
 
       expect(nock.isDone()).toBe(true)
       expect(mockAuthenticationClient.getToken).toHaveBeenCalled()

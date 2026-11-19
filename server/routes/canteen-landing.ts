@@ -4,14 +4,16 @@ import AuditService, { Page } from '../services/auditService'
 import { PATHS } from '../constants/paths'
 import TelemetryService from '../services/telemetryService'
 import CanteenService from '../services/canteenService'
-import MedusaBasketService from '../services/medusaBasketService'
+import MedusaService from '../services/medusaService'
+import { toPounds } from '../utils/utils'
 
+// todo: dummy page to support api testing
 export default function canteenRoutes(
   router: Router,
   auditService: AuditService,
   telemetryService: TelemetryService,
   canteenService: CanteenService,
-  medusaBasketService: MedusaBasketService,
+  medusaBasketService: MedusaService,
 ): Router {
   router.get(PATHS.LANDING_PAGE, async (req, res, _next) => {
     await auditService.logPageView(Page.CANTEEN_LANDING, {
@@ -26,7 +28,7 @@ export default function canteenRoutes(
 
     if (!req.session.medusaUserCreated) {
       await canteenService.createMedusaUser({
-        metadata: {
+        data: {
           prisonId: user.establishment.agency_id,
           offenderNo: user.userId,
         },
@@ -34,15 +36,22 @@ export default function canteenRoutes(
       req.session.medusaUserCreated = true
     }
 
+    const prisonerBalance = await canteenService.retrievePrisonerBalance(user.userId)
+    const balanceInPounds = toPounds(prisonerBalance.spendsPence)
+
+    // retrieves current baskets that have been created and submitted
+    // retrieves any current draft order
     const basketDetails = await medusaBasketService.retrieveCurrentBasket({
-      metadata: {
+      data: {
         offenderNo: user.userId,
         cartId: req.session.cartId || null,
       },
     })
     req.session.cartId = basketDetails.cartId
+    req.session.draftOrderId = basketDetails.draftOrderId
 
     return res.render('pages/canteen-landing', {
+      balanceInPounds,
       basketDetails,
       userName: user.username,
     })
@@ -54,11 +63,12 @@ export default function canteenRoutes(
 
     try {
       const cart = await medusaBasketService.addItemsToBasket({
-        metadata: {
+        data: {
           prisonId: user.establishment.agency_id,
           offenderNo: user.userId,
           productVariantId,
           cartId: req.session.cartId || null,
+          canteenWindowEnd: new Date('2026-11-12T18:00:00Z'),
         },
       })
       req.session.cartId = cart.cartId
@@ -74,7 +84,7 @@ export default function canteenRoutes(
     if (req.session.cartId) {
       try {
         await medusaBasketService.removeLineItemFromBasket({
-          metadata: {
+          data: {
             cartId: req.session.cartId,
             lineItemId,
             quantity: newQuantity,
@@ -91,10 +101,28 @@ export default function canteenRoutes(
     if (req.session.cartId) {
       try {
         await medusaBasketService.removeBasket({
-          metadata: {
+          data: {
             cartId: req.session.cartId,
           },
         })
+        req.session.cartId = null
+      } catch (error) {
+        return _next(error)
+      }
+    }
+    return res.redirect(PATHS.LANDING_PAGE)
+  })
+
+  router.post('/api/create-draft-order', async (req, res, _next) => {
+    if (req.session.cartId) {
+      try {
+        const draftOrder = await medusaBasketService.createDraftOrder(req.session.cartId, {
+          data: {
+            draftOrderId: req.session.draftOrderId,
+          },
+        })
+        req.session.draftOrderId = draftOrder.draftOrderId
+        req.session.cartId = null
       } catch (error) {
         return _next(error)
       }

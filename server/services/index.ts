@@ -2,7 +2,7 @@ import { dataAccess } from '../data'
 import AuditService from './auditService'
 import CanteenService from './canteenService'
 import TelemetryService from './telemetryService'
-import MedusaBasketService from './medusaBasketService'
+import MedusaService from './medusaService'
 
 export const services = () => {
   const { applicationInfo, hmppsAuditClient, digitalCanteenApiClient } = dataAccess()
@@ -12,7 +12,7 @@ export const services = () => {
     auditService: new AuditService(hmppsAuditClient),
     telemetryService: new TelemetryService(),
     canteenService: new CanteenService(digitalCanteenApiClient),
-    medusaBasketService: new MedusaBasketService(digitalCanteenApiClient),
+    medusaBasketService: new MedusaService(digitalCanteenApiClient),
   }
 }
 
