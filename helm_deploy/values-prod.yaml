@@ -18,5 +18,5 @@ generic-service:
     PRISONER_APPS_URL: "https://prisoner-apps.hmpps.service.justice.gov.uk/"
     DIGITAL_CANTEEN_API_URL: "https://digital-canteen.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: PROD
-    SHUTTER_ENABLED: "true"
+    SHUTTER_ENABLED: "false"
     AUDIT_ENABLED: "false"
