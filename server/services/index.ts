@@ -5,11 +5,11 @@ import TelemetryService from './telemetryService'
 import MedusaBasketService from './medusaBasketService'
 
 export const services = () => {
-  const { applicationInfo, hmppsAuditClient, digitalCanteenApiClient } = dataAccess()
+  const { applicationInfo, hmppsAuditClients, digitalCanteenApiClient } = dataAccess()
 
   return {
     applicationInfo,
-    auditService: new AuditService(hmppsAuditClient),
+    auditService: new AuditService(hmppsAuditClients),
     telemetryService: new TelemetryService(),
     canteenService: new CanteenService(digitalCanteenApiClient),
     medusaBasketService: new MedusaBasketService(digitalCanteenApiClient),

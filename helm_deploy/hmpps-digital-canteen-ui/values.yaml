@@ -3,7 +3,7 @@ generic-service:
   productId: 'DPS128' # productId for the product that this belongs too, i.e. DPS001, see README.md for details
 
   # the IRSA service account name for accessing AWS resources
-  # serviceAccountName: "hmpps-digital-canteen-ui"
+  serviceAccountName: "hmpps-digital-canteen-ui"
 
   replicaCount: 1
 
@@ -38,7 +38,7 @@ generic-service:
     REDIS_TLS_ENABLED: 'true'
     TOKEN_VERIFICATION_ENABLED: 'true'
     AUDIT_SQS_REGION: 'eu-west-2'
-    AUDIT_SERVICE_NAME: 'DPS128' # Your audit service name
+    AUDIT_SERVICE_NAME: 'hmpps-digital-canteen-ui'
 
   # Pre-existing kubernetes secrets to load as environment variables in the deployment.
   # namespace_secrets:
@@ -63,10 +63,13 @@ generic-service:
       REDIS_AUTH_TOKEN: 'auth_token'
     hmpps-digital-canteen-api-application-insights:
       APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
-    # This secret will need to be created in your namespace (note it isn't in hmpps-templates-dev)
-    # IRSA configuration in your namespace will also be required, and then uncomment serviceAccountName above.
-    # sqs-hmpps-audit-secret:
-    #   AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
+    # HMPPS audit queues, one per audited user group. IRSA grants the service account write access
+    # Staff: created by the hmpps-audit namespace
+    sqs-hmpps-audit-secret:
+      AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
+    # Prisoner: created in this namespace
+    sqs-hmpps-prisoner-audit-secret:
+      AUDIT_PRISONER_SQS_QUEUE_URL: 'sqs_queue_url'
 
   allowlist:
     groups:
