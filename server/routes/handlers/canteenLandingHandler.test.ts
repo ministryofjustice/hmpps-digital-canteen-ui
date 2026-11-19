@@ -9,13 +9,19 @@ import AuditService, {
   SubjectType,
 } from '../../services/auditService'
 import TelemetryService from '../../services/telemetryService'
+import CanteenService from '../../services/canteenService'
+import MedusaBasketService from '../../services/medusaBasketService'
 import { HmppsUser } from '../../interfaces/hmppsUser'
 
 jest.mock('../../services/auditService')
 jest.mock('../../services/telemetryService')
+jest.mock('../../services/canteenService')
+jest.mock('../../services/medusaBasketService')
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
 const telemetryService = new TelemetryService() as jest.Mocked<TelemetryService>
+const canteenService = new CanteenService(null) as jest.Mocked<CanteenService>
+const medusaBasketService = new MedusaBasketService(null) as jest.Mocked<MedusaBasketService>
 
 // As Launchpad signs prisoners in: username and userId are the ID token sub (the prisoner number), displayName their name
 const prisonerUser = {
@@ -32,9 +38,20 @@ const appFor = (signedInUser: HmppsUser): Express =>
     services: {
       auditService,
       telemetryService,
+      canteenService,
+      medusaBasketService,
     },
     userSupplier: () => signedInUser,
   })
+
+beforeEach(() => {
+  medusaBasketService.retrieveCurrentBasket.mockResolvedValue({
+    cartId: 'cart-1',
+    items: [] as never,
+    itemCount: 0,
+    allItemsTotal: 0,
+  })
+})
 
 afterEach(() => {
   jest.resetAllMocks()

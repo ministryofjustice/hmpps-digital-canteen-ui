@@ -6,8 +6,14 @@ import { requirePortal } from '../middleware/setUpPortals'
 import pageRoute from './pageRoute'
 import CanteenLandingHandler from './handlers/canteenLandingHandler'
 import StaffCanteenLandingHandler from './handlers/staffCanteenLandingHandler'
+import basketRoutes from './basketRoutes'
 
-export default function routes({ auditService, telemetryService }: Services): Router {
+export default function routes({
+  auditService,
+  telemetryService,
+  canteenService,
+  medusaBasketService,
+}: Services): Router {
   const router = Router()
 
   // Every page must be added with route(), so that every request to it is audited
@@ -19,7 +25,8 @@ export default function routes({ auditService, telemetryService }: Services): Ro
   })
 
   // Prisoner portal routes
-  route(PATHS.LANDING_PAGE, new CanteenLandingHandler(telemetryService))
+  route(PATHS.LANDING_PAGE, new CanteenLandingHandler(telemetryService, canteenService, medusaBasketService))
+  basketRoutes(router, auditService, medusaBasketService)
 
   // Staff portal routes
   route(PATHS.STAFF_LANDING_PAGE, new StaffCanteenLandingHandler(telemetryService), requirePortal('staff'))

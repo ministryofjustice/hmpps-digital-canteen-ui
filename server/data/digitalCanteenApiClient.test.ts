@@ -20,28 +20,26 @@ describe('DigitalCanteenApiClient', () => {
     jest.resetAllMocks()
   })
 
-  describe('createCart', () => {
-    it('should make a POST request to /api/carts using system token', async () => {
+  describe('createUser', () => {
+    it('should make a POST request to /api/create-medusa-user', async () => {
       const token = 'test-system-token'
       mockAuthenticationClient.getToken.mockResolvedValue(token)
 
       const metadata = {
-        prison_id: 'HEI',
-        offender_no: 'A1234BC',
-        first_name: 'John',
-        second_name: 'Doe',
+        offenderNo: 'A1234BC',
+        prisonId: '12345',
       }
 
       nock(config.apis.digitalCanteenApi.url)
-        .post('/api/carts', { metadata })
+        .post('/api/create-medusa-user', { metadata })
         .matchHeader('authorization', `Bearer ${token}`)
-        .reply(200, { cart: { id: '123' } })
+        .reply(200, { status: 'success' })
 
-      const result = await digitalPinPhoneApiClient.createCart({ metadata })
+      const result = await digitalPinPhoneApiClient.createMedusaUser({ metadata })
 
       expect(nock.isDone()).toBe(true)
       expect(mockAuthenticationClient.getToken).toHaveBeenCalled()
-      expect(result.cart.id).toBe('123')
+      expect(result).toEqual({ status: 'success' })
     })
   })
 })
