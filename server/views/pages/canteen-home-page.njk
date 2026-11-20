@@ -1,0 +1,94 @@
+{% extends "../partials/layout.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{%- from "moj/components/search/macro.njk" import mojSearch -%}
+
+{% set homeLinkHref = launchpadHome %}
+{% set pageTitle = userName + "'s Canteen" %}
+
+
+{% block pageTitle %}
+  {{ pageTitle }} - GOV.UK
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+
+
+{{ mojSubNavigation({
+  label: "Sub navigation",
+  items: [{
+    html: "<strong>Shop Canteen</strong>",
+    href: "#1",
+    active: true
+  }, {
+    html: "<strong>Current order</strong>",
+    href: "#2"
+  }, {
+    html: "<strong>Previous orders</strong>",
+    href: "#3"
+  }]
+}) }}
+
+<div class="order-summary">
+  <div class="summary-card">
+    <span class="summary-label">Canteen spends balance</span>
+    <span class="summary-value">£{{ spendBalance | default('0.00') }}</span>
+  </div>
+
+  <div class="summary-card summary-card--primary">
+    <div class="summary-icon">
+      <svg class="icon-basket" fill="none" width="800px" height="800px" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#ffffff" stroke-width="1.5" stroke-linecap="straight" stroke-linejoin="round">
+        <path d="M3 9h24l-3 18H6L3 9z"/>
+        <path d="M2 9h26"/>
+        <path d="M10 14v9m5-9v9m5-9v9"/>
+        <path d="M8 9l7-8 7 8"/></g>
+      </svg>
+    </div>
+    <div>
+      <span class="summary-label">
+        Basket total ({{ basket.itemCount }} items)
+      </span>
+      <span class="summary-value">
+        £ {{ basket.total | default('0.00') }}
+      </span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <span class="summary-label">Canteen closes on</span>
+    <span class="summary-value summary-value--small">
+      Friday 15 Dec at 5pm
+    </span>
+  </div>
+
+  <div class="summary-card">
+    <span class="summary-label">You have</span>
+    <span class="summary-value summary-value--small">
+      {{ hoursRemaining }} hours left to order
+    </span>
+  </div>
+</div>
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-one-half">
+  {{ mojSearch({
+    action: "#",
+    input: {
+      id: "search",
+      name: "search"
+    },
+    label: {
+      text: "Search for products",
+      classes: "govuk-heading-xl"
+    },
+    hint: {
+      text: "You can search by name or description"
+    },
+    button: {
+      text: "Search"
+    }
+  }) }}
+  </div>
+  </div>
+{% endblock %}

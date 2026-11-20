@@ -1,7 +1,7 @@
 import HmppsAuditClient, { AuditEvent } from '../data/hmppsAuditClient'
 
 export enum Page {
-  CANTEEN_LANDING = 'CANTEEN_LANDING',
+  CANTEEN_HOME_PAGE = 'CANTEEN_HOME_PAGE',
   STAFF_CANTEEN_LANDING = 'STAFF_CANTEEN_LANDING',
 }
 
