@@ -19,7 +19,7 @@ generic-service:
     DIGITAL_CANTEEN_API_URL: "https://digital-canteen-test.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: TEST
     SHUTTER_ENABLED: "false"
-    AUDIT_ENABLED: "false"
+    AUDIT_ENABLED: "true"
 
 generic-prometheus-alerts:
   businessHoursOnly: true
