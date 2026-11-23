@@ -16,15 +16,21 @@ const requiredInProduction = { requireInProduction: true }
 
 const auditConfig = () => {
   const auditEnabled = get('AUDIT_ENABLED', 'false') === 'true'
-  return {
+  const requiredIfEnabled = auditEnabled ? requiredInProduction : undefined
+  const serviceName = get('AUDIT_SERVICE_NAME', 'UNASSIGNED', requiredIfEnabled)
+  const region = get('AUDIT_SQS_REGION', 'eu-west-2')
+
+  // Each audited user group has its own HMPPS audit queue
+  const auditQueue = (queueUrlEnvVar: string) => ({
     enabled: auditEnabled,
-    queueUrl: get(
-      'AUDIT_SQS_QUEUE_URL',
-      'http://localhost:4566/000000000000/mainQueue',
-      auditEnabled ? requiredInProduction : undefined,
-    ),
-    serviceName: get('AUDIT_SERVICE_NAME', 'UNASSIGNED', auditEnabled ? requiredInProduction : undefined),
-    region: get('AUDIT_SQS_REGION', 'eu-west-2'),
+    queueUrl: get(queueUrlEnvVar, 'http://localhost:4566/000000000000/mainQueue', requiredIfEnabled),
+    serviceName,
+    region,
+  })
+
+  return {
+    staff: auditQueue('AUDIT_SQS_QUEUE_URL'),
+    prisoner: auditQueue('AUDIT_PRISONER_SQS_QUEUE_URL'),
   }
 }
 

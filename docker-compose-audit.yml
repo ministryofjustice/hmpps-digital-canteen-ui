@@ -1,0 +1,11 @@
+services:
+
+  # Fake SQS for testing the HMPPS audit integration locally. See docs/AUDIT_LOCAL_TESTING.md
+  elasticmq:
+    image: softwaremill/elasticmq-native
+    container_name: digital-canteen-ui-elasticmq
+    ports:
+      - "9324:9324" # SQS API
+      - "9325:9325" # Queue statistics UI
+    volumes:
+      - ./elasticmq/elasticmq.conf:/opt/elasticmq.conf:ro

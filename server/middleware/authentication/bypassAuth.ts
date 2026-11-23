@@ -4,10 +4,11 @@ import { HmppsUser, PrisonUser } from '../../interfaces/hmppsUser'
 
 const fakePrisoner = {
   sub: 'G3682UE',
-  username: 'John Doe',
+  username: 'G3682UE',
+  name: 'John Doe',
   authSource: 'prisoner-auth',
   token: 'fake-token',
-  displayName: 'Dev User',
+  displayName: 'John Doe',
   givenName: 'John',
   familyName: 'Doe',
   userId: 'G3682UE',

@@ -2,6 +2,7 @@ import { mockClient } from 'aws-sdk-client-mock'
 import { SendMessageCommand, SendMessageCommandInput, SQSClient } from '@aws-sdk/client-sqs'
 
 import HmppsAuditClient, { SqsMessage } from './hmppsAuditClient'
+import logger from '../../logger'
 
 describe('hmppsAuditClient', () => {
   const sqsMock = mockClient(SQSClient)
@@ -16,7 +17,7 @@ describe('hmppsAuditClient', () => {
 
   afterEach(() => {
     sqsMock.reset()
-    jest.resetAllMocks()
+    jest.restoreAllMocks()
   })
 
   describe('sendMessage', () => {
@@ -80,6 +81,9 @@ describe('hmppsAuditClient', () => {
       sqsMock.on(SendMessageCommand).rejects(new Error('Error sending sqs message'))
       hmppsAuditClient = new HmppsAuditClient({ ...auditClientConfig })
 
+      // Suppress the expected error output to console
+      jest.spyOn(logger, 'error').mockImplementation()
+
       const trySendMessage = async () => {
         await hmppsAuditClient.sendMessage(
           {
@@ -90,13 +94,16 @@ describe('hmppsAuditClient', () => {
         )
       }
 
-      expect(trySendMessage()).resolves.not.toThrow()
+      await expect(trySendMessage()).resolves.not.toThrow()
       expect(sqsMock.calls().length).toEqual(1)
     })
 
     it('should throw an error if sqs message cannot be sent', async () => {
       sqsMock.on(SendMessageCommand).rejects(new Error('Error sending sqs message'))
       hmppsAuditClient = new HmppsAuditClient({ ...auditClientConfig })
+
+      // Suppress the expected error output to console
+      jest.spyOn(logger, 'error').mockImplementation()
 
       const trySendMessage = async () => {
         await hmppsAuditClient.sendMessage({
@@ -105,7 +112,7 @@ describe('hmppsAuditClient', () => {
         })
       }
 
-      expect(trySendMessage()).rejects.toThrow('Error sending sqs message')
+      await expect(trySendMessage()).rejects.toThrow('Error sending sqs message')
       expect(sqsMock.calls().length).toEqual(1)
     })
   })

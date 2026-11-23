@@ -24,7 +24,10 @@ export const dataAccess = () => {
     applicationInfo,
     hmppsAuthClient,
     digitalCanteenApiClient: new DigitalCanteenApiClient(hmppsAuthClient),
-    hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
+    hmppsAuditClients: {
+      staff: new HmppsAuditClient(config.sqs.audit.staff),
+      prisoner: new HmppsAuditClient(config.sqs.audit.prisoner),
+    },
   }
 }
 
