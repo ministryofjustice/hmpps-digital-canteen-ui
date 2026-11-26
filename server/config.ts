@@ -14,6 +14,25 @@ function get<T>(name: string, fallback: T, options = { requireInProduction: fals
 
 const requiredInProduction = { requireInProduction: true }
 
+/*
+ * Mock API responses: see server/data/mocks/README.md
+ * Only allowed in dev, test and local development, so a missing or new ENVIRONMENT_NAME can't switch them on anywhere
+ * else. ENVIRONMENT_NAME is used, not NODE_ENV, as deployed dev runs with NODE_ENV=production
+ */
+export const mockSettings = (env: Record<string, string | undefined> = process.env) => {
+  const environmentName = (env.ENVIRONMENT_NAME ?? '').toUpperCase()
+  const local = environmentName === '' && env.NODE_ENV !== 'production'
+  const mocksAllowed = local || ['DEV', 'TEST'].includes(environmentName)
+  const mockApi = env.MOCK_API === 'true'
+
+  if (mockApi && !mocksAllowed) {
+    throw new Error(
+      `MOCK_API=true isn't allowed in ${environmentName || 'this environment'}: mock API responses are only used in dev, test and local development`,
+    )
+  }
+  return { mockApi, mocksAllowed }
+}
+
 const auditConfig = () => {
   const auditEnabled = get('AUDIT_ENABLED', 'false') === 'true'
   return {
@@ -123,6 +142,7 @@ export default {
   },
   ingressUrl: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   environmentName: get('ENVIRONMENT_NAME', ''),
+  mocks: mockSettings(),
   shutterEnabled: get('SHUTTER_ENABLED', 'false') === 'true',
   prisonerAppsUrl: get(
     'PRISONER_APPS_URL',

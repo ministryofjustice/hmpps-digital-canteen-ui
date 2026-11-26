@@ -2,6 +2,9 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 {%- from "moj/components/search/macro.njk" import mojSearch -%}
+{%- from "moj/components/side-navigation/macro.njk" import mojSideNavigation -%}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "../components/product-card.njk" import productCard %}
 
 {% set homeLinkHref = launchpadHome %}
 {% set pageTitle = userName + "'s Canteen" %}
@@ -91,4 +94,55 @@
   }) }}
   </div>
   </div>
+
+{% if productCatalogueUnavailable %}
+<div class="govuk-grid-row app-product-catalogue" data-qa="product-catalogue-unavailable">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-m">Products can't be shown at the moment</h2>
+    <p class="govuk-body">Try again later.</p>
+  </div>
+</div>
+{% else %}
+<div class="govuk-grid-row app-product-catalogue" data-qa="product-catalogue">
+  <div class="govuk-grid-column-one-quarter">
+    {{ mojSideNavigation({
+      label: "Product categories",
+      classes: "app-category-navigation",
+      sections: [{
+        heading: {
+          text: "Categories",
+          headingLevel: 2,
+          classes: "govuk-visually-hidden"
+        },
+        items: productCatalogue.categoryNavigation
+      }]
+    }) }}
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+    <section class="app-product-catalogue__products" aria-labelledby="products-heading">
+      <h2 class="govuk-heading-l" id="products-heading">{{ productCatalogue.heading }} ({{ productCatalogue.totalCount }})</h2>
+
+      {% if productCatalogue.products | length %}
+        <ul class="app-product-grid">
+          {% for product in productCatalogue.products %}
+            {{ productCard(product) }}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="govuk-body">There are no products to show.</p>
+      {% endif %}
+
+      {% if pagination %}
+        {{ govukPagination({
+          items: pagination.items,
+          previous: pagination.previous,
+          next: pagination.next,
+          landmarkLabel: "Product results"
+        }) }}
+      {% endif %}
+    </section>
+  </div>
+</div>
+{% endif %}
 {% endblock %}

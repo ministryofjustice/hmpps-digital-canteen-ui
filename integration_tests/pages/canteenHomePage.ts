@@ -26,6 +26,16 @@ export default class CanteenHomePage extends AbstractPage {
 
   readonly searchHint: Locator
 
+  readonly categories: Locator
+
+  readonly activeCategory: Locator
+
+  readonly productsHeading: Locator
+
+  readonly productCards: Locator
+
+  readonly pagination: Locator
+
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1')
@@ -39,6 +49,11 @@ export default class CanteenHomePage extends AbstractPage {
     this.searchButton = page.getByRole('button', { name: 'Search' })
     this.searchLabel = page.getByText('Search for products')
     this.searchHint = page.getByText('You can search by name or description')
+    this.categories = page.locator('.moj-side-navigation__item')
+    this.activeCategory = page.locator('.moj-side-navigation__item--active')
+    this.productsHeading = page.locator('#products-heading')
+    this.productCards = page.locator('[data-qa="product-card"]')
+    this.pagination = page.getByRole('navigation', { name: 'Product results' })
     this.breadcrumbHome = page.locator('.govuk-breadcrumbs__link', { hasText: 'Home' })
   }
 

@@ -14,7 +14,7 @@ export interface GetBasketRequest {
 
 export interface GetBasketResponse {
   cartId: string
-  items: [BasketLineItem]
+  items: BasketLineItem[]
   itemCount: number
   allItemsTotal: number
 }
@@ -51,6 +51,11 @@ export interface RemoveLineItemFromBasketRequest {
 
 export interface RemoveLineItemsResponse {
   cartId: string
+}
+
+// The response of create-medusa-user and remove-basket
+export interface StatusResponse {
+  status: string
 }
 
 export interface RemoveBasketRequest {
@@ -128,4 +133,56 @@ export interface CompleteCartResponse {
   orderStatusRecorded: boolean
   orderId: string | null
   cartId: string
+}
+
+/*
+ * Product catalogue: the proposed Digital Canteen API contract, to agree with the API team. Based on Medusa's store API
+ * (GET /store/product-categories and GET /store/products), with camelCase field names
+ */
+export interface ProductCategory {
+  id: string
+  name: string
+  handle: string
+  // Not returned by Medusa: the Digital Canteen API is expected to add it
+  productCount: number
+}
+
+export interface ProductCategoriesResponse {
+  productCategories: ProductCategory[]
+}
+
+export interface ProductVariant {
+  id: string
+  // In pounds, e.g. 0.63. Medusa v2 amounts are not in pence
+  calculatedPrice: {
+    calculatedAmount: number
+    currencyCode: string
+  }
+}
+
+export interface Product {
+  id: string
+  title: string
+  handle: string
+  description: string | null
+  thumbnail: string | null
+  metadata: {
+    // Not a Medusa field: stored in product metadata until the allergen data model is agreed
+    allergens?: string[]
+  } | null
+  variants: ProductVariant[]
+}
+
+export interface ProductsRequest {
+  prisonId: string
+  categoryId?: string
+  limit: number
+  offset: number
+}
+
+export interface ProductsResponse {
+  products: Product[]
+  count: number
+  offset: number
+  limit: number
 }

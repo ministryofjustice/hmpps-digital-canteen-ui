@@ -11,6 +11,8 @@ import config from '../config'
 import HmppsAuditClient from './hmppsAuditClient'
 import logger from '../../logger'
 import DigitalCanteenApiClient from './digitalCanteenApiClient'
+import withMocks from './mocks/withMocks'
+import digitalCanteenApiMocks from './mocks/digitalCanteenApiMocks'
 
 const applicationInfo = applicationInfoSupplier()
 export const dataAccess = () => {
@@ -23,7 +25,12 @@ export const dataAccess = () => {
   return {
     applicationInfo,
     hmppsAuthClient,
-    digitalCanteenApiClient: new DigitalCanteenApiClient(hmppsAuthClient),
+    // Mock responses for endpoints the real API doesn't have yet, or for every endpoint with MOCK_API=true
+    digitalCanteenApiClient: withMocks(
+      new DigitalCanteenApiClient(hmppsAuthClient),
+      digitalCanteenApiMocks,
+      config.mocks,
+    ),
     hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
   }
 }
