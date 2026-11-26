@@ -42,4 +42,44 @@ test.describe('Canteen home page', () => {
     await expect(canteenPage.searchButton).toBeVisible()
     await expect(canteenPage.searchButton).toHaveText('Search')
   })
+
+  // The product catalogue endpoints aren't in the real API yet, so the catalogue is the app's mock API responses
+  // (server/data/mocks). When they're ready, stub them in mockApis/digitalCanteenApi.ts and update these tests
+
+  test('can see the categories, with All products active', async ({ page }) => {
+    const canteenPage = await CanteenHomePage.verifyOnPage(page)
+
+    const categories = (await canteenPage.categories.allTextContents()).map(text => text.trim())
+    expect(categories).toHaveLength(14)
+    expect(categories.slice(0, 3)).toEqual(['All products (159)', 'Batteries (2)', 'Biscuits and bakery (15)'])
+    await expect(canteenPage.activeCategory).toHaveText('All products (159)')
+  })
+
+  test('can see the products', async ({ page }) => {
+    const canteenPage = await CanteenHomePage.verifyOnPage(page)
+
+    await expect(canteenPage.productsHeading).toHaveText('All products (159)')
+    await expect(canteenPage.productCards).toHaveCount(12)
+
+    const stamp = canteenPage.productCards.first()
+    await expect(stamp.getByRole('link', { name: '10p Postage Stamp' })).toBeVisible()
+    await expect(stamp.getByText('No allergens')).toBeVisible()
+    await expect(stamp.getByText('£0.10')).toBeVisible()
+    await expect(stamp.getByRole('button', { name: 'Add to basket 10p Postage Stamp' })).toBeVisible()
+  })
+
+  test("can see a product's allergens", async ({ page }) => {
+    await page.goto('/canteen?category=sweets-and-snacks')
+    const canteenPage = await CanteenHomePage.verifyOnPage(page)
+
+    const chocolate = canteenPage.productCards.filter({ hasText: 'Milk Chocolate Bar' })
+    await expect(chocolate.getByText('Contains: milk, soya')).toBeVisible()
+  })
+
+  test('can see the page links', async ({ page }) => {
+    const canteenPage = await CanteenHomePage.verifyOnPage(page)
+
+    await expect(canteenPage.pagination.getByRole('link', { name: 'Page 14' })).toBeVisible()
+    await expect(canteenPage.pagination.getByRole('link', { name: /Next/ })).toHaveAttribute('href', '/canteen?page=2')
+  })
 })

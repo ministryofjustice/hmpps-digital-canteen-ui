@@ -24,6 +24,12 @@ const getBuildConfig = () => {
           to: path.join(cwd, 'dist/server/views'),
           watch: isWatchMode,
         },
+        {
+          // The mock API responses' data (server/data/mocks)
+          from: path.join(cwd, 'server/data/mocks/data/**/*'),
+          to: path.join(cwd, 'dist/server/data/mocks/data'),
+          watch: isWatchMode,
+        },
       ],
     },
 

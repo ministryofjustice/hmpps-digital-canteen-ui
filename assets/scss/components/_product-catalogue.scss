@@ -1,0 +1,98 @@
+// Canteen home page: category navigation and product grid
+
+.app-product-catalogue {
+  margin-top: govuk-spacing(6);
+}
+
+.app-category-navigation {
+  padding-top: govuk-spacing(3);
+
+  .moj-side-navigation__item a {
+    @include govuk-font($size: 16);
+  }
+}
+
+.app-product-catalogue__products {
+  padding: govuk-spacing(4);
+  border: 1px solid $govuk-border-colour;
+
+  @include govuk-media-query($from: desktop) {
+    padding: govuk-spacing(6) govuk-spacing(4);
+  }
+}
+
+// minmax(0, 1fr) stops a card growing to fit its one-line title, which would make the page scroll sideways on mobile.
+// The products sit in three-quarters of the page from desktop width, so 4 columns only fit from 1200px
+.app-product-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: govuk-spacing(6);
+  margin: 0 0 govuk-spacing(6);
+  padding: 0;
+  list-style: none;
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include govuk-media-query($from: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include govuk-media-query($from: 1200px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.app-product-card {
+  display: flex;
+  flex-direction: column;
+  padding: govuk-spacing(3);
+  border: 1px solid $govuk-border-colour;
+}
+
+.app-product-card__image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  margin-bottom: govuk-spacing(3);
+}
+
+.app-product-card__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+// Long titles are cut to one line, as in the designs. The full title is in the link's title attribute
+.app-product-card__title {
+  margin-bottom: govuk-spacing(3);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.app-product-card__link {
+  @include govuk-typography-weight-regular;
+}
+
+.app-product-card__allergens {
+  margin-bottom: govuk-spacing(4);
+}
+
+.app-product-card__price {
+  margin-bottom: govuk-spacing(3);
+}
+
+// Keeps the buttons in a row aligned when titles or allergens differ in length
+.app-product-card__button {
+  width: 100%;
+  margin-top: auto;
+}
+
+// Right-aligned, as in the designs
+.app-product-catalogue__products .govuk-pagination {
+  justify-content: flex-end;
+  margin-bottom: 0;
+}

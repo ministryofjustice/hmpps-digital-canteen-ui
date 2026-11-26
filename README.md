@@ -94,6 +94,56 @@ Or run tests with the UI:
 
 `npm run int-test-ui`
 
+## Mock API responses
+
+The UI has a mock of every Digital Canteen API endpoint it calls, in
+[`server/data/mocks/digitalCanteenApiMocks.ts`](server/data/mocks/digitalCanteenApiMocks.ts). This lets UI work be
+built, and tested by QA in dev, before the API has the endpoint.
+
+### How it works
+
+Each mock has a `realEndpointReady` flag: `true` if the real API has the endpoint, `false` if it doesn't yet.
+
+| Where | `MOCK_API` | Endpoint ready (`true`) | Endpoint not ready (`false`) |
+|---|---|---|---|
+| Local, dev, test | `false` (default) | Real API | Mock |
+| Local, dev, test | `true` | Mock | Mock |
+| Preprod, prod, anywhere else | Not allowed: the app won't start | Real API | Real API: the feature doesn't work until the endpoint exists |
+
+Mocks are only used where `ENVIRONMENT_NAME` is `DEV` or `TEST`, or locally. On startup, the app logs which endpoints
+are mocked: `Using mock API responses for: ...`
+
+### What every developer must do
+
+- **UI-only ticket** (the API doesn't have the endpoint yet): add the client method to `DigitalCanteenApiClient`, and
+  its mock with `realEndpointReady: false`.
+- **Integration ticket** (the endpoint is in the dev API): make sure the mock exists and matches the real endpoint's
+  request and response, then set `realEndpointReady: true`.
+- **Never delete a mock.** Every endpoint keeps one, so the UI can always run without the API.
+
+The unit tests fail if an endpoint has no mock. `npm run typecheck` (run by the pre-commit hook) fails if a mock
+doesn't match its method's types.
+
+### Running locally
+
+Set these in `.env`, run `npm run start:dev`, and open `http://localhost:<PORT>/canteen`, where `PORT` is the port in
+your `.env` (3000 if not set):
+
+| To use | Set in `.env` | Needs |
+|---|---|---|
+| Real API, with mocks for endpoints that aren't ready | `MOCK_API=false` | VPN |
+| Mocks for every endpoint | `MOCK_API=true` | Nothing: works offline |
+
+Also set `BYPASS_AUTH=true` (sign in as a fake prisoner) and `AUDIT_ENABLED=false` (no local audit queue needed).
+Restart `npm run start:dev` after changing `.env`.
+
+### Running in dev and test
+
+- **Default (`MOCK_API` not set):** the real API, with mocks for endpoints that aren't ready. Nothing to configure.
+- **Mocks for every endpoint:** add `MOCK_API: "true"` under `env` in `helm_deploy/values-dev.yaml` or
+  `helm_deploy/values-test.yaml`, and deploy.
+- **Never set `MOCK_API` in `values-preprod.yaml` or `values-prod.yaml`:** the tests fail if you do.
+
 ## Keeping your app up-to-date
 
 While there are multiple ways to keep your project up-to-date this [method](https://mojdt.slack.com/archives/C69NWE339/p1694009011413449) doesn't require you to keep cherry picking the changes, however if that works for you there is no reason to stop.

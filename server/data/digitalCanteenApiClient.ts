@@ -13,9 +13,13 @@ import {
   PaymentRequest,
   PolicyEvaluation,
   PolicyResult,
+  ProductCategoriesResponse,
+  ProductsRequest,
+  ProductsResponse,
   RemoveBasketRequest,
   RemoveLineItemFromBasketRequest,
   RemoveLineItemsResponse,
+  StatusResponse,
 } from '../canteen.model'
 import { PATHS } from '../constants/paths'
 
@@ -24,7 +28,7 @@ export default class DigitalCanteenApiClient extends RestClient {
     super('Digital Canteen API', config.apis.digitalCanteenApi, logger, authenticationClient)
   }
 
-  async createMedusaUser({ metadata }: CreateMedusaUserRequest): Promise<string> {
+  async createMedusaUser({ metadata }: CreateMedusaUserRequest): Promise<StatusResponse> {
     return this.post(
       {
         path: PATHS.CREATE_MEDUSA_USER,
@@ -64,7 +68,7 @@ export default class DigitalCanteenApiClient extends RestClient {
     )
   }
 
-  async removeBasket({ metadata }: RemoveBasketRequest): Promise<string> {
+  async removeBasket({ metadata }: RemoveBasketRequest): Promise<StatusResponse> {
     return this.post(
       {
         path: PATHS.REMOVE_BASKET,
@@ -98,6 +102,26 @@ export default class DigitalCanteenApiClient extends RestClient {
       {
         path: `/api/carts/${cartId}/checkout`,
         data: { ...paymentRequest },
+      },
+      asSystem(),
+    )
+  }
+
+  async getProductCategories(prisonId: string): Promise<ProductCategoriesResponse> {
+    return this.get(
+      {
+        path: PATHS.PRODUCT_CATEGORIES,
+        query: { prisonId },
+      },
+      asSystem(),
+    )
+  }
+
+  async getProducts({ prisonId, categoryId, limit, offset }: ProductsRequest): Promise<ProductsResponse> {
+    return this.get(
+      {
+        path: PATHS.PRODUCTS,
+        query: { prisonId, limit, offset, ...(categoryId && { categoryId }) },
       },
       asSystem(),
     )

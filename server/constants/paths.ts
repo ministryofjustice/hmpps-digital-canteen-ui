@@ -11,5 +11,7 @@ export const PATHS = {
   ADD_LINE_ITEM: '/api/add-line-item',
   REMOVE_LINE_ITEM: '/api/remove-line-item',
   REMOVE_BASKET: '/api/remove-basket',
+  PRODUCT_CATEGORIES: '/api/product-categories',
+  PRODUCTS: '/api/products',
   RETRIEVE_CONTACTS: '/api/prisoner-contacts/:prisonerNumber',
 }

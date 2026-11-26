@@ -1,0 +1,30 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{#
+  A product in the catalogue grid.
+  The image is decorative, as the title link next to it names the product.
+  Add to basket does not submit yet: basket management is a future story
+#}
+{% macro productCard(product) %}
+  <li class="app-product-card" data-qa="product-card">
+    <div class="app-product-card__image-container">
+      {% if product.imageUrl %}
+        <img class="app-product-card__image" src="{{ product.imageUrl }}" alt="" loading="lazy">
+      {% endif %}
+    </div>
+    <h3 class="govuk-heading-s app-product-card__title">
+      <a class="govuk-link app-product-card__link" href="{{ product.href }}" title="{{ product.title }}">{{ product.title }}</a>
+    </h3>
+    <p class="govuk-body-s govuk-!-font-weight-bold app-product-card__allergens" data-qa="product-allergens">{{ product.allergens }}</p>
+    <p class="govuk-body govuk-!-font-weight-bold app-product-card__price" data-qa="product-price">{{ product.price }}</p>
+    {{ govukButton({
+      html: 'Add to basket<span class="govuk-visually-hidden"> ' + (product.title | escape) + '</span>',
+      type: "button",
+      classes: "app-product-card__button govuk-!-margin-bottom-0",
+      preventDoubleClick: true,
+      attributes: {
+        "data-variant-id": product.variantId
+      }
+    }) }}
+  </li>
+{% endmacro %}
