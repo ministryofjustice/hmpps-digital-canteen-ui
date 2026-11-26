@@ -1,0 +1,61 @@
+.order-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 55px;
+  margin-top: 55px;
+}
+
+.summary-card {
+  background: #f3f2f1;
+  padding: 16px 18.4px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50px;
+}
+
+.summary-card--primary {
+  background: #1d70b8;
+  color: #fff;
+  flex-direction: row;
+  align-items: normal;
+  gap: 12.8px;
+  white-space: nowrap;
+}
+
+.summary-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 12px;
+}
+
+.icon-basket {
+  width: 60px;
+  height: 60px;
+  color: #ffffff;
+  display: block;
+}
+
+.summary-label {
+  font-family: "GDS Transport",arial,sans-serif;
+  display: grid;
+  font-size: 18px;
+  font-weight: 400!important;
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+
+.summary-value {
+  font-family: GDS Transport, arial, sans-serif;
+  display: grid;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.summary-value--small {
+  font-size: 20px;
+}

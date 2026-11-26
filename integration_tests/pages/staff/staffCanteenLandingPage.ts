@@ -16,9 +16,9 @@ export default class CanteenLandingPage extends AbstractPage {
   }
 
   static async verifyOnPage(page: Page): Promise<CanteenLandingPage> {
-    const pinPhonePage = new CanteenLandingPage(page)
-    await expect(pinPhonePage.header).toContainText('Canteen')
-    return pinPhonePage
+    const canteenLandingPage = new CanteenLandingPage(page)
+    await expect(canteenLandingPage.header).toContainText('Canteen')
+    return canteenLandingPage
   }
 
   staffCardLink(): Locator {

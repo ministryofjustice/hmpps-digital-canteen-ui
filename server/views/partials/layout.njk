@@ -36,8 +36,15 @@
             envelope.tags["ai.cloud.role"] = "{{ appInsightsApplicationName }}"
             envelope.tags["ai.application.ver"] = "{{ buildNumber }}"
             if (envelope.data.baseTypeSource === "ClickEvent") {
+              if (envelope.baseData?.name &&
+              envelope.baseData.name.toLowerCase().includes("account")) {
+                 envelope.baseData.name = "Account Menu";
+                 }
                let contentArray = JSON.parse(envelope.data.content);
                 for (let content of contentArray) {
+                   if (content.contentName && content.contentName.endsWith("Account menu")) {
+                       content.contentName = "Account menu";
+                   }
                    if (content.contentName && content.qa === "prisoner-link") {
                       let redactedStr = "REDACTED";
                        content.contentName = redactedStr;
