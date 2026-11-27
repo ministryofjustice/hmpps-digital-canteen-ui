@@ -55,7 +55,6 @@ export default function createApp(services: Services): express.Application {
   app.use(checkActiveAgencyAccess())
   app.use(routes(services))
   app.use('/', express.static('assets/images'))
-  app.use('/script', express.static('assets/js'))
   app.use((_req, _res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
 

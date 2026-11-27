@@ -1,9 +1,9 @@
 function updateQuantity(change) {
   const quantityElement = document.getElementById('quantity')
-  let quantity = parseInt(quantityElement.textContent, 10)
+  if (!quantityElement) return
 
+  let quantity = parseInt(quantityElement.textContent, 10) || 1
   quantity = Math.max(1, quantity + change)
-
   quantityElement.textContent = quantity
 }
 
@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
       updateQuantity(Number(button.dataset.change))
     })
   })
-})
 
-document.addEventListener('DOMContentLoaded', () => {
   const addToBasketBtn = document.getElementById('add-to-basket-btn')
   const quantitySelector = document.getElementById('quantity-selector')
 
-  addToBasketBtn.addEventListener('click', () => {
-    addToBasketBtn.style.display = 'none'
-    quantitySelector.style.display = 'inline-flex'
-  })
+  if (addToBasketBtn && quantitySelector) {
+    addToBasketBtn.addEventListener('click', () => {
+      addToBasketBtn.style.display = 'none'
+      quantitySelector.style.display = 'inline-flex'
+    })
+  }
 })
