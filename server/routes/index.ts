@@ -5,6 +5,7 @@ import canteenRoutes from './canteen-home-page'
 import staffCanteenRoutes from './staff-canteen-landing'
 import { PATHS } from '../constants/paths'
 import { requirePortal } from '../middleware/setUpPortals'
+import productDetailsPage from './product-details-page'
 
 export default function routes({ auditService, telemetryService }: Services): Router {
   const router = Router()
@@ -15,6 +16,7 @@ export default function routes({ auditService, telemetryService }: Services): Ro
 
   // Prisoner portal routes
   canteenRoutes(router, auditService, telemetryService)
+  productDetailsPage(router, auditService, telemetryService)
 
   // Staff portal routes
   staffCanteenRoutes(router, auditService, telemetryService, requirePortal('staff'))

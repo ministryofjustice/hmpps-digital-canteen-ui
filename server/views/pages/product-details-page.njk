@@ -1,0 +1,128 @@
+{% extends "../partials/layout.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../components/quantity-selector.njk" import quantitySelector %}
+
+{% set homeLinkHref = launchpadHome %}
+{% set pageTitle = userName + "'s Canteen" %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      {{ govukBreadcrumbs({
+              classes: "govuk-!-margin-bottom-2",
+                items: [
+                  {
+                    text: "Home",
+                    href: launchpadHome
+                  },
+                  {
+                    text: "Canteen",
+                    href: "/"
+                  },
+                  {
+                    text: productDetails.productName,
+                    href: undefined
+                  }
+                ]
+       }) }}
+      <h1 class="govuk-heading-l govuk-!-margin-top-3">
+        {{ pageTitle }}
+      </h1>
+    </div>
+
+  <div class="govuk-grid-column-one-quarter govuk-!-margin-top-6">
+               <div class="summary-card summary-card--primary">
+                    <div class="summary-icon">
+                      <svg class="icon-basket" fill="none" width="800px" height="800px" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="#ffffff" stroke-width="1.5" stroke-linecap="straight" stroke-linejoin="round">
+                        <path d="M3 9h24l-3 18H6L3 9z"/>
+                        <path d="M2 9h26"/>
+                        <path d="M10 14v9m5-9v9m5-9v9"/>
+                        <path d="M8 9l7-8 7 8"/></g>
+                      </svg>
+                    </div>
+                    <div>
+                      <span class="summary-label">
+                        Basket total ({{ basket.itemCount }} items)
+                      </span>
+                      <span class="summary-value">
+                        £ {{ basket.total | default('0.00') }}
+                      </span>
+                    </div>
+                  </div>
+               </div>
+  </div>
+
+  {{ govukButton({
+    text: "Back to all products",
+    href: "/",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+
+{% block pageTitle %}
+  {{ pageTitle }} - GOV.UK
+{% endblock %}
+
+{% block content %}
+<div class="app-content-box govuk-!-margin-top-1">
+   <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+     <div class="product-row">
+         <div class="product-image-container">
+           <img
+             src="/assets/images/eco-orange-squash.png"
+             alt="Eco Orange Squash 1L"
+             class="product-image">
+         </div>
+
+         <div class="product-details">
+
+       <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+         {{ productDetails.productName }}
+       </h2>
+
+       <p class="govuk-body" style="font-size: 18px;">
+         {{ productDetails.productDescription }}
+       </p>
+
+       <p class="govuk-heading-l govuk-!-font-weight-bold govuk-!-margin-bottom-5">
+         £{{ productDetails.productPrice }}
+       </p>
+       {{ quantitySelector() }}
+     </div>
+   </div>
+
+ <h3 class="govuk-heading-m govuk-!-margin-left-5">Ingredients</h3>
+
+         <p class="govuk-body-m govuk-!-margin-left-5">
+          {{ productDetails.ingredients }}
+         </p>
+
+         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-left-5">
+          {{ productDetails.allergens }}
+         </p>
+
+         <h2 class="govuk-heading-m govuk-!-margin-left-5">
+           Quick nutrition guide
+         </h2>
+
+         <p class="govuk-body-m govuk-!-margin-left-5">
+           {{ productDetails.nutritionDetails.description }}
+         </p>
+
+         <div class="nutrition-grid govuk-!-margin-left-5">
+           {% for item in productDetails.nutritionDetails.nutritionData %}
+             <div class="nutrition-box {% if item.isEnergy %}energy{% endif %}">
+               <div class="title">{{ item.title }}</div>
+               <div>{{ item.value1 }}</div>
+               <div>{{ item.value2 }}</div>
+               <div>{{ item.percentage }}</div>
+             </div>
+           {% endfor %}
+         </div>
+   </div>
+</div>
+{% endblock %}
