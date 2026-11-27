@@ -5,7 +5,6 @@ function updateQuantity(change) {
   quantity = Math.max(1, quantity + change)
 
   quantityElement.textContent = quantity
-  localStorage.setItem('quantity', quantity)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
