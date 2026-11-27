@@ -1,0 +1,100 @@
+
+.app-content-box {
+  border: 1px solid #b1b4b6;
+  border-radius: 3.8px;
+  padding: 20px 16px;   /* Reduced padding */
+  min-height: 300px;    /* Reduced height */
+  background-color: #fff;
+}
+
+.govuk-main-wrapper {
+  padding-top: 15px;
+  padding-bottom: 40px;
+}
+
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #0b0c0c;
+}
+
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f3f2f1;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.quantity-btn:hover {
+  background: #dbdad9;
+}
+
+.quantity-value {
+  width: 40px;
+  text-align: center;
+  font-size: 16px;
+  border-left: 1px solid #0b0c0c;
+  border-right: 1px solid #0b0c0c;
+  line-height: 32px;
+}
+
+.product-image {
+  width: 250px;
+  height: 250px;
+  margin-left: 20px;
+}
+
+.nutrition-grid {
+  display: flex;
+  gap: 8px;
+  width: fit-content;
+  font-family: "GDS Transport",arial,sans-serif;
+  flex-wrap: nowrap; /* keeps all boxes on one line */
+}
+
+.nutrition-box {
+  background: #4ca89b;
+  color: white;
+  width: 85px;
+  padding: 23px 5px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.nutrition-box.energy {
+  background: #e5e5e5;
+  color: #333;
+}
+
+.nutrition-box .title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.quantity-selector--hidden {
+  display: none;
+}
+
+.product-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  padding-left: 50px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.product-image-container {
+  flex: 0 0 150px;
+  padding-left: 20px;
+}
+
+.product-details {
+  flex: 1;
+  padding-left: 60px;
+}

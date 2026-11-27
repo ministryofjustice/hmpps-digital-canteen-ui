@@ -1,0 +1,21 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro quantitySelector() %}
+     <div id="quantity-selector" class="quantity-selector quantity-selector--hidden">
+       <button type="button" class="quantity-btn js-quantity-btn" data-change="-1">
+         -
+       </button>
+       <span id="quantity" class="quantity-value">1</span>
+       <button type="button" class="quantity-btn js-quantity-btn" data-change="1">
+         +
+       </button>
+     </div>
+     <div id="add-to-basket-container">
+       {{ govukButton({
+         text: "Add to basket",
+         attributes: {
+           id: "add-to-basket-btn"
+         }
+       }) }}
+      </div>
+{% endmacro %}
